@@ -1,0 +1,27 @@
+{
+    "name": "com.yggdrashill.ragnarok.unity",
+    "version": "0.0.0",
+    "displayName": "YggdrAshill.Ragnarok.Unity",
+    "description": "An extension of YggdrAshill.Ragnarok for Unity.",
+    "unity": "2020.3",
+    "dependencies":
+    {
+    },
+    "keywords":
+    [
+      "YggdrAshill",
+      "framework",
+      "lifecycle management",
+      "extensions"
+    ],
+    "license": "MIT",
+    "documentationUrl": "https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity/blob/main/README.md",
+    "changelogUrl": "https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity/releases",
+    "licensesUrl": "https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity/blob/master/LICENSE.md",
+    "author":
+    {
+      "name": "know",
+      "email": "do.i.know.it@yggdrashill.com",
+      "url": "https://github.com/do-i-know-it"
+    }
+}
