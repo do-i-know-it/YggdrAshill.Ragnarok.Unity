@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Motorization</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.Motorization.IEngine">
+            <summary>
+            Defines how to realize features of <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.IEngine.Have(YggdrAshill.Ragnarok.Hierarchization.IRegistration)">
+            <summary>
+            Checks if this <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> has <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>.
+            </summary>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> to check.
+            </param>
+            <returns>
+            True if this has <paramref name="registration"/>.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.IEngine.Find(System.Type,YggdrAshill.Ragnarok.Hierarchization.IRegistration@)">
+            <summary>
+            Tries to get <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> for <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to find <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>.
+            </param>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> found.
+            </param>
+            <returns>
+            True if this has <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> for <see cref="T:System.Type"/>.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.IEngine.GetInstance(YggdrAshill.Ragnarok.Hierarchization.IRegistration,System.Func{YggdrAshill.Ragnarok.Hierarchization.IRegistration,System.Object})">
+            <summary>
+            Obtains <see cref="T:System.Object"/> with <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>.
+            </summary>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> to instantiate.
+            </param>
+            <param name="factory">
+            <see cref="T:System.Func`2"/> to instantiate with <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> obtained.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.IEngine.Bind(System.IDisposable)">
+            <summary>
+            Collects <see cref="T:System.IDisposable"/> to manage lifetime.
+            </summary>
+            <param name="disposable">
+            <see cref="T:System.IDisposable"/> to bind.
+            </param>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Motorization.IEngineBuilder">
+            <summary>
+            Defines how to build <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.IEngineBuilder.Build(System.Collections.Generic.IEnumerable{YggdrAshill.Ragnarok.Construction.IDescription})">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> from <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>s.
+            </summary>
+            <param name="descriptionList">
+            <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>s to build.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> created.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext"/> using <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngineBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext.#ctor(YggdrAshill.Ragnarok.Motorization.IEngineBuilder,YggdrAshill.Ragnarok.Hierarchization.IScopedResolver)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext"/>.
+            </summary>
+            <param name="engineBuilder">
+            <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngineBuilder"/> to instantiate <see cref="T:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext"/>.
+            </param>
+            <param name="parentScopedResolver">
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> to chain.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext.Register(YggdrAshill.Ragnarok.Construction.IComposition)">
+            <summary>
+            Adds <see cref="T:YggdrAshill.Ragnarok.Construction.IComposition"/> to resolve dependencies.
+            </summary>
+            <param name="composition">
+            <see cref="T:YggdrAshill.Ragnarok.Construction.IComposition"/> to resolve dependencies.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Motorization.ScopedResolverContext.Build">
+            <summary>
+            Collects <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>s to create <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> from <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngineBuilder"/>,
+            then creates <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> created.
+            </returns>
+        </member>
+    </members>
+</doc>

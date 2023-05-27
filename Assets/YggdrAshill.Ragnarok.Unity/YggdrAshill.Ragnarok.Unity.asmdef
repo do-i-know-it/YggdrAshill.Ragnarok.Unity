@@ -5,9 +5,16 @@
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "YggdrAshill.Ragnarok.Construction.dll",
+        "YggdrAshill.Ragnarok.Hierarchization.dll",
+        "YggdrAshill.Ragnarok.Motorization.dll",
+        "YggdrAshill.Ragnarok.Materialization.dll",
+        "YggdrAshill.Ragnarok.Fabrication.dll",
+        "YggdrAshill.Ragnarok.dll"
+    ],
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.AnnotationSelector">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISelector"/> with annotation.
+            </summary>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.DependencyInjectionContext">
+            <summary>
+            Default implementation of <see cref="T:YggdrAshill.Ragnarok.Construction.IContext"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyInjectionContext.Register(YggdrAshill.Ragnarok.Construction.IComposition)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyInjectionContext.Register(System.Action{YggdrAshill.Ragnarok.Construction.IResolver})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyInjectionContext.Build">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyInjectionContext.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyInjectionContext.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyInjectionContext.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyInjectionContext.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Installation">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IInstallation"/>.
+            </summary>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.ISelector">
+            <summary>
+            Defines how to select type information to resolve dependencies.
+            </summary>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.RegistryBuilder">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistryBuilder"/> using <see cref="T:YggdrAshill.Ragnarok.ISelector"/> and <see cref="T:YggdrAshill.Ragnarok.ISolver"/>.
+            </summary>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.ExpressionSolver">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with expression.
+            </summary>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.ReflectionSolver">
+            <summary>
+            Implementation <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with Reflection.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Hierarchization</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.Hierarchization.Context">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.Construction.IContext"/> using <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> and <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.#ctor(YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.Hierarchization.Context"/>.
+            </summary>
+            <param name="scopedResolverContext">
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext"/> to instantiate <see cref="T:YggdrAshill.Ragnarok.Hierarchization.Context"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.Register(YggdrAshill.Ragnarok.Construction.IComposition)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.Register(System.Action{YggdrAshill.Ragnarok.Construction.IResolver})">
+            <summary>
+            Adds <see cref="T:System.Action`1"/> to execute event to use <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext"/>.
+            </summary>
+            <param name="callback">
+            <see cref="T:System.Action`1"/> to receive <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.Context.Build">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> from <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext"/>,
+            then executes callbacks with <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>,
+            and creates <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/> created.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration">
+            <summary>
+            Defines how to register dependencies in <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.Hierarchization.IRegistration.ImplementedType">
+            <summary>
+            Declared <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.Hierarchization.IRegistration.Lifetime">
+            <summary>
+            <see cref="T:YggdrAshill.Ragnarok.Construction.Lifetime"/> for <see cref="P:YggdrAshill.Ragnarok.Hierarchization.IRegistration.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.Hierarchization.IRegistration.Ownership">
+            <summary>
+            <see cref="T:YggdrAshill.Ragnarok.Construction.Ownership"/> for <see cref="P:YggdrAshill.Ragnarok.Hierarchization.IRegistration.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.IRegistration.Instantiate(YggdrAshill.Ragnarok.Hierarchization.IScopedResolver)">
+            <summary>
+            Instantiates <see cref="P:YggdrAshill.Ragnarok.Hierarchization.IRegistration.ImplementedType"/> with <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+            <param name="resolver">
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> to instantiate.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> instantiated.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver">
+            <summary>
+            Defines <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/> chained hierarchically.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver.Resolve(System.Type,YggdrAshill.Ragnarok.Hierarchization.IScopedResolver)">
+            <summary>
+            Resolves dependencies with this or child <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> to instantiate.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to resolve.
+            </param>
+            <param name="child">
+            Child <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> to resolve.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> resolved.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> is disposed.
+            </exception>
+            <exception cref="T:YggdrAshill.Ragnarok.Hierarchization.RagnarokNotRegisteredException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> finds no <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>s.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver.Resolve(YggdrAshill.Ragnarok.Hierarchization.IRegistration)">
+            <summary>
+            Resolves dependencies with <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> from outer.
+            </summary>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> to resolve.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> resolved.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver.ResolveAll(System.Type)">
+            <summary>
+            Resolves all <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>s for <see cref="T:System.Type"/> from all scopes.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to resolve.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>s resolved.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver.CreateContext">
+            <summary>
+            Creates a <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext"/> to create a new child <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext"/> created.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> is disposed.
+            </exception>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContainer">
+            <summary>
+            Defines how to register dependencies to <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContainer.Register(YggdrAshill.Ragnarok.Construction.IComposition)">
+            <summary>
+            Adds a dependency.
+            </summary>
+            <param name="composition">
+            <see cref="T:YggdrAshill.Ragnarok.Construction.IComposition"/> to define dependencies.
+            </param>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext">
+            <summary>
+            Defines how to build <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Hierarchization.IScopedResolverContext.Build">
+            <summary>
+            Creates a new <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IScopedResolver"/> created.
+            </returns>
+        </member>
+    </members>
+</doc>
