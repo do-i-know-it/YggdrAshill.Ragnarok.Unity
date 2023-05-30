@@ -65,7 +65,7 @@ namespace YggdrAshill.Ragnarok
             return componentInjection;
         }
         
-        public static IComponentInjection RegisterComponentInNewPrefab<TComponent>(this IContainer container, Lifetime lifetime, TComponent prefab)
+        public static IComponentInjection RegisterComponentInNewPrefab<TComponent>(this IContainer container, TComponent prefab, Lifetime lifetime)
             where TComponent : Component
         {
             var statement = new NewPrefabStatement(container, prefab);
@@ -81,7 +81,7 @@ namespace YggdrAshill.Ragnarok
             where TInterface : notnull
             where TComponent : Component, TInterface
         {
-            var componentInjection = container.RegisterComponentInNewPrefab(lifetime, prefab);
+            var componentInjection = container.RegisterComponentInNewPrefab(prefab, lifetime);
 
             componentInjection.As<TInterface>();
 
