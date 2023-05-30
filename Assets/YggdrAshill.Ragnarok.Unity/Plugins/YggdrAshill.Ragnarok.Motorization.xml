@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Motorization</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.Argument">
+            <summary>
+            Defines argument to inject a dependency into.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.Argument.Name">
+            <summary>
+            Name of <see cref="T:YggdrAshill.Ragnarok.Argument"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.Argument.Type">
+            <summary>
+            <see cref="P:YggdrAshill.Ragnarok.Argument.Type"/> of <see cref="T:YggdrAshill.Ragnarok.Argument"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Argument.#ctor(System.String,System.Type)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.Argument"/>.
+            </summary>
+            <param name="name">
+            <see cref="T:System.String"/> for <see cref="P:YggdrAshill.Ragnarok.Argument.Name"/>.
+            </param>
+            <param name="type">
+            <see cref="T:System.Type"/> for <see cref="P:YggdrAshill.Ragnarok.Argument.Type"/>.
+            </param>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IActivation">
+            <summary>
+            Defines how to create instance.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.IActivation.ArgumentList">
+            <summary>
+            <see cref="T:YggdrAshill.Ragnarok.Argument"/>s to instantiate.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IActivation.Activate(System.Object[])">
+            <summary>
+            Instantiates with parameter <see cref="T:System.Object"/>s.
+            </summary>
+            <param name="parameterList">
+            <see cref="T:System.Object"/>s to instantiate.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> instantiated.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IEngine">
+            <summary>
+            Defines how to realize features of <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngine.Have(YggdrAshill.Ragnarok.IRegistration)">
+            <summary>
+            Checks if this <see cref="T:YggdrAshill.Ragnarok.IEngine"/> has <see cref="T:YggdrAshill.Ragnarok.IRegistration"/>.
+            </summary>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.IRegistration"/> to check.
+            </param>
+            <returns>
+            True if this has <paramref name="registration"/>.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngine.Find(System.Type,YggdrAshill.Ragnarok.IRegistration@)">
+            <summary>
+            Tries to get <see cref="T:YggdrAshill.Ragnarok.IRegistration"/> for <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to find <see cref="T:YggdrAshill.Ragnarok.IRegistration"/>.
+            </param>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.IRegistration"/> found.
+            </param>
+            <returns>
+            True if this has <see cref="T:YggdrAshill.Ragnarok.IRegistration"/> for <see cref="T:System.Type"/>.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngine.GetInstance(YggdrAshill.Ragnarok.IRegistration,System.Func{YggdrAshill.Ragnarok.IRegistration,System.Object})">
+            <summary>
+            Obtains <see cref="T:System.Object"/> with <see cref="T:YggdrAshill.Ragnarok.IRegistration"/>.
+            </summary>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.IRegistration"/> to instantiate.
+            </param>
+            <param name="factory">
+            <see cref="T:System.Func`2"/> to instantiate with <see cref="T:YggdrAshill.Ragnarok.IRegistration"/>.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> obtained.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngine.Bind(System.IDisposable)">
+            <summary>
+            Collects <see cref="T:System.IDisposable"/> to manage lifetime.
+            </summary>
+            <param name="disposable">
+            <see cref="T:System.IDisposable"/> to bind.
+            </param>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngine.CreateContext">
+            <summary>
+            Creates a <see cref="T:YggdrAshill.Ragnarok.IEngineContext"/> to create <see cref="T:YggdrAshill.Ragnarok.IEngine"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IEngineContext"/> created.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IEngine"/> is disposed.
+            </exception>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IEngineBuilder">
+            <summary>
+            Defines how to instantiate and inject into objects.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngineBuilder.GetActivation(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.IActivation"/> of <see cref="T:System.Type"/> to instantiate with dependencies resolved.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngineBuilder.GetFieldInfusion(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> of <see cref="T:System.Type"/> to inject dependencies into fields.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to inject dependencies into.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> to inject into instance.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngineBuilder.GetPropertyInfusion(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> of <see cref="T:System.Type"/> to inject dependencies into properties.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to inject dependencies into.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> to inject into instance.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngineBuilder.GetMethodInfusion(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> of <see cref="T:System.Type"/> to inject dependencies into method.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to inject dependencies into.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> to inject into instance.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IEngineContext">
+            <summary>
+            Defines how to build <see cref="T:YggdrAshill.Ragnarok.IEngine"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IEngineContext.Build(System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IDescription})">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IEngine"/> from <see cref="T:YggdrAshill.Ragnarok.IDescription"/>s.
+            </summary>
+            <param name="descriptionList">
+            <see cref="T:YggdrAshill.Ragnarok.IDescription"/>s to build.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IEngine"/> created.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IInfusion">
+            <summary>
+            Defines how to inject dependencies into instance.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.IInfusion.ArgumentList">
+            <summary>
+            <see cref="T:YggdrAshill.Ragnarok.Argument"/>s to inject.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IInfusion.Infuse(System.Object,System.Object[])">
+            <summary>
+            Injects <see cref="T:System.Object"/>s into instance.
+            </summary>
+            <param name="instance">
+            <see cref="T:System.Object"/> to inject dependencies into.
+            </param>
+            <param name="parameterList">
+            <see cref="T:System.Object"/>s to inject instance.
+            </param>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.ResolverExtension">
+            <summary>
+            Extension for <see cref="T:YggdrAshill.Ragnarok.IResolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ResolverExtension.Resolve(YggdrAshill.Ragnarok.IResolver,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter},YggdrAshill.Ragnarok.Argument)">
+            <summary>
+            Resolve <see cref="T:YggdrAshill.Ragnarok.Argument"/> from <see cref="T:YggdrAshill.Ragnarok.IResolver"/> or <see cref="T:YggdrAshill.Ragnarok.IParameter"/>s.
+            </summary>
+            <param name="resolver">
+            <see cref="T:YggdrAshill.Ragnarok.IResolver"/> to resolve.
+            </param>
+            <param name="parameterList">
+            <see cref="T:YggdrAshill.Ragnarok.IParameter"/>s to resolve.
+            </param>
+            <param name="argument">
+            <see cref="T:YggdrAshill.Ragnarok.Argument"/> to resolve.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> resolved.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.ScopedResolverContext">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/> using <see cref="T:YggdrAshill.Ragnarok.IEngineContext"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.#ctor(YggdrAshill.Ragnarok.IEngineContext,YggdrAshill.Ragnarok.IScopedResolver)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.ScopedResolverContext"/>.
+            </summary>
+            <param name="engineContext">
+            <see cref="T:YggdrAshill.Ragnarok.IEngineContext"/> to instantiate <see cref="T:YggdrAshill.Ragnarok.ScopedResolverContext"/>.
+            </param>
+            <param name="parentScopedResolver">
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> to instantiate <see cref="T:YggdrAshill.Ragnarok.ScopedResolverContext"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.Build(System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IDescription})">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IEngine"/> from <see cref="T:YggdrAshill.Ragnarok.IDescription"/>s using <see cref="T:YggdrAshill.Ragnarok.IEngineContext"/>,
+            then creates <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> created.
+            </returns>
+        </member>
+    </members>
+</doc>

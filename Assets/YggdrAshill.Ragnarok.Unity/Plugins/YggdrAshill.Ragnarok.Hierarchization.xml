@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Hierarchization</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.Context">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IContext"/> using <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> and <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.#ctor(YggdrAshill.Ragnarok.IScopedResolverContext)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.Context"/>.
+            </summary>
+            <param name="scopedResolverContext">
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/> to instantiate <see cref="T:YggdrAshill.Ragnarok.Context"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.Register(YggdrAshill.Ragnarok.IComposition)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.Register(System.Action{YggdrAshill.Ragnarok.IResolver})">
+            <summary>
+            Adds <see cref="T:System.Action`1"/> to execute event to use <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/>.
+            </summary>
+            <param name="callback">
+            <see cref="T:System.Action`1"/> to receive <see cref="T:YggdrAshill.Ragnarok.IResolver"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Context.Build">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> from <see cref="T:YggdrAshill.Ragnarok.IDescription"/>>s using <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/>,
+            then executes callbacks with <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>,
+            and creates <see cref="T:YggdrAshill.Ragnarok.IScope"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IScope"/> created.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IRegistration">
+            <summary>
+            Defines how to register dependencies in <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.IRegistration.ImplementedType">
+            <summary>
+            Declared <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.IRegistration.Lifetime">
+            <summary>
+            <see cref="!:Construction.Lifetime"/> for <see cref="P:YggdrAshill.Ragnarok.IRegistration.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.IRegistration.Ownership">
+            <summary>
+            <see cref="!:Construction.Ownership"/> for <see cref="P:YggdrAshill.Ragnarok.IRegistration.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IRegistration.Instantiate(YggdrAshill.Ragnarok.IScopedResolver)">
+            <summary>
+            Instantiates <see cref="P:YggdrAshill.Ragnarok.IRegistration.ImplementedType"/> with <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            </summary>
+            <param name="resolver">
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> to instantiate.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> instantiated.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IScopedResolver">
+            <summary>
+            Defines <see cref="T:YggdrAshill.Ragnarok.IResolver"/> chained hierarchically.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IScopedResolver.Resolve(System.Type,YggdrAshill.Ragnarok.IScopedResolver)">
+            <summary>
+            Resolves dependencies with this or child <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> to instantiate.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to resolve.
+            </param>
+            <param name="child">
+            Child <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> to resolve.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> resolved.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> is disposed.
+            </exception>
+            <exception cref="T:YggdrAshill.Ragnarok.RagnarokNotRegisteredException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> finds no <see cref="T:YggdrAshill.Ragnarok.IRegistration"/>s.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IScopedResolver.Resolve(YggdrAshill.Ragnarok.IRegistration)">
+            <summary>
+            Resolves dependencies with <see cref="T:YggdrAshill.Ragnarok.IRegistration"/> from outer.
+            </summary>
+            <param name="registration">
+            <see cref="T:YggdrAshill.Ragnarok.IRegistration"/> to resolve.
+            </param>
+            <returns>
+            <see cref="T:System.Object"/> resolved.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IScopedResolver.ResolveAll(System.Type)">
+            <summary>
+            Resolves all <see cref="T:YggdrAshill.Ragnarok.IRegistration"/>s for <see cref="T:System.Type"/> from all scopes.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> to resolve.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IRegistration"/>s resolved.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> is disposed.
+            </exception>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IScopedResolver.CreateContext">
+            <summary>
+            Creates a <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/> to create a new child <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            </summary>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/> created.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> is disposed.
+            </exception>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IScopedResolverContext">
+            <summary>
+            Defines how to build <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IScopedResolverContext.Build(System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IDescription})">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> from <see cref="T:YggdrAshill.Ragnarok.IDescription"/>s.
+            </summary>
+            <param name="descriptionList">
+            <see cref="T:YggdrAshill.Ragnarok.IDescription"/>s to build.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/> created.
+            </returns>
+        </member>
+    </members>
+</doc>

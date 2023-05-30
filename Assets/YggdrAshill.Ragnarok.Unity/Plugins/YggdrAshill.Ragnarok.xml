@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.AnnotationSelector">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISelector"/> with annotation.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.AnnotationSelector.Instance">
+            <summary>
+            Singleton of <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.GetServiceBundleType(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreateConstructorInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreateFieldInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreatePropertyInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreateMethodInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.DependencyContext">
+            <summary>
+            Default implementation of <see cref="T:YggdrAshill.Ragnarok.IContext"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(YggdrAshill.Ragnarok.IComposition)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(System.Action{YggdrAshill.Ragnarok.IResolver})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Build">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+            <inheritdoc/>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.Installation">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IInstallation"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

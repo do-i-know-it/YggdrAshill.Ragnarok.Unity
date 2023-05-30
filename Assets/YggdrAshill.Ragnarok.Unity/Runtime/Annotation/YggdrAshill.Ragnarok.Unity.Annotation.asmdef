@@ -1,14 +1,14 @@
 {
-    "name": "YggdrAshill.Ragnarok.Unity",
-    "rootNamespace": "YggdrAshill.Ragnarok.Unity",
+    "name": "YggdrAshill.Ragnarok.Unity.Annotation",
+    "rootNamespace": "YggdrAshill.Ragnarok",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": false
+    "noEngineReferences": true
 }

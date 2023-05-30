@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Fabrication</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.Composition">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IComposition"/> with <see cref="T:YggdrAshill.Ragnarok.IStatement"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

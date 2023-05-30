@@ -1,0 +1,25 @@
+{
+    "name": "YggdrAshill.Ragnarok.Unity",
+    "rootNamespace": "YggdrAshill.Ragnarok",
+    "references": [
+        "YggdrAshill.Ragnarok.Unity.EventLoop"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "YggdrAshill.Ragnarok.Construction.dll",
+        "YggdrAshill.Ragnarok.Hierarchization.dll",
+        "YggdrAshill.Ragnarok.Motorization.dll",
+        "YggdrAshill.Ragnarok.Materialization.dll",
+        "YggdrAshill.Ragnarok.Fabrication.dll",
+        "YggdrAshill.Ragnarok.Expression.dll",
+        "YggdrAshill.Ragnarok.Reflection.dll",
+        "YggdrAshill.Ragnarok.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
