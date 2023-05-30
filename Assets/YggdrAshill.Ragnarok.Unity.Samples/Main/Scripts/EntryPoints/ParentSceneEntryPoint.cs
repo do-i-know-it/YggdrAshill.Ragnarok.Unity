@@ -1,4 +1,3 @@
-using YggdrAshill.Ragnarok.Construction;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok.Unity.Samples

@@ -1,6 +1,4 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Construction;
-using YggdrAshill.Ragnarok.Fabrication;
 using YggdrAshill.Ragnarok.Unity.Internal;
 using System;
 using UnityEngine;
@@ -182,7 +180,7 @@ namespace YggdrAshill.Ragnarok.Unity
 
         public static void UseUnityEventLoop(this IContainer container)
         {
-            container.RegisterLocal<UnityEventLoopDispatcher>();
+            container.Register<UnityEventLoopDispatcher>(Lifetime.Local);
             container.Register(resolver =>
             {
                 resolver.Resolve<UnityEventLoopDispatcher>().Dispatch();

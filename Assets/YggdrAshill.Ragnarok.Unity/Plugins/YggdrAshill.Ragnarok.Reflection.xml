@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Reflection</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.ReflectionSolver">
+            <summary>
+            Implementation <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with Reflection.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.ReflectionSolver.Instance">
+            <summary>
+            Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ReflectionSolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateActivation(YggdrAshill.Ragnarok.ConstructorInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateCollectionActivation(System.Type)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

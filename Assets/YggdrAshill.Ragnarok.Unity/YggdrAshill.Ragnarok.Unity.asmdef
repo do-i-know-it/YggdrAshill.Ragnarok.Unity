@@ -12,6 +12,8 @@
         "YggdrAshill.Ragnarok.Motorization.dll",
         "YggdrAshill.Ragnarok.Materialization.dll",
         "YggdrAshill.Ragnarok.Fabrication.dll",
+        "YggdrAshill.Ragnarok.Expression.dll",
+        "YggdrAshill.Ragnarok.Reflection.dll",
         "YggdrAshill.Ragnarok.dll"
     ],
     "autoReferenced": true,

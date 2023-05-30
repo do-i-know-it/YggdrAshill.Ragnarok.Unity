@@ -1,6 +1,4 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Fabrication;
-
 namespace YggdrAshill.Ragnarok.Unity.Internal
 {
     public interface IComponentInjection :

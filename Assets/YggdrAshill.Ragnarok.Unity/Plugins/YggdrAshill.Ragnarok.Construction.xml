@@ -4,12 +4,12 @@
         <name>YggdrAshill.Ragnarok.Construction</name>
     </assembly>
     <members>
-        <member name="T:YggdrAshill.Ragnarok.Construction.ICompilation">
+        <member name="T:YggdrAshill.Ragnarok.ICompilation">
             <summary>
             Defines how to resolve dependencies automatically.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.ICompilation.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+        <member name="M:YggdrAshill.Ragnarok.ICompilation.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
             <summary>
             Obtains how to instantiate with dependencies resolved.
             </summary>
@@ -17,13 +17,13 @@
             <see cref="T:System.Type"/> to instantiate.
             </param>
             <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/>s to instantiate.
+            <see cref="T:YggdrAshill.Ragnarok.IParameter"/>s to instantiate.
             </param>
             <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInstantiation"/> to resolve dependencies automatically.
+            <see cref="T:YggdrAshill.Ragnarok.IInstantiation"/> to resolve dependencies automatically.
             </returns>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.ICompilation.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+        <member name="M:YggdrAshill.Ragnarok.ICompilation.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
             <summary>
             Obtains how to inject dependencies into fields.
             </summary>
@@ -31,13 +31,13 @@
             <see cref="T:System.Type"/> to inject.
             </param>
             <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/>s to inject.
+            <see cref="T:YggdrAshill.Ragnarok.IParameter"/>s to inject.
             </param>
             <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/> to resolve dependencies automatically.
+            <see cref="T:YggdrAshill.Ragnarok.IInjection"/> to resolve dependencies automatically.
             </returns>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.ICompilation.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+        <member name="M:YggdrAshill.Ragnarok.ICompilation.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
             <summary>
             Obtains how to inject dependencies into fields.
             </summary>
@@ -45,13 +45,13 @@
             <see cref="T:System.Type"/> to inject.
             </param>
             <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/>s to inject.
+            <see cref="T:YggdrAshill.Ragnarok.IParameter"/>s to inject.
             </param>
             <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/> to resolve dependencies automatically.
+            <see cref="T:YggdrAshill.Ragnarok.IInjection"/> to resolve dependencies automatically.
             </returns>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.ICompilation.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+        <member name="M:YggdrAshill.Ragnarok.ICompilation.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
             <summary>
             Obtains how to inject dependencies into fields.
             </summary>
@@ -59,147 +59,147 @@
             <see cref="T:System.Type"/> to inject.
             </param>
             <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/>s to inject.
+            <see cref="T:YggdrAshill.Ragnarok.IParameter"/>s to inject.
             </param>
             <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/> to resolve dependencies automatically.
+            <see cref="T:YggdrAshill.Ragnarok.IInjection"/> to resolve dependencies automatically.
             </returns>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IComposition">
+        <member name="T:YggdrAshill.Ragnarok.IComposition">
             <summary>
-            Defines how to define <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>.
+            Defines how to define <see cref="T:YggdrAshill.Ragnarok.IDescription"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IComposition.Compose">
+        <member name="M:YggdrAshill.Ragnarok.IComposition.Compose">
             <summary>
-            Creates an <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>.
+            Creates an <see cref="T:YggdrAshill.Ragnarok.IDescription"/>.
             </summary>
             <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/> created.
+            <see cref="T:YggdrAshill.Ragnarok.IDescription"/> created.
             </returns>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IContainer">
+        <member name="T:YggdrAshill.Ragnarok.IContainer">
             <summary>
-            Defines how to register dependencies to <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/>.
+            Defines how to register dependencies to <see cref="T:YggdrAshill.Ragnarok.IScope"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IContainer.Register(YggdrAshill.Ragnarok.Construction.IComposition)">
+        <member name="M:YggdrAshill.Ragnarok.IContainer.Register(YggdrAshill.Ragnarok.IComposition)">
             <summary>
             Adds a dependency.
             </summary>
             <param name="composition">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IComposition"/> to define a dependency.
+            <see cref="T:YggdrAshill.Ragnarok.IComposition"/> to define a dependency.
             </param>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IContainer.Register(System.Action{YggdrAshill.Ragnarok.Construction.IResolver})">
+        <member name="M:YggdrAshill.Ragnarok.IContainer.Register(System.Action{YggdrAshill.Ragnarok.IResolver})">
             <summary>
             Adds a callback to execute after building.
             </summary>
             <param name="callback">
-            <see cref="T:System.Action`1"/> to execute with <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/>.
+            <see cref="T:System.Action`1"/> to execute with <see cref="T:YggdrAshill.Ragnarok.IResolver"/>.
             </param>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IContext">
+        <member name="T:YggdrAshill.Ragnarok.IContext">
             <summary>
-            Defines how to build <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/>.
+            Defines how to build <see cref="T:YggdrAshill.Ragnarok.IScope"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IContext.Build">
+        <member name="M:YggdrAshill.Ragnarok.IContext.Build">
             <summary>
-            Creates a new <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/>.
+            Creates a new <see cref="T:YggdrAshill.Ragnarok.IScope"/>.
             </summary>
             <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/> created.
+            <see cref="T:YggdrAshill.Ragnarok.IScope"/> created.
             </returns>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IDescription">
+        <member name="T:YggdrAshill.Ragnarok.IDescription">
             <summary>
             Defines how to declare a dependency.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IDescription.ImplementedType">
+        <member name="P:YggdrAshill.Ragnarok.IDescription.ImplementedType">
             <summary>
             Declared <see cref="T:System.Type"/>.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IDescription.AssignedTypeList">
+        <member name="P:YggdrAshill.Ragnarok.IDescription.AssignedTypeList">
             <summary>
-            <see cref="T:System.Type"/>s to resolve an instance of <see cref="P:YggdrAshill.Ragnarok.Construction.IDescription.ImplementedType"/>.
+            <see cref="T:System.Type"/>s to resolve an instance of <see cref="P:YggdrAshill.Ragnarok.IDescription.ImplementedType"/>.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IDescription.Lifetime">
+        <member name="P:YggdrAshill.Ragnarok.IDescription.Lifetime">
             <summary>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.Lifetime"/> for <see cref="P:YggdrAshill.Ragnarok.Construction.IDescription.ImplementedType"/>.
+            <see cref="T:YggdrAshill.Ragnarok.Lifetime"/> for <see cref="P:YggdrAshill.Ragnarok.IDescription.ImplementedType"/>.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IDescription.Ownership">
+        <member name="P:YggdrAshill.Ragnarok.IDescription.Ownership">
             <summary>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.Ownership"/> for <see cref="P:YggdrAshill.Ragnarok.Construction.IDescription.ImplementedType"/>.
+            <see cref="T:YggdrAshill.Ragnarok.Ownership"/> for <see cref="P:YggdrAshill.Ragnarok.IDescription.ImplementedType"/>.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IDescription.Instantiation">
+        <member name="P:YggdrAshill.Ragnarok.IDescription.Instantiation">
             <summary>
-            How to instantiate <see cref="P:YggdrAshill.Ragnarok.Construction.IDescription.ImplementedType"/>.
+            How to instantiate <see cref="P:YggdrAshill.Ragnarok.IDescription.ImplementedType"/>.
             </summary>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IInjection">
+        <member name="T:YggdrAshill.Ragnarok.IInjection">
             <summary>
             Defines how to inject dependencies into instance to resolve.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IInjection.Inject(YggdrAshill.Ragnarok.Construction.IResolver,System.Object)">
+        <member name="M:YggdrAshill.Ragnarok.IInjection.Inject(YggdrAshill.Ragnarok.IResolver,System.Object)">
             <summary>
             Add dependencies into <paramref name="instance"/> with <paramref name="resolver"/>.
             </summary>
             <param name="resolver">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/> to inject.
+            <see cref="T:YggdrAshill.Ragnarok.IResolver"/> to inject.
             </param>
             <param name="instance">
             <see cref="T:System.Object"/> injected.
             </param>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IInstantiation">
+        <member name="T:YggdrAshill.Ragnarok.IInstantiation">
             <summary>
             Defines how to instantiate.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IInstantiation.Instantiate(YggdrAshill.Ragnarok.Construction.IResolver)">
+        <member name="M:YggdrAshill.Ragnarok.IInstantiation.Instantiate(YggdrAshill.Ragnarok.IResolver)">
             <summary>
             Creates an instance with <paramref name="resolver"/>.
             </summary>
             <param name="resolver">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/> to instantiate.
+            <see cref="T:YggdrAshill.Ragnarok.IResolver"/> to instantiate.
             </param>
             <returns>
             <see cref="T:System.Object"/> instantiated.
             </returns>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IParameter">
+        <member name="T:YggdrAshill.Ragnarok.IParameter">
             <summary>
             Defines parameter to inject from external.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IParameter.Type">
+        <member name="P:YggdrAshill.Ragnarok.IParameter.Type">
             <summary>
-            <see cref="P:YggdrAshill.Ragnarok.Construction.IParameter.Type"/> of parameter.
+            <see cref="P:YggdrAshill.Ragnarok.IParameter.Type"/> of parameter.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IParameter.Name">
+        <member name="P:YggdrAshill.Ragnarok.IParameter.Name">
             <summary>
             Parameter name.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IParameter.Instance">
+        <member name="P:YggdrAshill.Ragnarok.IParameter.Instance">
             <summary>
             Parameter value.
             </summary>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IResolver">
+        <member name="T:YggdrAshill.Ragnarok.IResolver">
             <summary>
             Defines how to obtain objects resolved.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IResolver.Resolve(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.IResolver.Resolve(System.Type)">
             <summary>
             Gets an instance of <paramref name="type"/>.
             </summary>
@@ -209,65 +209,65 @@
             <returns>
             <see cref="T:System.Object"/> resolved.
             </returns>
-            <exception cref="T:YggdrAshill.Ragnarok.Construction.RagnarokException">
+            <exception cref="T:YggdrAshill.Ragnarok.RagnarokException">
             Thrown if something goes wrong in resolving dependencies.
             </exception>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.IScope">
+        <member name="T:YggdrAshill.Ragnarok.IScope">
             <summary>
-            Defines how to manage <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/>.
+            Defines how to manage <see cref="T:YggdrAshill.Ragnarok.IResolver"/>.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Construction.IScope.Resolver">
+        <member name="P:YggdrAshill.Ragnarok.IScope.Resolver">
             <summary>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/> managed in this <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/>.
+            <see cref="T:YggdrAshill.Ragnarok.IResolver"/> managed in this <see cref="T:YggdrAshill.Ragnarok.IScope"/>.
             </summary>
             <exception cref="T:System.ObjectDisposedException">
-            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/> is disposed.
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IScope"/> is disposed.
             </exception>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Construction.IScope.CreateContext">
+        <member name="M:YggdrAshill.Ragnarok.IScope.CreateContext">
             <summary>
-            Creates a <see cref="T:YggdrAshill.Ragnarok.Construction.IContext"/> to create a new child <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/>.
+            Creates a <see cref="T:YggdrAshill.Ragnarok.IContext"/> to create a new child <see cref="T:YggdrAshill.Ragnarok.IScope"/>.
             </summary>
             <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IContext"/> created.
+            <see cref="T:YggdrAshill.Ragnarok.IContext"/> created.
             </returns>
             <exception cref="T:System.ObjectDisposedException">
-            Thrown if this <see cref="T:YggdrAshill.Ragnarok.Construction.IScope"/> is disposed.
+            Thrown if this <see cref="T:YggdrAshill.Ragnarok.IScope"/> is disposed.
             </exception>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.Lifetime">
+        <member name="T:YggdrAshill.Ragnarok.Lifetime">
             <summary>
             Defines period of life for an instance resolved.
             </summary>
         </member>
-        <member name="F:YggdrAshill.Ragnarok.Construction.Lifetime.Temporal">
+        <member name="F:YggdrAshill.Ragnarok.Lifetime.Temporal">
             <summary>
             Instantiates per request.
             </summary>
         </member>
-        <member name="F:YggdrAshill.Ragnarok.Construction.Lifetime.Local">
+        <member name="F:YggdrAshill.Ragnarok.Lifetime.Local">
             <summary>
             Instantiates per scope.
             </summary>
         </member>
-        <member name="F:YggdrAshill.Ragnarok.Construction.Lifetime.Global">
+        <member name="F:YggdrAshill.Ragnarok.Lifetime.Global">
             <summary>
             Instantiates per service.
             </summary>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Construction.Ownership">
+        <member name="T:YggdrAshill.Ragnarok.Ownership">
             <summary>
             Defines permission to control an instance.
             </summary>
         </member>
-        <member name="F:YggdrAshill.Ragnarok.Construction.Ownership.Internal">
+        <member name="F:YggdrAshill.Ragnarok.Ownership.Internal">
             <summary>
             Manage as an instance resolved internally.
             </summary>
         </member>
-        <member name="F:YggdrAshill.Ragnarok.Construction.Ownership.External">
+        <member name="F:YggdrAshill.Ragnarok.Ownership.External">
             <summary>
             Leave as an instance resolved externally.
             </summary>

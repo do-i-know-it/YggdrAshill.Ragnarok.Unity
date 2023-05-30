@@ -1,5 +1,4 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Construction;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ namespace YggdrAshill.Ragnarok.Unity
     public sealed class UnityDependencyInjectionContext :
         IContext
     {
-        private readonly DependencyInjectionContext context;
+        private readonly DependencyContext context;
 
         public UnityDependencyInjectionContext() :
 #if UNITY_IOS
@@ -27,7 +26,7 @@ namespace YggdrAshill.Ragnarok.Unity
 
         private UnityDependencyInjectionContext(ISolver solver)
         {
-            context = new DependencyInjectionContext(solver);
+            context = new DependencyContext(solver);
         }
         
         public IInstantiation GetInstantiation(Type type, IReadOnlyList<IParameter> parameterList)

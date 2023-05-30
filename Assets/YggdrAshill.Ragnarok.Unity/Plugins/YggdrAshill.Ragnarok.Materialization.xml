@@ -4,267 +4,30 @@
         <name>YggdrAshill.Ragnarok.Materialization</name>
     </assembly>
     <members>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.Argument">
+        <member name="T:YggdrAshill.Ragnarok.EngineContext">
             <summary>
-            Defines argument to inject a dependency into.
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IEngineContext"/> using <see cref="T:YggdrAshill.Ragnarok.ISelector"/> and <see cref="T:YggdrAshill.Ragnarok.ISolver"/>.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Materialization.Argument.Name">
-            <summary>
-            Name of <see cref="T:YggdrAshill.Ragnarok.Materialization.Argument"/>.
-            </summary>
+        <member name="M:YggdrAshill.Ragnarok.EngineContext.GetActivation(System.Type)">
+            <inheritdoc/>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.Materialization.Argument.Type">
-            <summary>
-            <see cref="P:YggdrAshill.Ragnarok.Materialization.Argument.Type"/> of <see cref="T:YggdrAshill.Ragnarok.Materialization.Argument"/>.
-            </summary>
+        <member name="M:YggdrAshill.Ragnarok.EngineContext.GetFieldInfusion(System.Type)">
+            <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.Argument.#ctor(System.String,System.Type)">
-            <summary>
-            Constructor of <see cref="T:YggdrAshill.Ragnarok.Materialization.Argument"/>.
-            </summary>
-            <param name="name">
-            <see cref="T:System.String"/> for <see cref="P:YggdrAshill.Ragnarok.Materialization.Argument.Name"/>.
-            </param>
-            <param name="type">
-            <see cref="T:System.Type"/> for <see cref="P:YggdrAshill.Ragnarok.Materialization.Argument.Type"/>.
-            </param>
+        <member name="M:YggdrAshill.Ragnarok.EngineContext.GetPropertyInfusion(System.Type)">
+            <inheritdoc/>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.EngineBuilder">
-            <summary>
-            Implementation of <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngineBuilder"/> using <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistryBuilder"/>.
-            </summary>
+        <member name="M:YggdrAshill.Ragnarok.EngineContext.GetMethodInfusion(System.Type)">
+            <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.EngineBuilder.#ctor(YggdrAshill.Ragnarok.Materialization.IRegistryBuilder)">
-            <summary>
-            Constructor of <see cref="T:YggdrAshill.Ragnarok.Materialization.EngineBuilder"/>.
-            </summary>
-            <param name="registryBuilder">
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistryBuilder"/> to instantiate <see cref="T:YggdrAshill.Ragnarok.Materialization.EngineBuilder"/>.
-            </param>
+        <member name="M:YggdrAshill.Ragnarok.EngineContext.Build(System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IDescription})">
+            <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.EngineBuilder.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
+        <member name="T:YggdrAshill.Ragnarok.ISelector">
             <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IActivation"/> of <see cref="T:System.Type"/>, then creates <see cref="T:YggdrAshill.Ragnarok.Construction.IInstantiation"/>.
+            Defines how to select type information to resolve dependencies.
             </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to instantiate.
-            </param>
-            <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/> to instantiate.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInstantiation"/> obtained.
-            </returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.EngineBuilder.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
-            <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> for fields of <see cref="T:System.Type"/>, then creates <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/>.
-            </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to inject.
-            </param>
-            <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/> to inject.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/> obtained.
-            </returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.EngineBuilder.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
-            <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> for properties of <see cref="T:System.Type"/>, then creates <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/>.
-            </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to inject.
-            </param>
-            <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/> to inject.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/> obtained.
-            </returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.EngineBuilder.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter})">
-            <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> for method of <see cref="T:System.Type"/>, then creates <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/>.
-            </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to inject.
-            </param>
-            <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/> to inject.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IInjection"/> obtained.
-            </returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.EngineBuilder.Build(System.Collections.Generic.IEnumerable{YggdrAshill.Ragnarok.Construction.IDescription})">
-            <summary>
-            Creates <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistry"/> from <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>s with <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistryBuilder"/>,
-            then creates <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/>.
-            </summary>
-            <param name="descriptionList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/> to build.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Motorization.IEngine"/> created.
-            </returns>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.IActivation">
-            <summary>
-            Defines how to create instance.
-            </summary>
-        </member>
-        <member name="P:YggdrAshill.Ragnarok.Materialization.IActivation.ArgumentList">
-            <summary>
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.Argument"/>s to instantiate.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.IActivation.Activate(System.Object[])">
-            <summary>
-            Instantiates with parameter <see cref="T:System.Object"/>s.
-            </summary>
-            <param name="parameterList">
-            <see cref="T:System.Object"/>s to instantiate.
-            </param>
-            <returns>
-            <see cref="T:System.Object"/> instantiated.
-            </returns>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.ICodeBuilder">
-            <summary>
-            Defines how to resolve dependencies automatically.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.ICodeBuilder.GetActivation(System.Type)">
-            <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IActivation"/> of <see cref="T:System.Type"/> to instantiate with dependencies resolved.
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.ICodeBuilder.GetFieldInfusion(System.Type)">
-            <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> of <see cref="T:System.Type"/> to inject dependencies into fields.
-            </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to inject dependencies into.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> to inject into instance.
-            </returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.ICodeBuilder.GetPropertyInfusion(System.Type)">
-            <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> of <see cref="T:System.Type"/> to inject dependencies into properties.
-            </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to inject dependencies into.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> to inject into instance.
-            </returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.ICodeBuilder.GetMethodInfusion(System.Type)">
-            <summary>
-            Gets <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> of <see cref="T:System.Type"/> to inject dependencies into method.
-            </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to inject dependencies into.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.IInfusion"/> to inject into instance.
-            </returns>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.IInfusion">
-            <summary>
-            Defines how to inject dependencies into instance.
-            </summary>
-        </member>
-        <member name="P:YggdrAshill.Ragnarok.Materialization.IInfusion.ArgumentList">
-            <summary>
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.Argument"/>s to inject.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.IInfusion.Infuse(System.Object,System.Object[])">
-            <summary>
-            Injects <see cref="T:System.Object"/>s into instance.
-            </summary>
-            <param name="instance">
-            <see cref="T:System.Object"/> to inject dependencies into.
-            </param>
-            <param name="parameterList">
-            <see cref="T:System.Object"/>s to inject instance.
-            </param>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.IRegistry">
-            <summary>
-            Defines how to find <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> for <see cref="T:System.Type"/>
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.IRegistry.Have(YggdrAshill.Ragnarok.Hierarchization.IRegistration)">
-            <summary>
-            Checks if <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistry"/> has <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>.
-            </summary>
-            <param name="registration">
-            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> to check.
-            </param>
-            <returns>
-            True if this <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistry"/> has <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/>.
-            </returns>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.IRegistry.Find(System.Type,YggdrAshill.Ragnarok.Hierarchization.IRegistration@)">
-            <summary>
-            Finds <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> for <see cref="T:System.Type"/>.
-            </summary>
-            <param name="type">
-            <see cref="T:System.Type"/> to find.
-            </param>
-            <param name="registration">
-            <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> found.
-            </param>
-            <returns>
-            True if <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistry"/> has <see cref="T:YggdrAshill.Ragnarok.Hierarchization.IRegistration"/> for <see cref="T:System.Type"/>.
-            </returns>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.IRegistryBuilder">
-            <summary>
-            Defines how to build <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistry"/>.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.IRegistryBuilder.Build(System.Collections.Generic.IEnumerable{YggdrAshill.Ragnarok.Construction.IDescription})">
-            <summary>
-            Creates <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistry"/> from <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>s.
-            </summary>
-            <param name="descriptionList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IDescription"/>s to build.
-            </param>
-            <returns>
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.IRegistry"/> created.
-            </returns>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.Materialization.ResolverExtension">
-            <summary>
-            Extension for <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/>.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Materialization.ResolverExtension.Resolve(YggdrAshill.Ragnarok.Construction.IResolver,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.Construction.IParameter},YggdrAshill.Ragnarok.Materialization.Argument)">
-            <summary>
-            Resolve <see cref="T:YggdrAshill.Ragnarok.Materialization.Argument"/> from <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/> or <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/>s.
-            </summary>
-            <param name="resolver">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IResolver"/> to resolve.
-            </param>
-            <param name="parameterList">
-            <see cref="T:YggdrAshill.Ragnarok.Construction.IParameter"/>s to resolve.
-            </param>
-            <param name="argument">
-            <see cref="T:YggdrAshill.Ragnarok.Materialization.Argument"/> to resolve.
-            </param>
-            <returns>
-            <see cref="T:System.Object"/> resolved.
-            </returns>
         </member>
     </members>
 </doc>

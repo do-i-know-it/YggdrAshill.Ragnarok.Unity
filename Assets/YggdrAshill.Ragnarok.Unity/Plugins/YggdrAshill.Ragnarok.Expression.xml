@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Expression</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.ExpressionSolver">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with expression.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.ExpressionSolver.Instance">
+            <summary>
+            Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ExpressionSolver"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateActivation(YggdrAshill.Ragnarok.ConstructorInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateCollectionActivation(System.Type)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,5 @@
 #nullable enable
 using YggdrAshill.Ragnarok.Unity.Internal;
-using YggdrAshill.Ragnarok.Fabrication;
 using System;
 using UnityEngine;
 
