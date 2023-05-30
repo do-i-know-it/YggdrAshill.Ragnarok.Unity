@@ -23,14 +23,14 @@ namespace YggdrAshill.Ragnarok
             return statement;
         }
         
-        public static IInstanceInjection RegisterComponentInGameObject<T>(this IContainer container, GameObject instance)
+        public static IInstanceInjection RegisterComponent<T>(this IContainer container, GameObject instance)
             where T : notnull
         {
             var componentType = typeof(T);
 
             var statement = new FindComponentInGameObjectStatement(container, componentType, instance);
             
-            var composition = new Composition(Lifetime.Local, Ownership.External, statement);
+            var composition = new Composition(Lifetime.Global, Ownership.External, statement);
             
             container.Register(composition);
 
@@ -40,23 +40,6 @@ namespace YggdrAshill.Ragnarok
             return statement;
         }
         
-        public static IInstanceInjection RegisterComponentInInHierarchy<T>(this IContainer container)
-            where T : notnull
-        {
-            var componentType = typeof(T);
-
-            var statement = new FindComponentInHierarchyStatement(container, componentType);
-            
-            var composition = new Composition(Lifetime.Local, Ownership.External, statement);
-            
-            container.Register(composition);
-
-            statement.As<T>();
-            container.Register(resolver => resolver.Resolve<T>());
-
-            return statement;
-        }
-
         public static IComponentInjection RegisterComponentOnNewGameObject<TComponent>(this IContainer container, Lifetime lifetime, string? objectName = null)
             where TComponent : Component
         {
@@ -94,7 +77,7 @@ namespace YggdrAshill.Ragnarok
             return statement;
         }
 
-        public static IComponentInjection RegisterComponentInNewPrefab<TInterface, TComponent>(this IContainer container, Lifetime lifetime, TComponent prefab)
+        public static IComponentInjection RegisterComponentInNewPrefab<TInterface, TComponent>(this IContainer container, TComponent prefab, Lifetime lifetime)
             where TInterface : notnull
             where TComponent : Component, TInterface
         {

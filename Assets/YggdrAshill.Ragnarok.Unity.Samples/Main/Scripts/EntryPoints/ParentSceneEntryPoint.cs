@@ -9,8 +9,8 @@ namespace YggdrAshill.Ragnarok.Unity.Samples
         
         protected override void Configure(IContainer container)
         {
-            container.RegisterComponent<IInputSender>(inputSender);
-            container.RegisterComponent<IOutputReceiver>(outputReceiver);
+            container.RegisterComponentInNewPrefab<IInputSender, InputSender>(inputSender, Lifetime.Global);
+            container.RegisterComponentInNewPrefab<IOutputReceiver, OutputReceiver>(outputReceiver, Lifetime.Global);
         }
     }
 }
