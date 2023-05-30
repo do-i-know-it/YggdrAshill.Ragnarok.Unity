@@ -7,8 +7,12 @@
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "YggdrAshill.Ragnarok.Construction.dll",
+        "YggdrAshill.Ragnarok.Materialization.dll",
+        "YggdrAshill.Ragnarok.dll"
+    ],
     "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
