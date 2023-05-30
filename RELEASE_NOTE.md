@@ -1,8 +1,5 @@
-# Release notes for version 0.0.0
+# Release notes for version 0.1.0
 
-- Added .gitignore file for Unity.
-- Added LICENSE.md.
-- Added templates for contribution.
-- Opened as Unity 2020.3.0f1.
-- Added asmdef file for Unity library.
-- Added package.json file for Unity library.
+- Imported YggdrAshill.Ragnarok 0.9.0.
+- Added definitions and implementations for Unity extension of YggdrAshill.Ragnarok.
+- Added E2E specifications for framework.

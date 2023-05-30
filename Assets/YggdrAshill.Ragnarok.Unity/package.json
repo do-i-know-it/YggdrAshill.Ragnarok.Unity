@@ -1,6 +1,6 @@
 {
     "name": "com.yggdrashill.ragnarok.unity",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "displayName": "YggdrAshill.Ragnarok.Unity",
     "description": "An extension of YggdrAshill.Ragnarok for Unity.",
     "unity": "2020.3",
