@@ -1,5 +1,5 @@
 #nullable enable
-namespace YggdrAshill.Ragnarok.Unity.Internal
+namespace YggdrAshill.Ragnarok.Unity
 {
     public interface IComponentInjection :
         IInstanceInjection

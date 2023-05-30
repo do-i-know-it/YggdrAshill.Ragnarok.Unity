@@ -8,7 +8,7 @@ namespace YggdrAshill.Ragnarok.Unity.Samples
         
         protected override void Configure(IContainer container)
         {
-            container.RegisterComponent<IMovement>(instance);
+            container.RegisterComponentInGameObject<IMovement>(instance);
         }
     }
 }

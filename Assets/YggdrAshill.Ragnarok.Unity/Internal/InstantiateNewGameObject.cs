@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace YggdrAshill.Ragnarok.Unity.Internal
+namespace YggdrAshill.Ragnarok.Unity
 {
     internal sealed class InstantiateNewGameObject :
         IInstantiation

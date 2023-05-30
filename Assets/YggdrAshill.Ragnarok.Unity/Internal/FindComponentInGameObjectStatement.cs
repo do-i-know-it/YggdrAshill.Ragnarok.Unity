@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity.Internal
+namespace YggdrAshill.Ragnarok.Unity
 {
     // TODO: add document comments.
     public sealed class FindComponentInGameObjectStatement :

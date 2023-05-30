@@ -1,9 +1,9 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Unity.Internal;
+using YggdrAshill.Ragnarok.Unity;
 using System;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     internal sealed class Anchor :
         IAnchor

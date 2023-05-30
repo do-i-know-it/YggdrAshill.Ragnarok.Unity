@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity.Internal
+namespace YggdrAshill.Ragnarok.Unity
 {
     internal sealed class FindComponentInGameObject :
         IInstantiation

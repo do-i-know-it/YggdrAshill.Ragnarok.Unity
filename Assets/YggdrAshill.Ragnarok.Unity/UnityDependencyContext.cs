@@ -2,19 +2,19 @@
 using System;
 using System.Collections.Generic;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     // TODO: add diagnostics.
     // TODO: add document comments.
     /// <summary>
     /// Implementation of <see cref="IContext"/> using <see cref="DependencyInjectionContext"/>.
     /// </summary>
-    public sealed class UnityDependencyInjectionContext :
+    public sealed class UnityDependencyContext :
         IContext
     {
         private readonly DependencyContext context;
 
-        public UnityDependencyInjectionContext() :
+        public UnityDependencyContext() :
 #if UNITY_IOS
             this(ReflectionSolver.Instance)
 #else
@@ -24,7 +24,7 @@ namespace YggdrAshill.Ragnarok.Unity
             
         }
 
-        private UnityDependencyInjectionContext(ISolver solver)
+        private UnityDependencyContext(ISolver solver)
         {
             context = new DependencyContext(solver);
         }

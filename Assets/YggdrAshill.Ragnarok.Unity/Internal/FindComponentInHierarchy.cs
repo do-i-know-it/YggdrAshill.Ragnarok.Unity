@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity.Internal
+namespace YggdrAshill.Ragnarok.Unity
 {
     internal sealed class FindComponentInHierarchy :
         IInstantiation

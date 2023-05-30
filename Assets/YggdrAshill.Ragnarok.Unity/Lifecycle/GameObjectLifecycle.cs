@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     [DefaultExecutionOrder(LifecycleExecutionOrder.GameObject)]
     public sealed class GameObjectLifecycle : Lifecycle
@@ -42,7 +42,7 @@ namespace YggdrAshill.Ragnarok.Unity
                 return ProjectLifecycle.Instance.CreateChildContext();
             }
             
-            return new UnityDependencyInjectionContext();
+            return new UnityDependencyContext();
         }
 
         [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();

@@ -1,9 +1,9 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Unity.Internal;
+using YggdrAshill.Ragnarok.Unity;
 using System;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
     public static class ContainerExtension
@@ -23,7 +23,7 @@ namespace YggdrAshill.Ragnarok.Unity
             return statement;
         }
         
-        public static IInstanceInjection RegisterComponent<T>(this IContainer container, GameObject instance)
+        public static IInstanceInjection RegisterComponentInGameObject<T>(this IContainer container, GameObject instance)
             where T : notnull
         {
             var componentType = typeof(T);
@@ -40,7 +40,7 @@ namespace YggdrAshill.Ragnarok.Unity
             return statement;
         }
         
-        public static IInstanceInjection RegisterComponent<T>(this IContainer container)
+        public static IInstanceInjection RegisterComponentInInHierarchy<T>(this IContainer container)
             where T : notnull
         {
             var componentType = typeof(T);
@@ -57,22 +57,7 @@ namespace YggdrAshill.Ragnarok.Unity
             return statement;
         }
 
-        public static IComponentInjection RegisterTemporal<TComponent>(this IContainer container, string? objectName = null)
-            where TComponent : Component
-        {
-            return container.Register<TComponent>(Lifetime.Temporal, objectName);
-        }
-        public static IComponentInjection RegisterLocal<TComponent>(this IContainer container, string? objectName = null)
-            where TComponent : Component
-        {
-            return container.Register<TComponent>(Lifetime.Local, objectName);
-        }
-        public static IComponentInjection RegisterGlobal<TComponent>(this IContainer container, string? objectName = null)
-            where TComponent : Component
-        {
-            return container.Register<TComponent>(Lifetime.Global, objectName);
-        }
-        private static IComponentInjection Register<TComponent>(this IContainer container, Lifetime lifetime, string? objectName)
+        public static IComponentInjection RegisterComponentOnNewGameObject<TComponent>(this IContainer container, Lifetime lifetime, string? objectName = null)
             where TComponent : Component
         {
             var componentType = typeof(TComponent);
@@ -85,53 +70,19 @@ namespace YggdrAshill.Ragnarok.Unity
 
             return statement;
         }
-        public static IComponentInjection RegisterTemporal<TInterface, TComponent>(this IContainer container, string? objectName = null)
+
+        public static IComponentInjection RegisterComponentOnNewGameObject<TInterface, TComponent>(this IContainer container, Lifetime lifetime, string? objectName = null)
             where TInterface : notnull
             where TComponent : Component, TInterface
         {
-            var componentInjection = container.RegisterTemporal<TComponent>(objectName);
-
-            componentInjection.As<TInterface>();
-
-            return componentInjection;
-        }
-        public static IComponentInjection RegisterLocal<TInterface, TComponent>(this IContainer container, string? objectName = null)
-            where TInterface : notnull
-            where TComponent : Component, TInterface
-        {
-            var componentInjection = container.RegisterLocal<TComponent>(objectName);
-
-            componentInjection.As<TInterface>();
-
-            return componentInjection;
-        }
-        public static IComponentInjection RegisterGlobal<TInterface, TComponent>(this IContainer container, string? objectName = null)
-            where TInterface : notnull
-            where TComponent : Component, TInterface
-        {
-            var componentInjection = container.RegisterGlobal<TComponent>(objectName);
+            var componentInjection = container.RegisterComponentOnNewGameObject<TComponent>(lifetime, objectName);
 
             componentInjection.As<TInterface>();
 
             return componentInjection;
         }
         
-        public static IComponentInjection RegisterTemporal<TComponent>(this IContainer container, TComponent prefab)
-            where TComponent : Component
-        {
-            return container.Register(Lifetime.Temporal, prefab);
-        }
-        public static IComponentInjection RegisterLocal<TComponent>(this IContainer container, TComponent prefab)
-            where TComponent : Component
-        {
-            return container.Register(Lifetime.Local, prefab);
-        }
-        public static IComponentInjection RegisterGlobal<TComponent>(this IContainer container, TComponent prefab)
-            where TComponent : Component
-        {
-            return container.Register(Lifetime.Global, prefab);
-        }
-        private static IComponentInjection Register<TComponent>(this IContainer container, Lifetime lifetime, TComponent prefab)
+        public static IComponentInjection RegisterComponentInNewPrefab<TComponent>(this IContainer container, Lifetime lifetime, TComponent prefab)
             where TComponent : Component
         {
             var statement = new NewPrefabStatement(container, prefab);
@@ -142,31 +93,12 @@ namespace YggdrAshill.Ragnarok.Unity
 
             return statement;
         }
-        public static IComponentInjection RegisterTemporal<TInterface, TComponent>(this IContainer container, TComponent prefab)
+
+        public static IComponentInjection RegisterComponentInNewPrefab<TInterface, TComponent>(this IContainer container, Lifetime lifetime, TComponent prefab)
             where TInterface : notnull
             where TComponent : Component, TInterface
         {
-            var componentInjection = container.RegisterTemporal(prefab);
-
-            componentInjection.As<TInterface>();
-
-            return componentInjection;
-        }
-        public static IComponentInjection RegisterLocal<TInterface, TComponent>(this IContainer container, TComponent prefab)
-            where TInterface : notnull
-            where TComponent : Component, TInterface
-        {
-            var componentInjection = container.RegisterLocal(prefab);
-
-            componentInjection.As<TInterface>();
-
-            return componentInjection;
-        }
-        public static IComponentInjection RegisterGlobal<TInterface, TComponent>(this IContainer container, TComponent prefab)
-            where TInterface : notnull
-            where TComponent : Component, TInterface
-        {
-            var componentInjection = container.RegisterGlobal(prefab);
+            var componentInjection = container.RegisterComponentInNewPrefab(lifetime, prefab);
 
             componentInjection.As<TInterface>();
 

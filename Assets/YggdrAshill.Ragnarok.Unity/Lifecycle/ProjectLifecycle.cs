@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     [DefaultExecutionOrder(LifecycleExecutionOrder.Project)]
     internal sealed class ProjectLifecycle : Lifecycle
@@ -36,7 +36,7 @@ namespace YggdrAshill.Ragnarok.Unity
 
         protected override IContext GetCurrentContext()
         {
-            return new UnityDependencyInjectionContext();
+            return new UnityDependencyContext();
         }
 
         [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();

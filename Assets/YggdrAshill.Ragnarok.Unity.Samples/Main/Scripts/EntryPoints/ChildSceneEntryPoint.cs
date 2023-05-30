@@ -9,11 +9,11 @@ namespace YggdrAshill.Ragnarok.Unity.Samples
         
         protected override void Configure(IContainer container)
         {
-            container.RegisterGlobal<IInputOffset, InputOffset>()
+            container.RegisterComponentOnNewGameObject<IInputOffset, InputOffset>(Lifetime.Global)
                 .Under(transform)
                 .WithFieldsInjected()
                 .From("offset", inputOffset);
-            container.RegisterGlobal<IOutputOffset, OutputOffset>()
+            container.RegisterComponentOnNewGameObject<IOutputOffset, OutputOffset>(Lifetime.Global)
                 .Under(transform)
                 .WithFieldsInjected()
                 .From("offset", outputOffset);

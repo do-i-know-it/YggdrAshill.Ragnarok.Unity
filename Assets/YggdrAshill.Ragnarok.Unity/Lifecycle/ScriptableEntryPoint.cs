@@ -1,7 +1,7 @@
 #nullable enable
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     public abstract class ScriptableEntryPoint : ScriptableObject,
         IEntryPoint

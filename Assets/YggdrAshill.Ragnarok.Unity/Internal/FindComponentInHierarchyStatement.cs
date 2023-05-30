@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace YggdrAshill.Ragnarok.Unity.Internal
+namespace YggdrAshill.Ragnarok.Unity
 {
     // TODO: add document comments.
     public sealed class FindComponentInHierarchyStatement :
