@@ -21,8 +21,8 @@ This framework also depends on below.
 This framework depends on Unity after Unity 2020.3 that supports path query parameter of git package.
 Developers can install this framework with [UPM](https://docs.unity3d.com/Manual/Packages.html) like:
 
-- Add `https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity?path=Assets/YggdrAshill.Ragnarok.Unity` to Package Manager.
-- Add `"com.yggdrashill.ragnarok.unity": "https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity?path=Assets/YggdrAshill.Ragnarok.Unity"` to `Packages/manifest.json`.
+- Add `https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity.git?path=Assets/YggdrAshill.Ragnarok.Unity` to Package Manager.
+- Add `"com.yggdrashill.ragnarok.unity": "https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity.git?path=Assets/YggdrAshill.Ragnarok.Unity"` to `Packages/manifest.json`.
 
 ## Usage
 
