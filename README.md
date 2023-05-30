@@ -1,5 +1,11 @@
 # YggdrAshill.Ragnarok.Unity
 
+![GitHub](https://img.shields.io/github/license/do-i-know-it/YggdrAshill.Ragnarok.Unity)
+![GitHub Release Date](https://img.shields.io/github/release-date/do-i-know-it/YggdrAshill.Ragnarok.Unity)
+![GitHub last commit](https://img.shields.io/github/last-commit/do-i-know-it/YggdrAshill.Ragnarok.Unity)
+![GitHub repo size](https://img.shields.io/github/repo-size/do-i-know-it/YggdrAshill.Ragnarok.Unity)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/do-i-know-it/YggdrAshill.Ragnarok.Unity)
+
 This framework is an extension of [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) for [Unity](https://unity.com/ja).
 
 ## Dependencies
@@ -36,8 +42,8 @@ interface IReceiver
 
 class Service : IPreUpdatable
 {
-    private readonly ISender sender;
-    private readonly IReciever receiver;
+    readonly ISender sender;
+    readonly IReciever receiver;
 
     [Inject]
     Service(ISender sender, IReceiver receiver)
@@ -61,18 +67,10 @@ using implementations as below:
 class ConsoleSender : MonoBehaviour, ISender
 {
     [SerializeField]
-    InputField inputField;
-
-    [InjectField]
-    readonly string? announcement;
+    InputField? inputField;
 
     public string Send()
     {
-        if (announcement != null)
-        {
-            Console.Write($"{announcement}:");
-        }
-
         return inputField.text;
     }
 }
@@ -80,14 +78,11 @@ class ConsoleSender : MonoBehaviour, ISender
 class ConsoleReceiver : MonoBehaviour, IReceiver
 {
     [SerializeField]
-    Text outputText;
-
-    [InjectField]
-    readonly string? header;
+    Text? outputText;
 
     public void Receive(string message)
     {
-        outputText.text = header == null ? message : $"{header}: {message}";
+        outputText.text = message;
     }
 }
 ```
@@ -100,16 +95,12 @@ sealed class ServiceEntryPoint : MonoEntryPoint
     {
         // Register ConsoleSender as ISender to instantiate per global scope.
         container.RegisterComponentOnNewGameObject<ConsoleSender>(Lifetime.Global)
-            .WithFieldsInjected() // Enable field injection.
-            .From("announcement", "Enter any text") // Add parameter to inject into fields.
             .As<ISender>();
         // Register ConsoleReceiver as IReceiver to instantiate per global scope.
         container.RegisterComponentOnNewGameObject<ConsoleReceiver>(Lifetime.Global)
-            .WithFieldsInjected() // Enable field injection.
-            .From("header", "Recieved") // Add parameter to inject into fields.
             .As<IReceiver>();
-        // Register Service as entry point in unity event loop.
-        container.Register<Service>(Lifetime.Global).AsImplementedInterfaces;
+        // Register Service's interfaces for unity event loop.
+        container.Register<Service>(Lifetime.Global).AsImplementedInterfaces();
     }
 }
 ```
