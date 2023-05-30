@@ -1,7 +1,7 @@
 #nullable enable
 using System;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     public interface IExceptionHandler
     {

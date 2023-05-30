@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.LowLevel;
 using UnityEngine.PlayerLoop;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
-    internal sealed class UnityEventLoopDispatcher :
+    public sealed class UnityEventLoopDispatcher :
         IDisposable
     {
         private static UnityEventLoopRunner PreFixedUpdateRunner { get; } = new UnityEventLoopRunner();

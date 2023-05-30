@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     internal sealed class UnityEventLoopExceptionHandler
     {

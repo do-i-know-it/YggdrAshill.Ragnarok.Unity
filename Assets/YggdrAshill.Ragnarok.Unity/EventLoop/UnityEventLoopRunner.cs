@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     internal sealed class UnityEventLoopRunner
     {

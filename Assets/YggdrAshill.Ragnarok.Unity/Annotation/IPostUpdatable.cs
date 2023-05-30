@@ -1,5 +1,5 @@
 #nullable enable
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     public interface IPostUpdatable
     {
