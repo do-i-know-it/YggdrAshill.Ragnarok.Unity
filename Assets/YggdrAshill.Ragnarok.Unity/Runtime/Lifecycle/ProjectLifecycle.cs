@@ -51,8 +51,9 @@ namespace YggdrAshill.Ragnarok
             if (transform.parent != null)
             {
                 DestroyImmediate(this);
+                return;
             }
-            
+
             lock (lockObject)
             {
                 if (instance == null)
@@ -65,7 +66,7 @@ namespace YggdrAshill.Ragnarok
                     return;
                 }
             }
-            
+
             DontDestroyOnLoad(gameObject);
 
             base.Awake();

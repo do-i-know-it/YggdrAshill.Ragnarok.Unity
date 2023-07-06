@@ -12,14 +12,8 @@ namespace YggdrAshill.Ragnarok
         [SerializeField] private bool runAutomatically = true;
         protected override bool RunAutomatically => runAutomatically;
 
-        [SerializeField] private SceneLifecycle? rootLifecycle;
         protected override IContext GetCurrentContext()
         {
-            if (rootLifecycle != null)
-            {
-                return rootLifecycle.CreateChildContext();
-            }
-                
             var parent = transform.parent;
 
             while (parent != null)
@@ -28,20 +22,28 @@ namespace YggdrAshill.Ragnarok
                 {
                     return lifecycle.CreateChildContext();
                 }
-                
+
                 parent = parent.parent;
             }
-            
-            if (SceneLifecycle.ParentLifecycle != null)
+
+            var sceneLifecycle = SceneLifecycle.InstanceOf(gameObject.scene);
+            if (sceneLifecycle != null)
             {
-                return SceneLifecycle.ParentLifecycle.CreateChildContext();
+                return sceneLifecycle.CreateChildContext();
             }
-            
-            if (ProjectLifecycle.Instance != null)
+
+            sceneLifecycle = SceneLifecycle.OverriddenLifecycle;
+            if (sceneLifecycle != null)
             {
-                return ProjectLifecycle.Instance.CreateChildContext();
+                return sceneLifecycle.CreateChildContext();
             }
-            
+
+            var projectLifecycle = ProjectLifecycle.Instance;
+            if (projectLifecycle != null)
+            {
+                return projectLifecycle.CreateChildContext();
+            }
+
             return new UnityDependencyContext();
         }
 

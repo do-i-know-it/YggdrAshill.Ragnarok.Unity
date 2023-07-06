@@ -8,7 +8,7 @@ namespace YggdrAshill.Ragnarok
 {
     [DisallowMultipleComponent]
     public abstract class Lifecycle : MonoBehaviour,
-         IDisposable
+        IDisposable
     {
         private IScope? scope;
         private IScope Scope
@@ -59,11 +59,11 @@ namespace YggdrAshill.Ragnarok
             {
                 return;
             }
-            
+
             Installation.Install(CurrentContext);
 
             Configure(CurrentContext);
-            
+
             scope = CurrentContext.Build();
         }
         private void Configure(IContainer container)
@@ -76,27 +76,27 @@ namespace YggdrAshill.Ragnarok
         {
             return Scope.CreateContext();
         }
-        
+
         public void Dispose()
         {
             if (this == null)
             {
                 return;
             }
-            
+
             // TODO: Destroy(this)?
             Destroy(gameObject);
         }
-        
+
         protected abstract bool RunAutomatically { get; }
-        
+
         protected virtual void Awake()
         {
             if (!RunAutomatically)
             {
                 return;
             }
-            
+
             Build();
         }
 
@@ -106,7 +106,7 @@ namespace YggdrAshill.Ragnarok
             {
                 return;
             }
-            
+
             scope.Dispose();
             scope = null;
         }

@@ -217,8 +217,9 @@ GameObject:
   - component: {fileID: 284421898}
   - component: {fileID: 284421897}
   - component: {fileID: 284421899}
+  - component: {fileID: 284421900}
   m_Layer: 0
-  m_Name: ParentSceneLifecycle
+  m_Name: SceneLifecycle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,10 +238,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runAutomatically: 1
-  parentLifecycle: {fileID: 0}
   scriptableEntryPointList: []
   monoEntryPointList:
   - {fileID: 284421899}
+  - {fileID: 284421900}
 --- !u!4 &284421898
 Transform:
   m_ObjectHideFlags: 0
@@ -269,6 +270,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputSender: {fileID: 741508841242122804, guid: d1dff634bb0f2a84299bd332e3654af4, type: 3}
   outputReceiver: {fileID: 1013876014655579275, guid: bdc1627bc81ba6346bb952cf3293490f, type: 3}
+--- !u!114 &284421900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284421896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e084afecf2a64b1fa68846c2f117c875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputOffset: {x: 0, y: 0}
+  outputOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &787079696
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,69 +377,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &935183942
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 935183945}
-  - component: {fileID: 935183943}
-  - component: {fileID: 935183944}
-  m_Layer: 0
-  m_Name: ChildSceneLifecycle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &935183943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935183942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27ccf04bac9b4d9d8c307c7013ca835f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runAutomatically: 1
-  parentLifecycle: {fileID: 284421897}
-  scriptableEntryPointList: []
-  monoEntryPointList:
-  - {fileID: 935183944}
---- !u!114 &935183944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935183942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e084afecf2a64b1fa68846c2f117c875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputOffset: {x: 0, y: 0}
-  outputOffset: {x: 0, y: 0, z: 0}
---- !u!4 &935183945
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935183942}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1548091355
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +408,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runAutomatically: 1
-  rootLifecycle: {fileID: 935183943}
   scriptableEntryPointList: []
   monoEntryPointList:
   - {fileID: 1548091358}
@@ -472,7 +423,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1548091358
 MonoBehaviour:
@@ -572,7 +523,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9212610792494064795
 GameObject:

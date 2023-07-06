@@ -3,24 +3,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace YggdrAshill.Ragnarok
 {
     [DefaultExecutionOrder(LifecycleExecutionOrder.Scene)]
     public sealed class SceneLifecycle : Lifecycle
     {
-        private static Stack<SceneLifecycle> ParentLifecycleStack { get; } = new Stack<SceneLifecycle>();
+        // TODO: cache result?
+        public static SceneLifecycle? InstanceOf(Scene scene)
+        {
+            if (!scene.IsValid())
+            {
+                throw new ArgumentException($"{scene} is invalid.");
+            }
 
-        public static SceneLifecycle? ParentLifecycle
+            foreach (var rootGameObject in scene.GetRootGameObjects())
+            {
+                if (rootGameObject.TryGetComponent<SceneLifecycle>(out var lifecycle))
+                {
+                    return lifecycle;
+                }
+            }
+
+            return null;
+        }
+        
+        private static Stack<SceneLifecycle> OverriddenLifecycleStack { get; } = new Stack<SceneLifecycle>();
+        public static SceneLifecycle? OverriddenLifecycle
         {
             get
             {
-                if (ParentLifecycleStack.Count == 0)
+                if (OverriddenLifecycleStack.Count == 0)
                 {
                     return null;
                 }
 
-                return ParentLifecycleStack.Peek();
+                return OverriddenLifecycleStack.Peek();
             }
         }
 
@@ -28,10 +47,10 @@ namespace YggdrAshill.Ragnarok
             IDisposable
         {
             private readonly bool isInitialized;
-            
+
             internal OverrideParentLifecycleScope(SceneLifecycle lifecycle)
             {
-                ParentLifecycleStack.Push(lifecycle);
+                OverriddenLifecycleStack.Push(lifecycle);
                 isInitialized = true;
             }
 
@@ -41,8 +60,8 @@ namespace YggdrAshill.Ragnarok
                 {
                     throw new Exception($"{nameof(OverrideParentLifecycleScope)}");
                 }
-                
-                ParentLifecycleStack.Pop();
+
+                OverriddenLifecycleStack.Pop();
             }
         }
 
@@ -50,36 +69,27 @@ namespace YggdrAshill.Ragnarok
         {
             return new OverrideParentLifecycleScope(this);
         }
-        
+
         [SerializeField] private bool runAutomatically = true;
         protected override bool RunAutomatically => runAutomatically;
         
-        [SerializeField] private SceneLifecycle? parentLifecycle;
         protected override IContext GetCurrentContext()
         {
-            if (parentLifecycle != null)
+            var sceneLifecycle = OverriddenLifecycle;
+            if (sceneLifecycle != null)
             {
-                if (parentLifecycle == this)
-                {
-                    throw new Exception("parent life cycle is own.");
-                }
-                
-                return parentLifecycle.CreateChildContext();
+                return sceneLifecycle.CreateChildContext();
             }
 
-            if (ParentLifecycle != null)
+            var projectLifecycle = ProjectLifecycle.Instance;
+            if (projectLifecycle != null)
             {
-                return ParentLifecycle.CreateChildContext();
-            }
-
-            if (ProjectLifecycle.Instance != null)
-            {
-                return ProjectLifecycle.Instance.CreateChildContext();
+                return projectLifecycle.CreateChildContext();
             }
 
             return new UnityDependencyContext();
         }
-        
+
         [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();
         [SerializeField] private MonoEntryPoint[] monoEntryPointList = Array.Empty<MonoEntryPoint>();
         protected override IEnumerable<IEntryPoint> GetEntryPointList()
@@ -92,8 +102,17 @@ namespace YggdrAshill.Ragnarok
             if (transform.parent != null)
             {
                 DestroyImmediate(this);
+                return;
             }
-            
+
+            var instance = InstanceOf(gameObject.scene);
+
+            if (instance != this)
+            {
+                DestroyImmediate(this);
+                return;
+            }
+
             base.Awake();
         }
     }
