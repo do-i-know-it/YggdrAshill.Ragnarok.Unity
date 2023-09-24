@@ -63,7 +63,7 @@ namespace YggdrAshill.Ragnarok
         {
             if (transform.parent != null)
             {
-                DestroyImmediate(this);
+                DestroyImmediate(transform.root.gameObject);
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace YggdrAshill.Ragnarok
                 }
                 else
                 {
-                    DestroyImmediate(this);
+                    DestroyImmediate(gameObject);
                     return;
                 }
             }

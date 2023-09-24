@@ -33,7 +33,7 @@ namespace YggdrAshill.Ragnarok
                 installation.Install(context);
             }
             
-            context.RegisterInstance(this).As<IDisposable>();
+            context.RegisterInstance(this).AsSelf();
             context.UseUnityEventLoop();
 
             return context.Build();

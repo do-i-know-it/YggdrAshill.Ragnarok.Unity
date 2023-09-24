@@ -57,7 +57,7 @@ namespace YggdrAshill.Ragnarok
 
             public void Dispose()
             {
-                if (isInitialized)
+                if (!isInitialized)
                 {
                     throw new Exception($"{nameof(OverrideParentLifecycleScope)}");
                 }
@@ -114,7 +114,7 @@ namespace YggdrAshill.Ragnarok
         {
             if (transform.parent != null)
             {
-                DestroyImmediate(this);
+                DestroyImmediate(transform.root.gameObject);
                 return;
             }
 
@@ -122,7 +122,7 @@ namespace YggdrAshill.Ragnarok
 
             if (instance != this)
             {
-                DestroyImmediate(this);
+                DestroyImmediate(gameObject);
                 return;
             }
 
