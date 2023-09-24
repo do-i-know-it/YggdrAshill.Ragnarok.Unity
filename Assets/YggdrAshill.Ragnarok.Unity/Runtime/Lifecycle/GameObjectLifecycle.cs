@@ -49,9 +49,9 @@ namespace YggdrAshill.Ragnarok
 
         [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();
         [SerializeField] private MonoEntryPoint[] monoEntryPointList = Array.Empty<MonoEntryPoint>();
-        protected override IEnumerable<IEntryPoint> GetEntryPointList()
+        protected override IEnumerable<IInstallation> GetInstallationList()
         {
-            return ((IEnumerable<IEntryPoint>)scriptableEntryPointList).Concat(monoEntryPointList);
+            return scriptableEntryPointList.Select(entryPoint => entryPoint.Installation).Concat(monoEntryPointList.Select(entryPoint => entryPoint.Installation));
         }
     }
 }

@@ -1,7 +1,6 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
@@ -27,50 +26,21 @@ namespace YggdrAshill.Ragnarok
 
         private IScope BuildInternally()
         {
-            Installation.Install(CurrentContext);
+            var context = GetCurrentContext();
 
-            Configure(CurrentContext);
-
-            return CurrentContext.Build();
-        }
-        
-        private void Configure(IContainer container)
-        {
-            container.RegisterInstance(this).As<IDisposable>();
-            container.UseUnityEventLoop();
-        }
-        
-        private IContext? currentContext;
-        private IContext CurrentContext
-        {
-            get
+            foreach (var installation in GetInstallationList())
             {
-                if (currentContext == null)
-                {
-                    currentContext = GetCurrentContext();
-                }
-
-                return currentContext;
+                installation.Install(context);
             }
+            
+            context.RegisterInstance(this).As<IDisposable>();
+            context.UseUnityEventLoop();
+
+            return context.Build();
         }
+        
         protected abstract IContext GetCurrentContext();
-
-        private IInstallation? installation;
-        private IInstallation Installation
-        {
-            get
-            {
-                if (installation == null)
-                {
-                    var installationList
-                        = GetEntryPointList().Select(entrypoint => entrypoint.Installation).ToArray();
-                    installation = new Installation(installationList);
-                }
-
-                return installation;
-            }
-        }
-        protected abstract IEnumerable<IEntryPoint> GetEntryPointList();
+        protected abstract IEnumerable<IInstallation> GetInstallationList();
         
         // TODO: Make this method public if needed.
         private void Build()
