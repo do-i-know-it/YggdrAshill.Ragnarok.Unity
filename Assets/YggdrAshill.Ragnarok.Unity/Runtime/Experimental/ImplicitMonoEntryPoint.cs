@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok.Experimental
 {
+    [DisallowMultipleComponent]
     public sealed class ImplicitMonoEntryPoint : MonoEntryPoint
     {
         protected override IEnumerable<IInstallation> InstallationList => GetInstallationList(transform);
