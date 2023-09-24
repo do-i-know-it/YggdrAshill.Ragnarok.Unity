@@ -14,16 +14,16 @@ namespace YggdrAshill.Ragnarok
 
         protected override IContext GetCurrentContext()
         {
-            var parent = transform.parent;
+            var target = transform.parent;
 
-            while (parent != null)
+            while (target != null)
             {
-                if (parent.TryGetComponent<Lifecycle>(out var lifecycle))
+                if (target.TryGetComponent<Lifecycle>(out var lifecycle))
                 {
                     return lifecycle.CreateChildContext();
                 }
 
-                parent = parent.parent;
+                target = target.parent;
             }
 
             var sceneLifecycle = SceneLifecycle.InstanceOf(gameObject.scene);
