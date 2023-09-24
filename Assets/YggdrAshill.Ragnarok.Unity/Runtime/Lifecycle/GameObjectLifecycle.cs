@@ -1,4 +1,5 @@
 #nullable enable
+using YggdrAshill.Ragnarok.Experimental;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,11 +48,23 @@ namespace YggdrAshill.Ragnarok
             return new UnityDependencyContext();
         }
 
+        [SerializeField] private ScriptableInstallation[] scriptableInstallationList = Array.Empty<ScriptableInstallation>();
+        private IEnumerable<IInstallation> ScriptableInstallationList => scriptableInstallationList;
+        
+        [SerializeField] private MonoInstallation[] monoInstallationList = Array.Empty<MonoInstallation>();
+        private IEnumerable<IInstallation> MonoInstallationList => monoInstallationList;
+
         [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();
         [SerializeField] private MonoEntryPoint[] monoEntryPointList = Array.Empty<MonoEntryPoint>();
         protected override IEnumerable<IInstallation> GetInstallationList()
         {
-            return scriptableEntryPointList.Select(entryPoint => entryPoint.Installation).Concat(monoEntryPointList.Select(entryPoint => entryPoint.Installation));
+            var scriptableEntryPointInstallationList 
+                = scriptableEntryPointList.Select(entryPoint => entryPoint.Installation);
+            var monoEntryPointInstallationList
+                = monoEntryPointList.Select(entryPoint => entryPoint.Installation);
+
+            return ScriptableInstallationList.Concat(MonoInstallationList)
+                .Concat(scriptableEntryPointInstallationList).Concat(monoEntryPointInstallationList);
         }
     }
 }

@@ -216,7 +216,6 @@ GameObject:
   m_Component:
   - component: {fileID: 284421898}
   - component: {fileID: 284421897}
-  - component: {fileID: 284421899}
   - component: {fileID: 284421900}
   m_Layer: 0
   m_Name: SceneLifecycle
@@ -238,10 +237,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runAutomatically: 1
-  scriptableEntryPointList: []
-  monoEntryPointList:
-  - {fileID: 284421899}
+  scriptableInstallationList: []
+  monoInstallationList:
   - {fileID: 284421900}
+  scriptableEntryPointList: []
+  monoEntryPointList: []
 --- !u!4 &284421898
 Transform:
   m_ObjectHideFlags: 0
@@ -256,20 +256,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &284421899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284421896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a44dc94080774162a5b5898296bb1201, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputSender: {fileID: 741508841242122804, guid: d1dff634bb0f2a84299bd332e3654af4, type: 3}
-  outputReceiver: {fileID: 1013876014655579275, guid: bdc1627bc81ba6346bb952cf3293490f, type: 3}
 --- !u!114 &284421900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,11 +265,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 284421896}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e084afecf2a64b1fa68846c2f117c875, type: 3}
+  m_Script: {fileID: 11500000, guid: b47942db994d44ba8f302996fff96847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputOffset: {x: 0, y: 0}
   outputOffset: {x: 0, y: 0, z: 0}
+  inputSender: {fileID: 741508841242122804, guid: d1dff634bb0f2a84299bd332e3654af4, type: 3}
+  outputReceiver: {fileID: 1013876014655579275, guid: bdc1627bc81ba6346bb952cf3293490f, type: 3}
 --- !u!1 &787079696
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,9 +396,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runAutomatically: 1
-  scriptableEntryPointList: []
-  monoEntryPointList:
+  scriptableInstallationList: []
+  monoInstallationList:
   - {fileID: 1548091358}
+  scriptableEntryPointList: []
+  monoEntryPointList: []
 --- !u!4 &1548091357
 Transform:
   m_ObjectHideFlags: 0
@@ -434,7 +424,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1548091355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eff9849fb5e4c0684d4083245425a3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c2c6a7c31cb47009ec8e8723ffaa865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &692179149058563170
@@ -463,9 +453,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8a75fb41a342779725503494fb1206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableEntryPointList: []
-  monoEntryPointList:
+  scriptableInstallationList: []
+  monoInstallationList:
   - {fileID: 3274793823543311654}
+  scriptableEntryPointList: []
+  monoEntryPointList: []
 --- !u!1 &3274793823543311653
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +485,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3274793823543311653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e76ddb68ccd4e3583b5ec231068bc5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 33be713ba38b414c91fd08edb21a5189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   instance: {fileID: 9212610792494064795}

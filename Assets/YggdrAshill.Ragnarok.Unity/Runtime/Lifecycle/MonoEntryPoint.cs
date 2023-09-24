@@ -1,8 +1,10 @@
 #nullable enable
+using System;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    [Obsolete("Use Experimental.MonoInstallation instead.")]
     public abstract class MonoEntryPoint : MonoBehaviour,
         IEntryPoint
     {

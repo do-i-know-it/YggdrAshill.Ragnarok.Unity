@@ -1,8 +1,10 @@
 #nullable enable
+using System;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    [Obsolete("Use Experimental.ScriptableInstallation instead.")]
     public abstract class ScriptableEntryPoint : ScriptableObject,
         IEntryPoint
     {
