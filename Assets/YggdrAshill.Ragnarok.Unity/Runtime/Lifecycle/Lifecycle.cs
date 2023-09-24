@@ -11,14 +11,33 @@ namespace YggdrAshill.Ragnarok
         IDisposable
     {
         private IScope? scope;
+        // TODO: Make this method public if needed.
         private IScope Scope
         {
             get
             {
-                Build();
+                if (scope == null)
+                {
+                    scope = BuildInternally();
+                }
 
-                return scope!;
+                return scope;
             }
+        }
+
+        private IScope BuildInternally()
+        {
+            Installation.Install(CurrentContext);
+
+            Configure(CurrentContext);
+
+            return CurrentContext.Build();
+        }
+        
+        private void Configure(IContainer container)
+        {
+            container.RegisterInstance(this).As<IDisposable>();
+            container.UseUnityEventLoop();
         }
         
         private IContext? currentContext;
@@ -52,7 +71,8 @@ namespace YggdrAshill.Ragnarok
             }
         }
         protected abstract IEnumerable<IEntryPoint> GetEntryPointList();
-
+        
+        // TODO: Make this method public if needed.
         private void Build()
         {
             if (scope != null)
@@ -60,16 +80,7 @@ namespace YggdrAshill.Ragnarok
                 return;
             }
 
-            Installation.Install(CurrentContext);
-
-            Configure(CurrentContext);
-
-            scope = CurrentContext.Build();
-        }
-        private void Configure(IContainer container)
-        {
-            container.RegisterInstance(this).As<IDisposable>();
-            container.UseUnityEventLoop();
+            scope = BuildInternally();
         }
 
         public IContext CreateChildContext()
