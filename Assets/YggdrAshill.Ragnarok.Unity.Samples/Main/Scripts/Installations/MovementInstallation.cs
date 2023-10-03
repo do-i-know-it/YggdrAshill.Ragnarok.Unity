@@ -7,7 +7,7 @@ namespace YggdrAshill.Ragnarok.Unity.Samples
     {
         [SerializeField] private GameObject instance;
 
-        public override void Install(IContainer container)
+        public override void Install(IObjectContainer container)
         {
             container.RegisterComponent<IMovement>(instance);
         }

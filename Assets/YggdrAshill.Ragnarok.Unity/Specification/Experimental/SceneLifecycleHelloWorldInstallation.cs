@@ -22,7 +22,7 @@ namespace YggdrAshill.Ragnarok.Unity.Specification
             }
         }
         
-        public override void Install(IContainer container)
+        public override void Install(IObjectContainer container)
         {
             container.Register<HelloWorld>(Lifetime.Global);
             container.Register(resolver => resolver.Resolve<HelloWorld>().Execute());

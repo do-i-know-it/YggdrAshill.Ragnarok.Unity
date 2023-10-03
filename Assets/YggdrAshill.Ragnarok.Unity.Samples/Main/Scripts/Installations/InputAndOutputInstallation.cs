@@ -11,19 +11,17 @@ namespace YggdrAshill.Ragnarok.Unity.Samples
         [SerializeField] private InputSender inputSender;
         [SerializeField] private OutputReceiver outputReceiver;
         
-        public override void Install(IContainer container)
+        public override void Install(IObjectContainer container)
         {
             container.RegisterComponentInNewPrefab<IInputSender, InputSender>(inputSender, Lifetime.Global);
             container.RegisterComponentInNewPrefab<IOutputReceiver, OutputReceiver>(outputReceiver, Lifetime.Global);
             
             container.RegisterComponentOnNewGameObject<IInputOffset, InputOffset>(Lifetime.Global)
                 .Under(transform)
-                .WithFieldsInjected()
-                .From("offset", inputOffset);
+                .WithField(inputOffset);
             container.RegisterComponentOnNewGameObject<IOutputOffset, OutputOffset>(Lifetime.Global)
                 .Under(transform)
-                .WithFieldsInjected()
-                .From("offset", outputOffset);
+                .WithField(outputOffset);
         }
     }
 }

@@ -1,19 +1,17 @@
 #nullable enable
-using System;
-using System.Collections.Generic;
-
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add diagnostics.
-    // TODO: add document comments.
     /// <summary>
-    /// Implementation of <see cref="IContext"/> using <see cref="DependencyInjectionContext"/>.
+    /// Implementation of <see cref="IObjectContext"/> using <see cref="DependencyContext"/>.
     /// </summary>
-    public sealed class UnityDependencyContext :
-        IContext
+    public sealed class UnityDependencyContext : IObjectContext
     {
         private readonly DependencyContext context;
 
+        /// <summary>
+        /// Create default <see cref="UnityDependencyContext"/>.
+        /// </summary>
         public UnityDependencyContext() :
 #if UNITY_IOS
             this(ReflectionSolver.Instance)
@@ -28,40 +26,26 @@ namespace YggdrAshill.Ragnarok
         {
             context = new DependencyContext(solver);
         }
+
+        /// <inheritdoc/>
+        public IObjectResolver Resolver => context.Resolver;
+
+        /// <inheritdoc/>
+        public ICompilation Compilation => context.Compilation;
+
+        /// <inheritdoc/>
+        public IRegistration Registration => context.Registration;
+
+        /// <inheritdoc/>
+        public IObjectContext CreateContext()
+        {
+            return context.CreateContext();
+        }
         
-        public IInstantiation GetInstantiation(Type type, IReadOnlyList<IParameter> parameterList)
+        /// <inheritdoc/>
+        public IObjectScope CreateScope()
         {
-            return context.GetInstantiation(type, parameterList);
-        }
-
-        public IInjection GetFieldInjection(Type type, IReadOnlyList<IParameter> parameterList)
-        {
-            return context.GetFieldInjection(type, parameterList);
-        }
-
-        public IInjection GetPropertyInjection(Type type, IReadOnlyList<IParameter> parameterList)
-        {
-            return context.GetPropertyInjection(type, parameterList);
-        }
-
-        public IInjection GetMethodInjection(Type type, IReadOnlyList<IParameter> parameterList)
-        {
-            return context.GetMethodInjection(type, parameterList);
-        }
-
-        public void Register(IComposition composition)
-        {
-            context.Register(composition);
-        }
-
-        public void Register(Action<IResolver> callback)
-        {
-            context.Register(callback);
-        }
-
-        public IScope Build()
-        {
-            return context.Build();
+            return context.CreateScope();
         }
     }
 }

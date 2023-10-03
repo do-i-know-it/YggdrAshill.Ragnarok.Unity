@@ -7,13 +7,39 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DefaultExecutionOrder(LifecycleExecutionOrder.GameObject)]
     public sealed class GameObjectLifecycle : Lifecycle
     {
+        public static GameObjectLifecycle Create(GameObjectLifecycle prefab, Transform? parent = null)
+        {
+            var wasActive = prefab.gameObject.activeSelf;
+            
+            if (wasActive)
+            {
+                prefab.gameObject.SetActive(false);
+            }
+            
+            var instance = Instantiate(prefab);
+
+            if (parent != null)
+            {
+                instance.transform.SetParent(parent, false);
+            }
+            
+            if (wasActive)
+            {
+                prefab.gameObject.SetActive(true);
+                instance.gameObject.SetActive(true);
+            }
+
+            return instance;
+        }
+
         [SerializeField] private bool runAutomatically = true;
         protected override bool RunAutomatically => runAutomatically;
 
-        protected override IContext GetCurrentContext()
+        protected override IObjectContext GetCurrentContext()
         {
             var target = transform.parent;
 

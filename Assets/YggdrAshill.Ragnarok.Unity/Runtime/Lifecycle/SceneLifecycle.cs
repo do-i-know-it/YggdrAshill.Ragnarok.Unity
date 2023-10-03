@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DefaultExecutionOrder(LifecycleExecutionOrder.Scene)]
     public sealed class SceneLifecycle : Lifecycle
     {
@@ -30,7 +31,7 @@ namespace YggdrAshill.Ragnarok
             return null;
         }
         
-        private static Stack<SceneLifecycle> OverriddenLifecycleStack { get; } = new Stack<SceneLifecycle>();
+        private static Stack<SceneLifecycle> OverriddenLifecycleStack { get; } = new();
         public static SceneLifecycle? OverriddenLifecycle
         {
             get
@@ -44,8 +45,7 @@ namespace YggdrAshill.Ragnarok
             }
         }
 
-        public readonly struct OverrideParentLifecycleScope :
-            IDisposable
+        public readonly struct OverrideParentLifecycleScope : IDisposable
         {
             private readonly bool isInitialized;
 
@@ -74,7 +74,7 @@ namespace YggdrAshill.Ragnarok
         [SerializeField] private bool runAutomatically = true;
         protected override bool RunAutomatically => runAutomatically;
         
-        protected override IContext GetCurrentContext()
+        protected override IObjectContext GetCurrentContext()
         {
             var sceneLifecycle = OverriddenLifecycle;
             if (sceneLifecycle != null)

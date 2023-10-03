@@ -1,25 +1,24 @@
 #nullable enable
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
-    internal sealed class InstantiateNewPrefab :
-        IInstantiation
+    internal sealed class CreateComponentInNewPrefab : IInstantiation
     {
         private readonly Component prefab;
         private readonly IInjection? injection;
         private readonly IAnchor? anchor;
         private readonly bool dontDestroyOnLoad;
         
-        public InstantiateNewPrefab(Component prefab, IInjection? injection, IAnchor? anchor, bool dontDestroyOnLoad)
+        public CreateComponentInNewPrefab(Component prefab, IInjection? injection, IAnchor? anchor, bool dontDestroyOnLoad)
         {
             this.prefab = prefab;
             this.injection = injection;
             this.anchor = anchor;
             this.dontDestroyOnLoad = dontDestroyOnLoad;
         }
-
-        public object Instantiate(IResolver resolver)
+        
+        public object Instantiate(IObjectResolver resolver)
         {
             var wasActive = prefab.gameObject.activeSelf;
             
@@ -30,21 +29,16 @@ namespace YggdrAshill.Ragnarok.Unity
 
             var component = Object.Instantiate(prefab);
 
-            var parentTransform = anchor?.GetParentTransform();
+            var parent = anchor?.GetTransform();
 
-            if (parentTransform != null)
+            if (parent != null)
             {
-                component.transform.SetParent(parentTransform, false);
+                component.transform.SetParent(parent, false);
             }
             
             try
             {
                 injection?.Inject(resolver, component);
-                
-                if (dontDestroyOnLoad)
-                {
-                    Object.DontDestroyOnLoad(component);
-                }
             }
             finally
             {
@@ -53,6 +47,11 @@ namespace YggdrAshill.Ragnarok.Unity
                     prefab.gameObject.SetActive(true);
                     component.gameObject.SetActive(true);
                 }
+            }
+            
+            if (dontDestroyOnLoad)
+            {
+                Object.DontDestroyOnLoad(component);
             }
 
             return component;

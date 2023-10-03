@@ -1,18 +1,16 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Unity;
 using System;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    internal sealed class Anchor :
-        IAnchor
+    internal sealed class Anchor : IAnchor
     {
-        private readonly Func<Transform> getParentTransform;
+        private readonly Func<Transform> getTransform;
 
-        public Anchor(Func<Transform> getParentTransform)
+        public Anchor(Func<Transform> getTransform)
         {
-            this.getParentTransform = getParentTransform;
+            this.getTransform = getTransform;
         }
 
         public Anchor(Transform parentTransform) : this(() => parentTransform)
@@ -20,9 +18,9 @@ namespace YggdrAshill.Ragnarok
             
         }
 
-        public Transform GetParentTransform()
+        public Transform GetTransform()
         {
-            return getParentTransform.Invoke();
+            return getTransform.Invoke();
         }
     }
 }

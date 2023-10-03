@@ -1,10 +1,10 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Unity;
 using System;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     public static class ComponentInjectionExtension
     {
         public static IInstanceInjection Under(this IComponentInjection injection, Func<Transform> anchor)

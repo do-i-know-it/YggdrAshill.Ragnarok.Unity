@@ -7,7 +7,7 @@ namespace YggdrAshill.Ragnarok.Experimental
     {
         protected abstract IEnumerable<IInstallation> InstallationList { get; }
 
-        public sealed override void Install(IContainer container)
+        public sealed override void Install(IObjectContainer container)
         {
             foreach (var installation in InstallationList)
             {

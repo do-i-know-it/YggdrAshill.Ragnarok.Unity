@@ -7,10 +7,11 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DefaultExecutionOrder(LifecycleExecutionOrder.Project)]
-    internal sealed class ProjectLifecycle : Lifecycle
+    public sealed class ProjectLifecycle : Lifecycle
     {
-        private static readonly object lockObject = new object();
+        private static readonly object lockObject = new();
         private static volatile ProjectLifecycle? instance;
         public static ProjectLifecycle? Instance
         {
@@ -35,7 +36,7 @@ namespace YggdrAshill.Ragnarok
 
         protected override bool RunAutomatically => true;
 
-        protected override IContext GetCurrentContext()
+        protected override IObjectContext GetCurrentContext()
         {
             return new UnityDependencyContext();
         }

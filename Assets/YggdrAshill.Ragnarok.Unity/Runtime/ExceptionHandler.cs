@@ -3,8 +3,7 @@ using System;
 
 namespace YggdrAshill.Ragnarok
 {
-    internal sealed class ExceptionHandler :
-        IExceptionHandler
+    internal sealed class ExceptionHandler : IExceptionHandler
     {
         private readonly Action<Exception> onExecuted;
 

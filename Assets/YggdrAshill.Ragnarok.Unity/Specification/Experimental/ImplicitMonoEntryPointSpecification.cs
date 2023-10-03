@@ -37,14 +37,14 @@ namespace YggdrAshill.Ragnarok.Unity.Specification
             }
         }
         
-        public override void Install(IContainer container)
+        public override void Install(IObjectContainer container)
         {
             container.Register<HelloWorld>(Lifetime.Temporal).WithArgument(nameof(target), Target);
             container.Register(resolver =>
             {
-                foreach (var helloworld in resolver.Resolve<IEnumerable<HelloWorld>>())
+                foreach (var service in resolver.Resolve<IEnumerable<HelloWorld>>())
                 {
-                    helloworld.Execute();
+                    service.Execute();
                 }
             });
         }

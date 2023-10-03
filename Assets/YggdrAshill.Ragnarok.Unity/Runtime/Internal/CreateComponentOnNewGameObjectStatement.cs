@@ -1,0 +1,104 @@
+#nullable enable
+using System;
+using System.Collections.Generic;
+
+namespace YggdrAshill.Ragnarok
+{
+    // TODO: add document comments.
+    public sealed class CreateComponentOnNewGameObjectStatement : IComponentInjection, IStatement
+    {
+        private readonly string? objectName;
+        private readonly InstanceInjectionSource source;
+        private readonly Lazy<IInstantiation> instantiationCache;
+        
+        public Lifetime Lifetime { get; }
+
+        public CreateComponentOnNewGameObjectStatement(ICompilation compilation, Type type, Lifetime lifetime, string? objectName)
+        {
+            this.objectName = objectName;
+            source = new InstanceInjectionSource(type, compilation);
+            instantiationCache = new Lazy<IInstantiation>(CreateInstantiation);
+            Lifetime = lifetime;
+        }
+
+        private IInstantiation CreateInstantiation()
+        {
+            if (!source.CanInjectIntoInstance(out var injection))
+            {
+                return new CreateComponentOnNewGameObject(ImplementedType, null, candidate, objectName, dontDestroyOnLoad);
+            }
+
+            return new CreateComponentOnNewGameObject(ImplementedType, injection, candidate, objectName, dontDestroyOnLoad);
+        }
+        
+        private IAnchor? candidate;
+        private bool dontDestroyOnLoad;
+        
+        public Type ImplementedType => source.ImplementedType;
+        
+        public IReadOnlyList<Type> AssignedTypeList => source.AssignedTypeList;
+        
+        public Ownership Ownership => Ownership.Internal;
+        
+        public IInstantiation Instantiation => instantiationCache.Value;
+
+        public void AsOwnSelf()
+        {
+            source.AsOwnSelf();
+        }
+
+        public IInheritedTypeAssignment As(Type inheritedType)
+        {
+            return source.As(inheritedType);
+        }
+
+        public IOwnTypeAssignment AsImplementedInterfaces()
+        {
+            return source.AsImplementedInterfaces();
+        }
+
+        public IMethodInjection WithMethod(IParameter parameter)
+        {
+            return source.WithMethod(parameter);
+        }
+
+        public IMethodInjection WithMethodInjection()
+        {
+            return source.WithMethodInjection();
+        }
+
+        public IPropertyInjection WithProperty(IParameter parameter)
+        {
+            return source.WithProperty(parameter);
+        }
+
+        public IPropertyInjection WithPropertyInjection()
+        {
+            return source.WithPropertyInjection();
+        }
+
+        public IFieldInjection WithField(IParameter parameter)
+        {
+            return source.WithField(parameter);
+        }
+
+        public IFieldInjection WithFieldInjection()
+        {
+            return source.WithFieldInjection();
+        }
+        
+        public IInstanceInjection Under(IAnchor anchor)
+        {
+            candidate = anchor;
+
+            return this;
+        }
+        
+        public IInstanceInjection DontDestroyOnLoad()
+        {
+            dontDestroyOnLoad = true;
+
+            return this;
+        }
+    }
+}

@@ -5,13 +5,12 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DisallowMultipleComponent]
-    public abstract class Lifecycle : MonoBehaviour,
-        IDisposable
+    public abstract class Lifecycle : MonoBehaviour, IDisposable
     {
-        private IScope? scope;
-        // TODO: Make this method public if needed.
-        private IScope Scope
+        private IObjectScope? scope;
+        private IObjectScope Scope
         {
             get
             {
@@ -24,7 +23,9 @@ namespace YggdrAshill.Ragnarok
             }
         }
 
-        private IScope BuildInternally()
+        public IObjectResolver Resolver => Scope.Resolver;
+
+        private IObjectScope BuildInternally()
         {
             var context = GetCurrentContext();
 
@@ -33,13 +34,13 @@ namespace YggdrAshill.Ragnarok
                 installation.Install(context);
             }
             
-            context.RegisterInstance(this).AsSelf();
+            context.RegisterInstance(this).AsOwnSelf();
             context.UseUnityEventLoop();
 
-            return context.Build();
+            return context.CreateScope();
         }
         
-        protected abstract IContext GetCurrentContext();
+        protected abstract IObjectContext GetCurrentContext();
         protected abstract IEnumerable<IInstallation> GetInstallationList();
         
         // TODO: Make this method public if needed.
@@ -53,7 +54,7 @@ namespace YggdrAshill.Ragnarok
             scope = BuildInternally();
         }
 
-        public IContext CreateChildContext()
+        public IObjectContext CreateChildContext()
         {
             return Scope.CreateContext();
         }

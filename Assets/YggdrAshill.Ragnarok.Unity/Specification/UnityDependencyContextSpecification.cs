@@ -19,7 +19,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             parentContext.RegisterComponentOnNewGameObject<NoDependencyComponent>(Lifetime.Temporal);
 
-            using var parentScope = parentContext.Build();
+            using var parentScope = parentContext.CreateScope();
 
             var component1 = parentScope.Resolver.Resolve<NoDependencyComponent>();
             var component2 = parentScope.Resolver.Resolve<NoDependencyComponent>();
@@ -41,7 +41,7 @@ namespace YggdrAshill.Ragnarok.Specification
            
             parentContext.RegisterComponentOnNewGameObject<NoDependencyComponent>(Lifetime.Local);
 
-            using var parentScope = parentContext.Build();
+            using var parentScope = parentContext.CreateScope();
 
             var component1 = parentScope.Resolver.Resolve<NoDependencyComponent>();
             var component2 = parentScope.Resolver.Resolve<NoDependencyComponent>();
@@ -63,7 +63,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             parentContext.RegisterComponentOnNewGameObject<NoDependencyComponent>(Lifetime.Global);
 
-            using var parentScope = parentContext.Build();
+            using var parentScope = parentContext.CreateScope();
 
             var component1 = parentScope.Resolver.Resolve<NoDependencyComponent>();
             var component2 = parentScope.Resolver.Resolve<NoDependencyComponent>();
@@ -87,7 +87,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             context.RegisterComponentOnNewGameObject<NoDependencyComponent>(Lifetime.Temporal).Under(parent);
 
-            using var scope = context.Build();
+            using var scope = context.CreateScope();
 
             var component = scope.Resolver.Resolve<NoDependencyComponent>();
             
@@ -103,7 +103,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             parentContext.RegisterComponentInNewPrefab(prefab, Lifetime.Temporal);
 
-            using var parentScope = parentContext.Build();
+            using var parentScope = parentContext.CreateScope();
 
             var component1 = parentScope.Resolver.Resolve<NoDependencyComponent>();
             var component2 = parentScope.Resolver.Resolve<NoDependencyComponent>();
@@ -127,7 +127,7 @@ namespace YggdrAshill.Ragnarok.Specification
 
             parentContext.RegisterComponentInNewPrefab(prefab, Lifetime.Local);
 
-            using var parentScope = parentContext.Build();
+            using var parentScope = parentContext.CreateScope();
 
             var component1 = parentScope.Resolver.Resolve<NoDependencyComponent>();
             var component2 = parentScope.Resolver.Resolve<NoDependencyComponent>();
@@ -151,7 +151,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             parentContext.RegisterComponentInNewPrefab(prefab, Lifetime.Global);
 
-            using var parentScope = parentContext.Build();
+            using var parentScope = parentContext.CreateScope();
 
             var component1 = parentScope.Resolver.Resolve<NoDependencyComponent>();
             var component2 = parentScope.Resolver.Resolve<NoDependencyComponent>();
@@ -176,7 +176,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             context.RegisterComponentInNewPrefab(prefab, Lifetime.Temporal).Under(parent);
 
-            using var scope = context.Build();
+            using var scope = context.CreateScope();
 
             var component = scope.Resolver.Resolve<NoDependencyComponent>();
             
@@ -192,7 +192,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             context.RegisterComponent(component);
 
-            using var scope = context.Build();
+            using var scope = context.CreateScope();
 
             var resolved = scope.Resolver.Resolve<NoDependencyComponent>();
             
@@ -208,7 +208,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             context.RegisterComponent<NoDependencyComponent>(component.gameObject);
 
-            using var scope = context.Build();
+            using var scope = context.CreateScope();
 
             var resolved = scope.Resolver.Resolve<NoDependencyComponent>();
             
@@ -223,7 +223,7 @@ namespace YggdrAshill.Ragnarok.Specification
             context.Register<UnityEventLoop>(Lifetime.Global).AsImplementedInterfaces();
             context.UseUnityEventLoop();
 
-            var scope = context.Build();
+            var scope = context.CreateScope();
 
             var initializable = scope.Resolver.Resolve<IInitializable>();
             var preUpdatable = scope.Resolver.Resolve<IPreUpdatable>();

@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok.Experimental
 {
-    public abstract class ScriptableInstallation : ScriptableObject,
-        IInstallation
+    // TODO: add document comments.
+    public abstract class ScriptableInstallation : ScriptableObject, IInstallation
     {
-        public abstract void Install(IContainer container);
+        public abstract void Install(IObjectContainer container);
     }
 }

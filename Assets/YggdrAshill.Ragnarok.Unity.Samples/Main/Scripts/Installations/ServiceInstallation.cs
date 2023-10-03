@@ -4,9 +4,9 @@ namespace YggdrAshill.Ragnarok.Unity.Samples
 {
     internal sealed class ServiceInstallation : MonoInstallation
     {
-        public override void Install(IContainer container)
+        public override void Install(IObjectContainer container)
         {
-            container.Register<Service>(Lifetime.Global).AsImplementedInterfaces();
+            container.RegisterEntryPoint<Service>();
         }
     }
 }

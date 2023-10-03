@@ -1,8 +1,8 @@
 #nullable enable
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
-    public interface IComponentInjection :
-        IInstanceInjection
+    // TODO: add document comments.
+    public interface IComponentInjection : IInstanceInjection
     {
         IInstanceInjection Under(IAnchor anchor);
         

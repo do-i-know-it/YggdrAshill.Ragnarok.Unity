@@ -1,11 +1,11 @@
 #nullable enable
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity
+namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
     public interface IAnchor
     {
-        Transform GetParentTransform();
+        Transform GetTransform();
     }
 }

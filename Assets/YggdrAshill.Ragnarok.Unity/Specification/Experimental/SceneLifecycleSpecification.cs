@@ -1,6 +1,6 @@
 #nullable enable
-using System.Collections;
 using YggdrAshill.Ragnarok.Experimental;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,7 +47,7 @@ namespace YggdrAshill.Ragnarok.Unity.Specification
             }
         }
         
-        public override void Install(IContainer container)
+        public override void Install(IObjectContainer container)
         {
             container.RegisterComponent(Target);
             container.Register<LoadAdditiveScene>(Lifetime.Global);

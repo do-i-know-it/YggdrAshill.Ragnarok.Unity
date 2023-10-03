@@ -5,8 +5,7 @@ using UnityEngine;
 namespace YggdrAshill.Ragnarok
 {
     [Obsolete("Use Experimental.ScriptableInstallation instead.")]
-    public abstract class ScriptableEntryPoint : ScriptableObject,
-        IEntryPoint
+    public abstract class ScriptableEntryPoint : ScriptableObject, IEntryPoint
     {
         private IInstallation? installation;
         public IInstallation Installation
@@ -21,6 +20,6 @@ namespace YggdrAshill.Ragnarok
                 return installation;
             }
         }
-        protected abstract void Configure(IContainer container);
+        protected abstract void Configure(IObjectContainer container);
     }
 }
