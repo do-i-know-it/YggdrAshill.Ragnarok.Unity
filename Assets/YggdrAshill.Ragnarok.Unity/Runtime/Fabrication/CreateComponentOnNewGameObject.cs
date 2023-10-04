@@ -9,10 +9,10 @@ namespace YggdrAshill.Ragnarok
         private readonly Type type;
         private readonly IInjection? injection;
         private readonly IAnchor? anchor;
-        private readonly string? objectName;
+        private readonly IObjectName? objectName;
         private readonly bool dontDestroyOnLoad;
         
-        public CreateComponentOnNewGameObject(Type type, IInjection? injection, IAnchor? anchor, string? objectName, bool dontDestroyOnLoad)
+        public CreateComponentOnNewGameObject(Type type, IInjection? injection, IAnchor? anchor, IObjectName? objectName, bool dontDestroyOnLoad)
         {
             this.type = type;
             this.injection = injection;
@@ -23,7 +23,7 @@ namespace YggdrAshill.Ragnarok
         
         public object Instantiate(IObjectResolver resolver)
         {
-            var name = string.IsNullOrEmpty(objectName) ? type.Name : objectName;
+            var name = objectName == null ? type.Name : objectName.GetName();
             
             var gameObject = new GameObject(name);
             

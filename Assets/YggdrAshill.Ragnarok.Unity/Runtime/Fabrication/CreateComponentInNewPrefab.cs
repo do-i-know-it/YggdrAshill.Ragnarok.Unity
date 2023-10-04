@@ -8,13 +8,15 @@ namespace YggdrAshill.Ragnarok
         private readonly Component prefab;
         private readonly IInjection? injection;
         private readonly IAnchor? anchor;
+        private readonly IObjectName? objectName;
         private readonly bool dontDestroyOnLoad;
         
-        public CreateComponentInNewPrefab(Component prefab, IInjection? injection, IAnchor? anchor, bool dontDestroyOnLoad)
+        public CreateComponentInNewPrefab(Component prefab, IInjection? injection, IAnchor? anchor, IObjectName? objectName, bool dontDestroyOnLoad)
         {
             this.prefab = prefab;
             this.injection = injection;
             this.anchor = anchor;
+            this.objectName = objectName;
             this.dontDestroyOnLoad = dontDestroyOnLoad;
         }
         
@@ -29,6 +31,13 @@ namespace YggdrAshill.Ragnarok
 
             var component = Object.Instantiate(prefab);
 
+            var name = objectName?.GetName();
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                component.name = name;
+            }
+            
             var parent = anchor?.GetTransform();
 
             if (parent != null)

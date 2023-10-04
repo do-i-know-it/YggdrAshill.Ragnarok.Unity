@@ -5,17 +5,15 @@ using System.Collections.Generic;
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
-    public sealed class CreateComponentOnNewGameObjectStatement : IComponentInjection, IStatement
+    public sealed class CreateComponentOnNewGameObjectStatement : ICreatedComponentInjection, IStatement
     {
-        private readonly string? objectName;
         private readonly InstanceInjectionSource source;
         private readonly Lazy<IInstantiation> instantiationCache;
         
         public Lifetime Lifetime { get; }
 
-        public CreateComponentOnNewGameObjectStatement(ICompilation compilation, Type type, Lifetime lifetime, string? objectName)
+        public CreateComponentOnNewGameObjectStatement(ICompilation compilation, Type type, Lifetime lifetime)
         {
-            this.objectName = objectName;
             source = new InstanceInjectionSource(type, compilation);
             instantiationCache = new Lazy<IInstantiation>(CreateInstantiation);
             Lifetime = lifetime;
@@ -23,15 +21,23 @@ namespace YggdrAshill.Ragnarok
 
         private IInstantiation CreateInstantiation()
         {
-            if (!source.CanInjectIntoInstance(out var injection))
+            var injection = CreateInjection();
+
+            return new CreateComponentOnNewGameObject(ImplementedType, injection, candidateAnchor, candidateName, dontDestroyOnLoad);
+        }
+
+        private IInjection? CreateInjection()
+        {
+            if (source.CanInjectIntoInstance(out var injection))
             {
-                return new CreateComponentOnNewGameObject(ImplementedType, null, candidate, objectName, dontDestroyOnLoad);
+                return injection;
             }
 
-            return new CreateComponentOnNewGameObject(ImplementedType, injection, candidate, objectName, dontDestroyOnLoad);
+            return null;
         }
-        
-        private IAnchor? candidate;
+
+        private IObjectName? candidateName;
+        private IAnchor? candidateAnchor;
         private bool dontDestroyOnLoad;
         
         public Type ImplementedType => source.ImplementedType;
@@ -89,7 +95,7 @@ namespace YggdrAshill.Ragnarok
         
         public IInstanceInjection Under(IAnchor anchor)
         {
-            candidate = anchor;
+            candidateAnchor = anchor;
 
             return this;
         }
@@ -97,6 +103,13 @@ namespace YggdrAshill.Ragnarok
         public IInstanceInjection DontDestroyOnLoad()
         {
             dontDestroyOnLoad = true;
+
+            return this;
+        }
+
+        public INamedComponentInjection Named(IObjectName name)
+        {
+            candidateName = name;
 
             return this;
         }

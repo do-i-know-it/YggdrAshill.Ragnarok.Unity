@@ -6,27 +6,32 @@ using UnityEngine;
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
-    public sealed class CreateComponentInNewPrefabStatement : ICreatedComponentInjection, IStatement
+    public sealed class ReturnComponentInGameObjectStatement : ISearchedComponentInjection, IStatement
     {
-        private readonly Component prefab;
+        private readonly GameObject instance;
+        private readonly SearchOrder order;
         private readonly InstanceInjectionSource source;
-        private readonly Lazy<IInstantiation> instantiationCache;
+        private readonly Lazy<IInstantiation> instantiation;
 
-        public Lifetime Lifetime { get; }
-
-        public CreateComponentInNewPrefabStatement(ICompilation compilation, Lifetime lifetime, Component prefab)
+        public ReturnComponentInGameObjectStatement(ICompilation compilation, Type type, GameObject instance, SearchOrder order)
         {
-            this.prefab = prefab;
-            source = new InstanceInjectionSource(prefab.GetType(), compilation);
-            instantiationCache = new Lazy<IInstantiation>(CreateInstantiation);
-            Lifetime = lifetime;
+            this.instance = instance;
+            this.order = order;
+            source = new InstanceInjectionSource(type, compilation);
+            instantiation = new Lazy<IInstantiation>(CreateInstantiation);
         }
 
         private IInstantiation CreateInstantiation()
         {
             var injection = CreateInjection();
-            
-            return new CreateComponentInNewPrefab(prefab, injection, candidateAnchor, candidateName, dontDestroyOnLoad);
+
+            return order switch
+            {
+                SearchOrder.Children => new ReturnComponentInChildren(instance, ImplementedType, includeInactive, injection),
+                SearchOrder.Parent => new ReturnComponentInParent(instance, ImplementedType, includeInactive, injection),
+                SearchOrder.Scene => new ReturnComponentInScene(instance, ImplementedType, includeInactive, injection),
+                _ => throw new NotSupportedException($"{order} is invalid."),
+            };
         }
 
         private IInjection? CreateInjection()
@@ -39,18 +44,18 @@ namespace YggdrAshill.Ragnarok
             return null;
         }
 
-        private IObjectName? candidateName;
-        private IAnchor? candidateAnchor;
-        private bool dontDestroyOnLoad;
-        
+        private bool includeInactive;
+
         public Type ImplementedType => source.ImplementedType;
-        
+
         public IReadOnlyList<Type> AssignedTypeList => source.AssignedTypeList;
         
-        public Ownership Ownership => Ownership.Internal;
+        public Lifetime Lifetime => Lifetime.Global;
         
-        public IInstantiation Instantiation => instantiationCache.Value;
+        public Ownership Ownership => Ownership.External;
 
+        public IInstantiation Instantiation => instantiation.Value;
+        
         public void AsOwnSelf()
         {
             source.AsOwnSelf();
@@ -95,24 +100,10 @@ namespace YggdrAshill.Ragnarok
         {
             return source.WithFieldInjection();
         }
-        
-        public IInstanceInjection Under(IAnchor anchor)
-        {
-            candidateAnchor = anchor;
 
-            return this;
-        }
-        
-        public IInstanceInjection DontDestroyOnLoad()
+        public IInstanceInjection IncludeInactive()
         {
-            dontDestroyOnLoad = true;
-
-            return this;
-        }
-
-        public INamedComponentInjection Named(IObjectName name)
-        {
-            candidateName = name;
+            includeInactive = true;
 
             return this;
         }

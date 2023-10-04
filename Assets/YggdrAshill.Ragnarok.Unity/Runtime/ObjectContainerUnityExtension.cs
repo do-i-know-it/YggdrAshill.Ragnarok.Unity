@@ -15,35 +15,22 @@ namespace YggdrAshill.Ragnarok
             return container.RegisterInstance(() => component);
         }
         
-        public static IInstanceInjection RegisterComponent<T>(this IObjectContainer container, GameObject instance)
+        public static ISearchedComponentInjection RegisterComponent<T>(this IObjectContainer container, GameObject instance, SearchOrder order = SearchOrder.Children)
             where T : notnull
         {
+            var statement = new ReturnComponentInGameObjectStatement(container.Compilation, typeof(T), instance, order);
+            
+            container.Registration.Register(statement);
+            
             container.Register(resolver => resolver.Resolve<T>());
 
-            return container.RegisterInstance(() => ReturnComponentInGameObject<T>(instance));
+            return statement;
         }
 
-        private static T ReturnComponentInGameObject<T>(GameObject instance)
-            where T : notnull
-        {
-            // TODO: instance.GetComponentInParent<T>(true)?
-            // TODO: includeInactive = false?
-            // TODO: var scene = instance.scene?
-            var component = instance.GetComponentInChildren<T>(true);
-
-            if (component == null)
-            {
-                var type = typeof(T);
-                throw new RagnarokException(type, $"{type} is not in {instance}.");
-            }
-            
-            return component;
-        }
-        
-        public static IComponentInjection RegisterComponentOnNewGameObject<TComponent>(this IObjectContainer container, Lifetime lifetime, string? objectName = null)
+        public static ICreatedComponentInjection RegisterComponentOnNewGameObject<TComponent>(this IObjectContainer container, Lifetime lifetime)
             where TComponent : Component
         {
-            var statement = new CreateComponentOnNewGameObjectStatement(container.Compilation, typeof(TComponent), lifetime, objectName);
+            var statement = new CreateComponentOnNewGameObjectStatement(container.Compilation, typeof(TComponent), lifetime);
             
             container.Registration.Register(statement);
 
@@ -52,18 +39,18 @@ namespace YggdrAshill.Ragnarok
             return statement;
         }
 
-        public static IComponentInjection RegisterComponentOnNewGameObject<TInterface, TComponent>(this IObjectContainer container, Lifetime lifetime, string? objectName = null)
+        public static ICreatedComponentInjection RegisterComponentOnNewGameObject<TInterface, TComponent>(this IObjectContainer container, Lifetime lifetime)
             where TInterface : notnull
             where TComponent : Component, TInterface
         {
-            var injection = container.RegisterComponentOnNewGameObject<TComponent>(lifetime, objectName);
+            var injection = container.RegisterComponentOnNewGameObject<TComponent>(lifetime);
 
             injection.As<TInterface>();
 
             return injection;
         }
         
-        public static IComponentInjection RegisterComponentInNewPrefab<TComponent>(this IObjectContainer container, TComponent prefab, Lifetime lifetime)
+        public static ICreatedComponentInjection RegisterComponentInNewPrefab<TComponent>(this IObjectContainer container, TComponent prefab, Lifetime lifetime)
             where TComponent : Component
         {
             var statement = new CreateComponentInNewPrefabStatement(container.Compilation, lifetime, prefab);
@@ -75,7 +62,7 @@ namespace YggdrAshill.Ragnarok
             return statement;
         }
 
-        public static IComponentInjection RegisterComponentInNewPrefab<TInterface, TComponent>(this IObjectContainer container, TComponent prefab, Lifetime lifetime)
+        public static ICreatedComponentInjection RegisterComponentInNewPrefab<TInterface, TComponent>(this IObjectContainer container, TComponent prefab, Lifetime lifetime)
             where TInterface : notnull
             where TComponent : Component, TInterface
         {

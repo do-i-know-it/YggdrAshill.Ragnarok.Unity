@@ -13,7 +13,7 @@ namespace YggdrAshill.Ragnarok
             this.getTransform = getTransform;
         }
 
-        public Anchor(Transform parentTransform) : this(() => parentTransform)
+        public Anchor(Transform parent) : this(() => parent)
         {
             
         }
