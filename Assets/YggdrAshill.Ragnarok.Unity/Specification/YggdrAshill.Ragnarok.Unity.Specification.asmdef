@@ -3,8 +3,6 @@
     "rootNamespace": "YggdrAshill.Ragnarok.Unity.Specification",
     "references": [
         "UnityEngine.TestRunner",
-        "YggdrAshill.Ragnarok.Unity.Annotation",
-        "YggdrAshill.Ragnarok.Unity.EventLoop",
         "YggdrAshill.Ragnarok.Unity"
     ],
     "includePlatforms": [],

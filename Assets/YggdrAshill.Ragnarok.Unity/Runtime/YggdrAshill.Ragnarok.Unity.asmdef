@@ -1,9 +1,7 @@
 {
     "name": "YggdrAshill.Ragnarok.Unity",
     "rootNamespace": "YggdrAshill.Ragnarok",
-    "references": [
-        "YggdrAshill.Ragnarok.Unity.EventLoop"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
