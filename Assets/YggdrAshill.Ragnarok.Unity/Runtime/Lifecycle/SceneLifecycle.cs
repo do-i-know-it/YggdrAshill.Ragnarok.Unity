@@ -79,13 +79,13 @@ namespace YggdrAshill.Ragnarok
             var sceneLifecycle = OverriddenLifecycle;
             if (sceneLifecycle != null)
             {
-                return sceneLifecycle.CreateChildContext();
+                return sceneLifecycle.CreateContext();
             }
 
             var projectLifecycle = ProjectLifecycle.Instance;
             if (projectLifecycle != null)
             {
-                return projectLifecycle.CreateChildContext();
+                return projectLifecycle.CreateContext();
             }
 
             return new UnityDependencyContext();

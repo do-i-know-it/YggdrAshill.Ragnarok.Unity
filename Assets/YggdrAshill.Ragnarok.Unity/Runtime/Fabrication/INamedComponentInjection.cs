@@ -2,10 +2,8 @@
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
-    public interface INamedComponentInjection : IInstanceInjection
+    public interface INamedComponentInjection : ICreatedComponentInjection
     {
-        IInstanceInjection Under(IAnchor anchor);
-        
-        IInstanceInjection DontDestroyOnLoad();
+        ICreatedComponentInjection Named(IObjectName name);
     }
 }

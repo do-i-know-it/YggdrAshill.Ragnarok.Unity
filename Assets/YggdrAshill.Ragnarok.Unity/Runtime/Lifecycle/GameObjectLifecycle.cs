@@ -47,7 +47,7 @@ namespace YggdrAshill.Ragnarok
             {
                 if (target.TryGetComponent<Lifecycle>(out var lifecycle))
                 {
-                    return lifecycle.CreateChildContext();
+                    return lifecycle.CreateContext();
                 }
 
                 target = target.parent;
@@ -56,19 +56,19 @@ namespace YggdrAshill.Ragnarok
             var sceneLifecycle = SceneLifecycle.InstanceOf(gameObject.scene);
             if (sceneLifecycle != null)
             {
-                return sceneLifecycle.CreateChildContext();
+                return sceneLifecycle.CreateContext();
             }
 
             sceneLifecycle = SceneLifecycle.OverriddenLifecycle;
             if (sceneLifecycle != null)
             {
-                return sceneLifecycle.CreateChildContext();
+                return sceneLifecycle.CreateContext();
             }
 
             var projectLifecycle = ProjectLifecycle.Instance;
             if (projectLifecycle != null)
             {
-                return projectLifecycle.CreateChildContext();
+                return projectLifecycle.CreateContext();
             }
 
             return new UnityDependencyContext();

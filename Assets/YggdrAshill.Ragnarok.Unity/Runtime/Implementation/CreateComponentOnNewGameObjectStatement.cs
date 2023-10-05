@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
-    public sealed class CreateComponentOnNewGameObjectStatement : ICreatedComponentInjection, IStatement
+    public sealed class CreateComponentOnNewGameObjectStatement : INamedComponentInjection, IStatement
     {
         private readonly InstanceInjectionSource source;
         private readonly Lazy<IInstantiation> instantiationCache;
@@ -107,7 +107,7 @@ namespace YggdrAshill.Ragnarok
             return this;
         }
 
-        public INamedComponentInjection Named(IObjectName name)
+        public ICreatedComponentInjection Named(IObjectName name)
         {
             candidateName = name;
 

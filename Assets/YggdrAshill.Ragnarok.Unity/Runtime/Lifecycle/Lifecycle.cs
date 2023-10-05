@@ -1,5 +1,4 @@
 #nullable enable
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
     [DisallowMultipleComponent]
-    public abstract class Lifecycle : MonoBehaviour, IDisposable
+    public abstract class Lifecycle : MonoBehaviour, IObjectScope
     {
         private IObjectScope? scope;
         private IObjectScope Scope
@@ -54,7 +53,7 @@ namespace YggdrAshill.Ragnarok
             scope = BuildInternally();
         }
 
-        public IObjectContext CreateChildContext()
+        public IObjectContext CreateContext()
         {
             return Scope.CreateContext();
         }

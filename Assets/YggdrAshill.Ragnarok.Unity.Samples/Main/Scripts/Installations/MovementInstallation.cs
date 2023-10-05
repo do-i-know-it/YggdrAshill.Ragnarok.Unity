@@ -9,7 +9,7 @@ namespace YggdrAshill.Ragnarok.Unity.Samples
 
         public override void Install(IObjectContainer container)
         {
-            container.RegisterComponent<IMovement>(instance);
+            container.RegisterComponent<IMovement>(instance, SearchOrder.Children);
         }
     }
 }

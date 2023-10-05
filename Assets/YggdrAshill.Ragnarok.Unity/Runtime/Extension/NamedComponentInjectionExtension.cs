@@ -1,20 +1,19 @@
 #nullable enable
 using System;
-using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add document comments.
     public static class NamedComponentInjectionExtension
     {
-        public static IInstanceInjection Under(this INamedComponentInjection injection, Func<Transform> anchor)
+        public static ICreatedComponentInjection Named(this INamedComponentInjection injection, Func<string> objectName)
         {
-            return injection.Under(new Anchor(anchor));
+            return injection.Named(new ObjectName(objectName));
         }
         
-        public static IInstanceInjection Under(this INamedComponentInjection injection, Transform parent)
+        public static ICreatedComponentInjection Named(this INamedComponentInjection injection, string objectName)
         {
-            return injection.Under(new Anchor(parent));
+            return injection.Named(new ObjectName(objectName));
         }
     }
 }

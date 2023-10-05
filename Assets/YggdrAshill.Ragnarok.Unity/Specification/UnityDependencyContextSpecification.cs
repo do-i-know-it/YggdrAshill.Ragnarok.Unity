@@ -5,7 +5,6 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Random = System.Random;
 
 namespace YggdrAshill.Ragnarok.Specification
 {
@@ -78,14 +77,16 @@ namespace YggdrAshill.Ragnarok.Specification
             Assert.That(component3, Is.EqualTo(component2));
         }
         
-        [Test]
-        public void ShouldResolveComponentOnNewGameObjectUnderTransform()
+        [TestCase(Lifetime.Global)]
+        [TestCase(Lifetime.Local)]
+        [TestCase(Lifetime.Temporal)]
+        public void ShouldResolveComponentOnNewGameObjectUnderTransform(Lifetime lifetime)
         {
             var parent = new GameObject("Parent").transform;
 
             var context = new UnityDependencyContext();
             
-            context.RegisterComponentOnNewGameObject<NoDependencyComponent>(Lifetime.Temporal).Under(parent);
+            context.RegisterComponentOnNewGameObject<NoDependencyComponent>(lifetime).Under(parent);
 
             using var scope = context.CreateScope();
 
@@ -166,15 +167,17 @@ namespace YggdrAshill.Ragnarok.Specification
             Assert.That(component3, Is.EqualTo(component2));
         }
 
-        [Test]
-        public void ShouldResolveComponentInNewPrefabUnderTransform()
+        [TestCase(Lifetime.Global)]
+        [TestCase(Lifetime.Local)]
+        [TestCase(Lifetime.Temporal)]
+        public void ShouldResolveComponentInNewPrefabUnderTransform(Lifetime lifetime)
         {
             var parent = new GameObject("Parent").transform;
             var prefab = new GameObject(nameof(NoDependencyComponent)).AddComponent<NoDependencyComponent>();
 
             var context = new UnityDependencyContext();
             
-            context.RegisterComponentInNewPrefab(prefab, Lifetime.Temporal).Under(parent);
+            context.RegisterComponentInNewPrefab(prefab, lifetime).Under(parent);
 
             using var scope = context.CreateScope();
 
@@ -184,7 +187,7 @@ namespace YggdrAshill.Ragnarok.Specification
         }
 
         [Test]
-        public void ShouldResolveComponentInstantiatedExternally()
+        public void ShouldInjectComponent()
         {
             var component = new GameObject(nameof(NoDependencyComponent)).AddComponent<NoDependencyComponent>();
  
@@ -200,13 +203,32 @@ namespace YggdrAshill.Ragnarok.Specification
         }
         
         [Test]
-        public void ShouldResolveComponentInGameObject()
+        public void ShouldResolveComponentInChildren()
         {
             var component = new GameObject(nameof(NoDependencyComponent)).AddComponent<NoDependencyComponent>();
  
             var context = new UnityDependencyContext();
             
-            context.RegisterComponent<NoDependencyComponent>(component.gameObject);
+            context.RegisterComponent<NoDependencyComponent>(component.gameObject, SearchOrder.Children);
+
+            using var scope = context.CreateScope();
+
+            var resolved = scope.Resolver.Resolve<NoDependencyComponent>();
+            
+            Assert.That(resolved, Is.EqualTo(component));
+        }
+
+        [Test]
+        public void ShouldResolveComponentInParent()
+        {
+            var component = new GameObject(nameof(NoDependencyComponent)).AddComponent<NoDependencyComponent>();
+
+            var childTransform = new GameObject("Child").transform;
+            childTransform.parent = component.transform;
+ 
+            var context = new UnityDependencyContext();
+            
+            context.RegisterComponent<NoDependencyComponent>(childTransform.gameObject, SearchOrder.Parent);
 
             using var scope = context.CreateScope();
 
@@ -216,12 +238,11 @@ namespace YggdrAshill.Ragnarok.Specification
         }
 
         [UnityTest]
-        public IEnumerator ShouldUseUnityEventLoop()
+        public IEnumerator ShouldResolveEntryPoint()
         {
             var context = new UnityDependencyContext();
 
-            context.Register<UnityEventLoop>(Lifetime.Global).AsImplementedInterfaces();
-            context.UseUnityEventLoop();
+            context.RegisterEntryPoint<UnityEventLoop>();
 
             var scope = context.CreateScope();
 
@@ -243,7 +264,7 @@ namespace YggdrAshill.Ragnarok.Specification
             
             Assert.That(unityEventLoop.Initialized, Is.True);
 
-            var frameCount = new Random().Next(1, 60);
+            var frameCount = new System.Random().Next(1, 60);
 
             foreach (var _ in Enumerable.Range(0, frameCount))
             {

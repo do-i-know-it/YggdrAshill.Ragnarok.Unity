@@ -29,28 +29,31 @@ namespace YggdrAshill.Ragnarok
             
             gameObject.SetActive(false);
 
-            var parent = anchor?.GetTransform();
-
-            if (parent != null)
-            {
-                gameObject.transform.SetParent(parent, false);
-            }
-            
             var component = gameObject.AddComponent(type);
 
             try
             {
-                injection?.Inject(resolver, component);
-            }
-            finally
-            {
-                if (dontDestroyOnLoad)
+                if (anchor != null)
                 {
-                    UnityEngine.Object.DontDestroyOnLoad(component);
+                    var parent = anchor.GetTransform();
+
+                    gameObject.transform.SetParent(parent, false);
                 }
                 
-                component.gameObject.SetActive(true);
+                injection?.Inject(resolver, component);
             }
+            catch
+            {
+                UnityEngine.Object.Destroy(gameObject);
+                throw;
+            }
+            
+            if (dontDestroyOnLoad)
+            {
+                UnityEngine.Object.DontDestroyOnLoad(component);
+            }
+
+            gameObject.SetActive(true);
 
             return component;
         }
