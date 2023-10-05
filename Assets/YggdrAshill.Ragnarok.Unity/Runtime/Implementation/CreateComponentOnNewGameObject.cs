@@ -23,7 +23,7 @@ namespace YggdrAshill.Ragnarok
         
         public object Instantiate(IObjectResolver resolver)
         {
-            var name = objectName == null ? type.Name : objectName.GetName();
+            var name = objectName?.GetObjectName() ?? type.Name;
             
             var gameObject = new GameObject(name);
             
