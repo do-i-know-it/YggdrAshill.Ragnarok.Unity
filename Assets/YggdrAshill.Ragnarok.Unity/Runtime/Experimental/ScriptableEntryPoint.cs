@@ -1,15 +1,17 @@
 #nullable enable
-using System.Collections.Generic;
+using System;
+using UnityEngine;
 
 namespace YggdrAshill.Ragnarok.Experimental
 {
-    public abstract class ScriptableEntryPoint : ScriptableInstallation
+    [CreateAssetMenu(fileName = "ScriptableEntryPoint", menuName = "YggdrAshill.Ragnarok/EntryPoint")]
+    public sealed class ScriptableEntryPoint : ScriptableInstallation
     {
-        protected abstract IEnumerable<IInstallation> InstallationList { get; }
+        [SerializeField] private ScriptableInstallation[] installationList = Array.Empty<ScriptableInstallation>();
 
-        public sealed override void Install(IObjectContainer container)
+        public override void Install(IObjectContainer container)
         {
-            foreach (var installation in InstallationList)
+            foreach (var installation in installationList)
             {
                 installation.Install(container);
             }
