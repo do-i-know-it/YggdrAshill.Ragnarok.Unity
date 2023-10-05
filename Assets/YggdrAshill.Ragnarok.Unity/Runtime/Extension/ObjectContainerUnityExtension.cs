@@ -85,7 +85,7 @@ namespace YggdrAshill.Ragnarok
             return injection;
         }
         
-        public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, IAnchor? anchor = null)
+        public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, IAnchorTransform? anchor = null)
             where T : notnull
         {
             var statement = new ResolveFromUnitySubContainerStatement(container.Registration, typeof(T), prefab, anchor);
@@ -95,16 +95,16 @@ namespace YggdrAshill.Ragnarok
             return statement.TypeAssignment;
         }
         
-        public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, Func<Transform> getTransform)
+        public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, Func<Transform> anchor)
             where T : notnull
         {
-            return container.RegisterFromSubContainer<T>(prefab, new Anchor(getTransform));
+            return container.RegisterFromSubContainer<T>(prefab, new AnchorTransform(anchor));
         }
 
         public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, Transform parent)
             where T : notnull
         {
-            return container.RegisterFromSubContainer<T>(prefab, () => parent);
+            return container.RegisterFromSubContainer<T>(prefab, new AnchorTransform(parent));
         }
         
         public static void RegisterHandler(this IObjectContainer container, Action<Exception> exceptionHandler)

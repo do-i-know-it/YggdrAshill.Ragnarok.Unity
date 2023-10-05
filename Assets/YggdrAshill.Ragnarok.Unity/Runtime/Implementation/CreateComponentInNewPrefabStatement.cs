@@ -26,7 +26,7 @@ namespace YggdrAshill.Ragnarok
         {
             var injection = CreateInjection();
             
-            return new CreateComponentInNewPrefab(prefab, injection, candidateAnchor, dontDestroyOnLoad);
+            return new CreateComponentInNewPrefab(prefab, injection, anchorTransform, dontDestroyOnLoad);
         }
 
         private IInjection? CreateInjection()
@@ -39,7 +39,7 @@ namespace YggdrAshill.Ragnarok
             return null;
         }
 
-        private IAnchor? candidateAnchor;
+        private IAnchorTransform? anchorTransform;
         private bool dontDestroyOnLoad;
         
         public Type ImplementedType => source.ImplementedType;
@@ -95,9 +95,9 @@ namespace YggdrAshill.Ragnarok
             return source.WithFieldInjection();
         }
         
-        public IInstanceInjection Under(IAnchor anchor)
+        public IInstanceInjection Under(IAnchorTransform anchor)
         {
-            candidateAnchor = anchor;
+            anchorTransform = anchor;
 
             return this;
         }

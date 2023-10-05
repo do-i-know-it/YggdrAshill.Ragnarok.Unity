@@ -23,7 +23,7 @@ namespace YggdrAshill.Ragnarok
         {
             var injection = CreateInjection();
 
-            return new CreateComponentOnNewGameObject(ImplementedType, injection, candidateAnchor, candidateName, dontDestroyOnLoad);
+            return new CreateComponentOnNewGameObject(ImplementedType, injection, anchorTransform, objectName, dontDestroyOnLoad);
         }
 
         private IInjection? CreateInjection()
@@ -36,8 +36,8 @@ namespace YggdrAshill.Ragnarok
             return null;
         }
 
-        private IObjectName? candidateName;
-        private IAnchor? candidateAnchor;
+        private IObjectName? objectName;
+        private IAnchorTransform? anchorTransform;
         private bool dontDestroyOnLoad;
         
         public Type ImplementedType => source.ImplementedType;
@@ -93,9 +93,9 @@ namespace YggdrAshill.Ragnarok
             return source.WithFieldInjection();
         }
         
-        public IInstanceInjection Under(IAnchor anchor)
+        public IInstanceInjection Under(IAnchorTransform anchor)
         {
-            candidateAnchor = anchor;
+            anchorTransform = anchor;
 
             return this;
         }
@@ -109,7 +109,7 @@ namespace YggdrAshill.Ragnarok
 
         public ICreatedComponentInjection Named(IObjectName name)
         {
-            candidateName = name;
+            objectName = name;
 
             return this;
         }

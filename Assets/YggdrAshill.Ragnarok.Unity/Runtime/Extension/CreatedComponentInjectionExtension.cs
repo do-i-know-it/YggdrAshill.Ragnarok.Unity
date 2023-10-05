@@ -9,12 +9,12 @@ namespace YggdrAshill.Ragnarok
     {
         public static IInstanceInjection Under(this ICreatedComponentInjection injection, Func<Transform> anchor)
         {
-            return injection.Under(new Anchor(anchor));
+            return injection.Under(new AnchorTransform(anchor));
         }
         
         public static IInstanceInjection Under(this ICreatedComponentInjection injection, Transform parent)
         {
-            return injection.Under(new Anchor(parent));
+            return injection.Under(new AnchorTransform(parent));
         }
     }
 }

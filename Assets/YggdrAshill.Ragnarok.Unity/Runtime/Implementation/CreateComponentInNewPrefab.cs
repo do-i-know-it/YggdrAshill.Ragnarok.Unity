@@ -7,14 +7,14 @@ namespace YggdrAshill.Ragnarok
     {
         private readonly Component prefab;
         private readonly IInjection? injection;
-        private readonly IAnchor? anchor;
+        private readonly IAnchorTransform? anchorTransform;
         private readonly bool dontDestroyOnLoad;
         
-        public CreateComponentInNewPrefab(Component prefab, IInjection? injection, IAnchor? anchor, bool dontDestroyOnLoad)
+        public CreateComponentInNewPrefab(Component prefab, IInjection? injection, IAnchorTransform? anchorTransform, bool dontDestroyOnLoad)
         {
             this.prefab = prefab;
             this.injection = injection;
-            this.anchor = anchor;
+            this.anchorTransform = anchorTransform;
             this.dontDestroyOnLoad = dontDestroyOnLoad;
         }
         
@@ -31,10 +31,10 @@ namespace YggdrAshill.Ragnarok
 
             try
             {
-                if (anchor != null)
+                var parent = anchorTransform?.GetAnchorTransform();
+                
+                if (parent != null)
                 {
-                    var parent = anchor.GetTransform();
-                    
                     component.transform.SetParent(parent, false);
                 }
                 
@@ -48,7 +48,7 @@ namespace YggdrAshill.Ragnarok
             
             if (dontDestroyOnLoad)
             {
-                Object.DontDestroyOnLoad(component);
+                Object.DontDestroyOnLoad(component.gameObject);
             }
             
             if (wasActive)

@@ -9,22 +9,22 @@ namespace YggdrAshill.Ragnarok
     {
         private readonly IRegistration registration;
         private readonly GameObjectLifecycle prefab;
-        private readonly IAnchor? anchor;
+        private readonly IAnchorTransform? anchorTransform;
         private readonly TypeAssignmentSource source;
         private readonly Lazy<IInstantiation> instantiation;
 
-        public ResolveFromUnitySubContainerStatement(IRegistration registration, Type type, GameObjectLifecycle prefab, IAnchor? anchor)
+        public ResolveFromUnitySubContainerStatement(IRegistration registration, Type type, GameObjectLifecycle prefab, IAnchorTransform? anchorTransform)
         {
             this.registration = registration;
             this.prefab = prefab;
-            this.anchor = anchor;
+            this.anchorTransform = anchorTransform;
             source = new TypeAssignmentSource(type);
             instantiation = new Lazy<IInstantiation>(CreateInstantiation);
         }
 
         private IInstantiation CreateInstantiation()
         {
-            var parent = anchor?.GetTransform();
+            var parent = anchorTransform?.GetAnchorTransform();
 
             var instance = GameObjectLifecycle.Create(prefab, parent);
             

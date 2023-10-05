@@ -7,20 +7,6 @@ namespace YggdrAshill.Ragnarok.Specification
 {
     internal sealed class RegisterFromSubContainerSpecification : MonoInstallation
     {
-        [SerializeField] private Transform? targetTransform;
-        private Transform TargetTransform
-        {
-            get
-            {
-                if (targetTransform == null)
-                {
-                    targetTransform = transform;
-                }
-
-                return targetTransform;
-            }
-        }
-        
         [SerializeField] private GameObjectLifecycle? senderPrefab;
         private GameObjectLifecycle SenderPrefab
         {
@@ -66,8 +52,8 @@ namespace YggdrAshill.Ragnarok.Specification
         public override void Install(IObjectContainer container)
         {
             container.RegisterFromSubContainer<NoDependencyComponent>(ComponentPrefab);
-            container.RegisterFromSubContainer<SenderComponent>(SenderPrefab, () => TargetTransform);
-            container.RegisterFromSubContainer<ReceiverComponent>(ReceiverPrefab, TargetTransform);
+            container.RegisterFromSubContainer<SenderComponent>(SenderPrefab, () => transform.parent);
+            container.RegisterFromSubContainer<ReceiverComponent>(ReceiverPrefab, transform.parent);
         }
     }
 }
