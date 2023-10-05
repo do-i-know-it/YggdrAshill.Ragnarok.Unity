@@ -20,9 +20,14 @@ namespace YggdrAshill.Ragnarok
                 throw new ArgumentException($"{scene} is invalid.");
             }
 
-            foreach (var rootGameObject in scene.GetRootGameObjects())
+            // TODO: object pooling.
+            var buffer = new List<GameObject>();
+
+            scene.GetRootGameObjects(buffer);
+            
+            foreach (var instance in buffer)
             {
-                if (rootGameObject.TryGetComponent<SceneLifecycle>(out var lifecycle))
+                if (instance.TryGetComponent<SceneLifecycle>(out var lifecycle))
                 {
                     return lifecycle;
                 }
