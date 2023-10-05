@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-namespace YggdrAshill.Ragnarok.Unity.Specification
+namespace YggdrAshill.Ragnarok.Specification
 {
     internal sealed class LoadAdditiveSceneWithSceneLifecycle
     {

@@ -1,7 +1,7 @@
 ﻿#nullable enable
+using YggdrAshill.Ragnarok.Experimental;
 using System;
 using UnityEngine;
-using YggdrAshill.Ragnarok.Experimental;
 
 namespace YggdrAshill.Ragnarok.Specification
 {

@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity.Specification
+namespace YggdrAshill.Ragnarok.Specification
 {
     internal sealed class HelloWorldWithGameObject
     {

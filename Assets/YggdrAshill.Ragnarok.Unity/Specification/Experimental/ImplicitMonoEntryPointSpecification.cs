@@ -3,7 +3,7 @@ using YggdrAshill.Ragnarok.Experimental;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity.Specification
+namespace YggdrAshill.Ragnarok.Specification
 {
     public class ImplicitMonoEntryPointSpecification : MonoInstallation
     {

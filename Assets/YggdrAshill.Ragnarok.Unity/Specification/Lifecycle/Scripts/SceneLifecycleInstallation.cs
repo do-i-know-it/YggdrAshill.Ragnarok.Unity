@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using YggdrAshill.Ragnarok.Experimental;
 
-namespace YggdrAshill.Ragnarok.Unity.Specification
+namespace YggdrAshill.Ragnarok.Specification
 {
     internal sealed class SceneLifecycleInstallation : MonoInstallation
     {

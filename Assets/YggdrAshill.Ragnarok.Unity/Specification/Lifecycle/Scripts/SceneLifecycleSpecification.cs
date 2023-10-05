@@ -2,7 +2,7 @@
 using YggdrAshill.Ragnarok.Experimental;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Unity.Specification
+namespace YggdrAshill.Ragnarok.Specification
 {
     internal sealed class SceneLifecycleSpecification : MonoInstallation
     {
