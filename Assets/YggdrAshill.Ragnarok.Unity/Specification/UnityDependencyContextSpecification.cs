@@ -206,10 +206,13 @@ namespace YggdrAshill.Ragnarok.Specification
         public void ShouldResolveComponentInChildren()
         {
             var component = new GameObject(nameof(NoDependencyComponent)).AddComponent<NoDependencyComponent>();
- 
+
+            var parent = new GameObject("Parent").transform;
+            component.transform.parent = parent;
+
             var context = new UnityDependencyContext();
             
-            context.RegisterComponent<NoDependencyComponent>(component.gameObject, SearchOrder.Children);
+            context.RegisterComponent<NoDependencyComponent>(parent.gameObject, SearchOrder.Children);
 
             using var scope = context.CreateScope();
 
