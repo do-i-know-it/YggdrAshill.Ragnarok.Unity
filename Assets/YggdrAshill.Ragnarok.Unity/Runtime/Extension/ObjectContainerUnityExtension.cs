@@ -85,6 +85,7 @@ namespace YggdrAshill.Ragnarok
             return injection;
         }
         
+        // TODO: use Lifecycle, instead of IAnchor?
         public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, IAnchorTransform? anchor = null)
             where T : notnull
         {
