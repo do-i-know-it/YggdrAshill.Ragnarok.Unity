@@ -1,59 +1,41 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok.Experimental
 {
-    [DisallowMultipleComponent]
     public sealed class ImplicitMonoEntryPoint : MonoEntryPoint
     {
-        protected override IEnumerable<IInstallation> InstallationList => GetInstallationList(transform);
-        private static IEnumerable<IInstallation> GetInstallationList(Transform target)
-        {
-            var current = GetCurrentInstallationList(target);
+        protected override IEnumerable<IInstallation> InstallationList => DepthFirstInstallationList(transform);
 
-            var children = GetChildInstallationList(target);
-
-            var grandChildren = GetGrandChildInstallationList(target);
-
-            return current.Concat(children).Concat(grandChildren);
-        }
-        private static IEnumerable<IInstallation> GetCurrentInstallationList(Transform target)
+        private IEnumerable<IInstallation> DepthFirstInstallationList(Transform target)
         {
-            return target.GetComponents<IInstallation>().Where(installation =>
-            {
-                var implicitMonoEntryPoint = installation as ImplicitMonoEntryPoint;
-                var explicitMonoEntryPoint = installation as ExplicitMonoEntryPoint;
-
-                return implicitMonoEntryPoint == null && explicitMonoEntryPoint == null;
-            });
-        }
-        private static IEnumerable<IInstallation> GetChildInstallationList(Transform target)
-        {
-            return GetChildCandidate(target).SelectMany(GetCurrentInstallationList);
-        }
-        private static IEnumerable<IInstallation> GetGrandChildInstallationList(Transform target)
-        {
-            return GetChildCandidate(target).SelectMany(GetChildInstallationList);
-        }
-
-        private static IEnumerable<Transform> GetChildCandidate(Transform target)
-        {
-            return Enumerable.Range(0, target.childCount).Select(target.GetChild).Where(child =>
+            var current = target.GetComponents<IInstallation>().Where(candidate =>
+                candidate is not ImplicitMonoEntryPoint entryPoint || entryPoint != this);
+            
+            var child = Enumerable.Range(0, target.childCount).Select(target.GetChild).SelectMany(child => 
             {
                 if (child.TryGetComponent<Lifecycle>(out _))
                 {
-                    return false;
+                    return Array.Empty<IInstallation>();
                 }
-
-                if (child.TryGetComponent<ImplicitMonoEntryPoint>(out _))
+                
+                if (child.TryGetComponent<ImplicitMonoEntryPoint>(out var implicitMonoEntryPoint))
                 {
-                    return false;
+                    return new[] { implicitMonoEntryPoint };
                 }
 
-                return !child.TryGetComponent<ExplicitMonoEntryPoint>(out _);
+                if (child.TryGetComponent<ExplicitMonoEntryPoint>(out var explicitMonoEntryPoint))
+                {
+                    return new[] { explicitMonoEntryPoint };
+                }
+
+                return DepthFirstInstallationList(child);
             });
+
+            return current.Concat(child);
         }
     }
 }

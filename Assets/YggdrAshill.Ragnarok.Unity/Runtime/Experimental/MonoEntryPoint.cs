@@ -1,8 +1,10 @@
 #nullable enable
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace YggdrAshill.Ragnarok.Experimental
 {
+    [DisallowMultipleComponent]
     public abstract class MonoEntryPoint : MonoInstallation
     {
         protected abstract IEnumerable<IInstallation> InstallationList { get; }

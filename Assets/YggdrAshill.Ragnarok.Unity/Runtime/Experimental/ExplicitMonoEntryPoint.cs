@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok.Experimental
 {
-    [DisallowMultipleComponent]
     public sealed class ExplicitMonoEntryPoint : MonoEntryPoint
     {
         [SerializeField] private ScriptableInstallation[] scriptableInstallationList
