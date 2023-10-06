@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YggdrAshill.Ragnarok.Annotation</name>
+    </assembly>
+    <members>
+        <member name="T:YggdrAshill.Ragnarok.AnnotationSelector">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISelector"/> finding annotation.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.AnnotationSelector.Instance">
+            <summary>
+            Singleton of <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestDependencyInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestFieldInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestPropertyInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestMethodInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestServiceBundleInjection(System.Type)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

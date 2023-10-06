@@ -1,10 +1,10 @@
 # YggdrAshill.Ragnarok.Unity
 
 ![GitHub](https://img.shields.io/github/license/do-i-know-it/YggdrAshill.Ragnarok.Unity)
-![GitHub Release Date](https://img.shields.io/github/release-date/do-i-know-it/YggdrAshill.Ragnarok.Unity)
 ![GitHub last commit](https://img.shields.io/github/last-commit/do-i-know-it/YggdrAshill.Ragnarok.Unity)
 ![GitHub repo size](https://img.shields.io/github/repo-size/do-i-know-it/YggdrAshill.Ragnarok.Unity)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/do-i-know-it/YggdrAshill.Ragnarok.Unity)
+<!-- ![GitHub Release Date](https://img.shields.io/github/release-date/do-i-know-it/YggdrAshill.Ragnarok.Unity) -->
 
 This framework is an extension of [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) for [Unity](https://unity.com/ja).
 
@@ -12,9 +12,9 @@ This framework is an extension of [YggdrAshill.Ragnarok](https://github.com/do-i
 
 This framework also depends on below.
 
-- .NET Standard 2.0
-- [Unity](https://unity.com/ja) 2020.3.x
-- [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) 0.9.0
+- .NET Standard 2.1
+- [Unity](https://unity.com/ja) 2021.3.x
+- [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) 0.10.2
 
 ## Installation
 
@@ -89,23 +89,30 @@ class ConsoleReceiver : MonoBehaviour, IReceiver
 
 like:
 ```cs
-sealed class ServiceEntryPoint : MonoEntryPoint
+sealed class ServiceInstallation : MonoInstallation
 {
-    protected override void Configure(IContainer container)
+    public override void Install(IObjectContainer container)
     {
         // Register ConsoleSender as ISender to instantiate per global scope.
-        container.RegisterComponentOnNewGameObject<ConsoleSender>(Lifetime.Global)
-            .As<ISender>();
+        container.RegisterComponentOnNewGameObject<ISender, ConsoleSender>(Lifetime.Global);
         // Register ConsoleReceiver as IReceiver to instantiate per global scope.
-        container.RegisterComponentOnNewGameObject<ConsoleReceiver>(Lifetime.Global)
-            .As<IReceiver>();
+        container.RegisterComponentOnNewGameObject<IReceiver, ConsoleReceiver>(Lifetime.Global);
         // Register Service's interfaces for unity event loop.
-        container.Register<Service>(Lifetime.Global).AsImplementedInterfaces();
+        container.RegisterEntryPoint<Service>();
     }
 }
 ```
 
-You can resolve dependency registering `ServiceEntryPoint` to `GameObjectLifecycle` or `SceneLifecycle` or `ProjectLifecycle`.
+You can resolve dependency registering `ServiceMonoInstallation` to `GameObjectLifecycle` or `SceneLifecycle` or `ProjectLifecycle`.
+
+### __Entry Point for installation__
+
+`MonoEntryPoint` like
+
+- `ImplicitMonoEntryPoint`
+- `ExplicitMonoEntryPoint`
+
+is `MonoInstallation` collecting other `MonoInstallation`s to register dependencies in ease.
 
 ## Known issues
 
@@ -115,6 +122,7 @@ Please see [issues](https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity/i
 
 Please see [GitHub Project for road map](https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity/projects/1).
 
+- Implementation for `IRootResolver` for Unity.
 - Auto wiring to use this framework in ease.
 - Diagnostics in Editor.
 

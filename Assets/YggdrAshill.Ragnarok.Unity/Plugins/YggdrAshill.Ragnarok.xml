@@ -4,61 +4,105 @@
         <name>YggdrAshill.Ragnarok</name>
     </assembly>
     <members>
-        <member name="T:YggdrAshill.Ragnarok.AnnotationSelector">
-            <summary>
-            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISelector"/> with annotation.
-            </summary>
-        </member>
-        <member name="P:YggdrAshill.Ragnarok.AnnotationSelector.Instance">
-            <summary>
-            Singleton of <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.GetServiceBundleType(System.Type)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreateConstructorInjection(System.Type)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreateFieldInjection(System.Type)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreatePropertyInjection(System.Type)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.CreateMethodInjection(System.Type)">
-            <inheritdoc/>
-        </member>
         <member name="T:YggdrAshill.Ragnarok.DependencyContext">
             <summary>
-            Default implementation of <see cref="T:YggdrAshill.Ragnarok.IContext"/>.
+            Default implementation of <see cref="T:YggdrAshill.Ragnarok.IObjectContext"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(YggdrAshill.Ragnarok.IComposition)">
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.IObjectContext)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </summary>
+            <param name="context">
+            <see cref="T:YggdrAshill.Ragnarok.IObjectContext"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.IScopedResolverBuilder)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </summary>
+            <param name="resolverBuilder">
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolverBuilder"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.ISelector,YggdrAshill.Ragnarok.ISolver)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </summary>
+            <param name="selector">
+            <see cref="T:YggdrAshill.Ragnarok.ISelector"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </param>
+            /// <param name="solver">
+            <see cref="T:YggdrAshill.Ragnarok.ISolver"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.ISolver)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </summary>
+            <param name="solver">
+            <see cref="T:YggdrAshill.Ragnarok.ISolver"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </param>
+            <remarks>
+            <see cref="T:YggdrAshill.Ragnarok.ISelector"/> is <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>.
+            </remarks>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            </summary>
+            <remarks>
+            <see cref="T:YggdrAshill.Ragnarok.ISelector"/> is <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>, and
+            <see cref="T:YggdrAshill.Ragnarok.ISolver"/> is <see cref="T:YggdrAshill.Ragnarok.ExpressionSolver"/>.
+            </remarks>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.DependencyContext.Resolver">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(System.Action{YggdrAshill.Ragnarok.IResolver})">
+        <member name="P:YggdrAshill.Ragnarok.DependencyContext.Compilation">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Build">
+        <member name="P:YggdrAshill.Ragnarok.DependencyContext.Registration">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetInstantiation(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.CreateContext">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetFieldInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetPropertyInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.GetMethodInjection(System.Type,System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IParameter})">
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.CreateScope">
             <inheritdoc/>
         </member>
         <member name="T:YggdrAshill.Ragnarok.Installation">
             <summary>
             Implementation of <see cref="T:YggdrAshill.Ragnarok.IInstallation"/>.
             </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Installation.#ctor(System.Action{YggdrAshill.Ragnarok.IObjectContainer})">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.Installation"/>.
+            </summary>
+            <param name="onInstalled">
+            <see cref="T:System.Action`1"/> to install <see cref="T:YggdrAshill.Ragnarok.IObjectContainer"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.Installation.Install(YggdrAshill.Ragnarok.IObjectContainer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.RootResolver">
+            <summary>
+            Default implementation of <see cref="T:YggdrAshill.Ragnarok.IRootResolver"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.RootResolver.Selector">
+            <inheritdoc/>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.RootResolver.Solver">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.RootResolver.Resolve``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.RootResolver.Resolve(System.Type)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

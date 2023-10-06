@@ -1,4 +1,5 @@
 #nullable enable
+using YggdrAshill.Ragnarok.Experimental;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,50 +7,90 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DefaultExecutionOrder(LifecycleExecutionOrder.GameObject)]
     public sealed class GameObjectLifecycle : Lifecycle
     {
+        public static GameObjectLifecycle Create(GameObjectLifecycle prefab, Transform? parent = null)
+        {
+            var wasActive = prefab.gameObject.activeSelf;
+            
+            if (wasActive)
+            {
+                prefab.gameObject.SetActive(false);
+            }
+            
+            var instance = Instantiate(prefab);
+
+            if (parent != null)
+            {
+                instance.transform.SetParent(parent, false);
+            }
+            
+            if (wasActive)
+            {
+                prefab.gameObject.SetActive(true);
+                instance.gameObject.SetActive(true);
+            }
+
+            return instance;
+        }
+
         [SerializeField] private bool runAutomatically = true;
         protected override bool RunAutomatically => runAutomatically;
 
-        [SerializeField] private SceneLifecycle? rootLifecycle;
-        protected override IContext GetCurrentContext()
+        protected override IObjectContext GetCurrentContext()
         {
-            if (rootLifecycle != null)
-            {
-                return rootLifecycle.CreateChildContext();
-            }
-                
-            var parent = transform.parent;
+            var target = transform.parent;
 
-            while (parent != null)
+            while (target != null)
             {
-                if (parent.TryGetComponent<Lifecycle>(out var lifecycle))
+                if (target.TryGetComponent<Lifecycle>(out var lifecycle))
                 {
-                    return lifecycle.CreateChildContext();
+                    return lifecycle.CreateContext();
                 }
-                
-                parent = parent.parent;
+
+                target = target.parent;
             }
-            
-            if (SceneLifecycle.ParentLifecycle != null)
+
+            var sceneLifecycle = SceneLifecycle.InstanceOf(gameObject.scene);
+            if (sceneLifecycle != null)
             {
-                return SceneLifecycle.ParentLifecycle.CreateChildContext();
+                return sceneLifecycle.CreateContext();
             }
-            
-            if (ProjectLifecycle.Instance != null)
+
+            sceneLifecycle = SceneLifecycle.OverriddenLifecycle;
+            if (sceneLifecycle != null)
             {
-                return ProjectLifecycle.Instance.CreateChildContext();
+                return sceneLifecycle.CreateContext();
             }
-            
+
+            var projectLifecycle = ProjectLifecycle.Instance;
+            if (projectLifecycle != null)
+            {
+                return projectLifecycle.CreateContext();
+            }
+
             return new UnityDependencyContext();
         }
 
+        [SerializeField] private ScriptableInstallation[] scriptableInstallationList = Array.Empty<ScriptableInstallation>();
+        private IEnumerable<IInstallation> ScriptableInstallationList => scriptableInstallationList;
+        
+        [SerializeField] private MonoInstallation[] monoInstallationList = Array.Empty<MonoInstallation>();
+        private IEnumerable<IInstallation> MonoInstallationList => monoInstallationList;
+
         [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();
         [SerializeField] private MonoEntryPoint[] monoEntryPointList = Array.Empty<MonoEntryPoint>();
-        protected override IEnumerable<IEntryPoint> GetEntryPointList()
+        protected override IEnumerable<IInstallation> GetInstallationList()
         {
-            return ((IEnumerable<IEntryPoint>)scriptableEntryPointList).Concat(monoEntryPointList);
+            var scriptableEntryPointInstallationList 
+                = scriptableEntryPointList.Select(entryPoint => entryPoint.Installation);
+            var monoEntryPointInstallationList
+                = monoEntryPointList.Select(entryPoint => entryPoint.Installation);
+
+            return ScriptableInstallationList.Concat(MonoInstallationList)
+                .Concat(scriptableEntryPointInstallationList).Concat(monoEntryPointInstallationList);
         }
     }
 }

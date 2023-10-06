@@ -6,15 +6,14 @@ using UnityEngine.PlayerLoop;
 
 namespace YggdrAshill.Ragnarok
 {
-    public sealed class UnityEventLoopDispatcher :
-        IDisposable
+    public sealed class UnityEventLoopDispatcher : IDisposable
     {
-        private static UnityEventLoopRunner PreFixedUpdateRunner { get; } = new UnityEventLoopRunner();
-        private static UnityEventLoopRunner PostFixedUpdateRunner { get; } = new UnityEventLoopRunner();
-        private static UnityEventLoopRunner PreUpdateRunner { get; } = new UnityEventLoopRunner();
-        private static UnityEventLoopRunner PostUpdateRunner { get; } = new UnityEventLoopRunner();
-        private static UnityEventLoopRunner PreLateUpdateRunner { get; } = new UnityEventLoopRunner();
-        private static UnityEventLoopRunner PostLateUpdateRunner { get; } = new UnityEventLoopRunner();
+        private static UnityEventLoopRunner PreFixedUpdateRunner { get; } = new();
+        private static UnityEventLoopRunner PostFixedUpdateRunner { get; } = new();
+        private static UnityEventLoopRunner PreUpdateRunner { get; } = new();
+        private static UnityEventLoopRunner PostUpdateRunner { get; } = new();
+        private static UnityEventLoopRunner PreLateUpdateRunner { get; } = new();
+        private static UnityEventLoopRunner PostLateUpdateRunner { get; } = new();
         
         static UnityEventLoopDispatcher()
         {
@@ -132,15 +131,15 @@ namespace YggdrAshill.Ragnarok
             return -1;
         }
         
-        private readonly IResolver resolver;
+        private readonly IObjectResolver resolver;
 
         [Inject]
-        public UnityEventLoopDispatcher(IResolver resolver)
+        public UnityEventLoopDispatcher(IObjectResolver resolver)
         {
             this.resolver = resolver;
         }
 
-        private readonly List<IDisposable> disposableList = new List<IDisposable>();
+        private readonly List<IDisposable> disposableList = new();
 
         public void Dispatch()
         {

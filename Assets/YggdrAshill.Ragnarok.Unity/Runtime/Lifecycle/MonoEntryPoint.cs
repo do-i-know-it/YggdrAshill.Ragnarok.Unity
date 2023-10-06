@@ -1,10 +1,11 @@
 #nullable enable
+using System;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    public abstract class MonoEntryPoint : MonoBehaviour,
-        IEntryPoint
+    [Obsolete("Use Experimental.MonoInstallation instead.")]
+    public abstract class MonoEntryPoint : MonoBehaviour, IEntryPoint
     {
         private IInstallation? installation;
         public IInstallation Installation
@@ -19,6 +20,6 @@ namespace YggdrAshill.Ragnarok
                 return installation;
             }
         }
-        protected abstract void Configure(IContainer container);
+        protected abstract void Configure(IObjectContainer container);
     }
 }

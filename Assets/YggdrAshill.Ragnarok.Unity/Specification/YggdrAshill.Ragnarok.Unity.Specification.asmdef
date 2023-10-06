@@ -3,8 +3,6 @@
     "rootNamespace": "YggdrAshill.Ragnarok.Unity.Specification",
     "references": [
         "UnityEngine.TestRunner",
-        "YggdrAshill.Ragnarok.Unity.Annotation",
-        "YggdrAshill.Ragnarok.Unity.EventLoop",
         "YggdrAshill.Ragnarok.Unity"
     ],
     "includePlatforms": [],
@@ -15,6 +13,7 @@
         "nunit.framework.dll",
         "YggdrAshill.Ragnarok.Construction.dll",
         "YggdrAshill.Ragnarok.Fabrication.dll",
+        "YggdrAshill.Ragnarok.Annotation.dll",
         "YggdrAshill.Ragnarok.dll"
     ],
     "autoReferenced": false,

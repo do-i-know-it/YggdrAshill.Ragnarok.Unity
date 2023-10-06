@@ -14,16 +14,16 @@
             Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ReflectionSolver"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateActivation(YggdrAshill.Ragnarok.ConstructorInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateActivation(YggdrAshill.Ragnarok.DependencyInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjectionRequest)">
             <inheritdoc/>
         </member>
         <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateCollectionActivation(System.Type)">

@@ -1,48 +1,73 @@
 ﻿#nullable enable
+using YggdrAshill.Ragnarok.Experimental;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DefaultExecutionOrder(LifecycleExecutionOrder.Scene)]
     public sealed class SceneLifecycle : Lifecycle
     {
-        private static Stack<SceneLifecycle> ParentLifecycleStack { get; } = new Stack<SceneLifecycle>();
+        // TODO: cache result?
+        public static SceneLifecycle? InstanceOf(Scene scene)
+        {
+            if (!scene.IsValid())
+            {
+                throw new ArgumentException($"{scene} is invalid.");
+            }
 
-        public static SceneLifecycle? ParentLifecycle
+            // TODO: object pooling.
+            var buffer = new List<GameObject>();
+
+            scene.GetRootGameObjects(buffer);
+            
+            foreach (var instance in buffer)
+            {
+                if (instance.TryGetComponent<SceneLifecycle>(out var lifecycle))
+                {
+                    return lifecycle;
+                }
+            }
+
+            return null;
+        }
+        
+        private static Stack<SceneLifecycle> OverriddenLifecycleStack { get; } = new();
+        public static SceneLifecycle? OverriddenLifecycle
         {
             get
             {
-                if (ParentLifecycleStack.Count == 0)
+                if (OverriddenLifecycleStack.Count == 0)
                 {
                     return null;
                 }
 
-                return ParentLifecycleStack.Peek();
+                return OverriddenLifecycleStack.Peek();
             }
         }
 
-        public readonly struct OverrideParentLifecycleScope :
-            IDisposable
+        public readonly struct OverrideParentLifecycleScope : IDisposable
         {
             private readonly bool isInitialized;
-            
+
             internal OverrideParentLifecycleScope(SceneLifecycle lifecycle)
             {
-                ParentLifecycleStack.Push(lifecycle);
+                OverriddenLifecycleStack.Push(lifecycle);
                 isInitialized = true;
             }
 
             public void Dispose()
             {
-                if (isInitialized)
+                if (!isInitialized)
                 {
                     throw new Exception($"{nameof(OverrideParentLifecycleScope)}");
                 }
-                
-                ParentLifecycleStack.Pop();
+
+                OverriddenLifecycleStack.Pop();
             }
         }
 
@@ -50,50 +75,62 @@ namespace YggdrAshill.Ragnarok
         {
             return new OverrideParentLifecycleScope(this);
         }
-        
+
         [SerializeField] private bool runAutomatically = true;
         protected override bool RunAutomatically => runAutomatically;
         
-        [SerializeField] private SceneLifecycle? parentLifecycle;
-        protected override IContext GetCurrentContext()
+        protected override IObjectContext GetCurrentContext()
         {
-            if (parentLifecycle != null)
+            var sceneLifecycle = OverriddenLifecycle;
+            if (sceneLifecycle != null)
             {
-                if (parentLifecycle == this)
-                {
-                    throw new Exception("parent life cycle is own.");
-                }
-                
-                return parentLifecycle.CreateChildContext();
+                return sceneLifecycle.CreateContext();
             }
 
-            if (ParentLifecycle != null)
+            var projectLifecycle = ProjectLifecycle.Instance;
+            if (projectLifecycle != null)
             {
-                return ParentLifecycle.CreateChildContext();
-            }
-
-            if (ProjectLifecycle.Instance != null)
-            {
-                return ProjectLifecycle.Instance.CreateChildContext();
+                return projectLifecycle.CreateContext();
             }
 
             return new UnityDependencyContext();
         }
+
+        [SerializeField] private ScriptableInstallation[] scriptableInstallationList = Array.Empty<ScriptableInstallation>();
+        private IEnumerable<IInstallation> ScriptableInstallationList => scriptableInstallationList;
         
+        [SerializeField] private MonoInstallation[] monoInstallationList = Array.Empty<MonoInstallation>();
+        private IEnumerable<IInstallation> MonoInstallationList => monoInstallationList;
+
         [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();
         [SerializeField] private MonoEntryPoint[] monoEntryPointList = Array.Empty<MonoEntryPoint>();
-        protected override IEnumerable<IEntryPoint> GetEntryPointList()
+        protected override IEnumerable<IInstallation> GetInstallationList()
         {
-            return ((IEnumerable<IEntryPoint>)scriptableEntryPointList).Concat(monoEntryPointList);
+            var scriptableEntryPointInstallationList 
+                = scriptableEntryPointList.Select(entryPoint => entryPoint.Installation);
+            var monoEntryPointInstallationList
+                = monoEntryPointList.Select(entryPoint => entryPoint.Installation);
+
+            return ScriptableInstallationList.Concat(MonoInstallationList)
+                .Concat(scriptableEntryPointInstallationList).Concat(monoEntryPointInstallationList);
         }
 
         protected override void Awake()
         {
             if (transform.parent != null)
             {
-                DestroyImmediate(this);
+                DestroyImmediate(transform.root.gameObject);
+                return;
             }
-            
+
+            var instance = InstanceOf(gameObject.scene);
+
+            if (instance != this)
+            {
+                DestroyImmediate(gameObject);
+                return;
+            }
+
             base.Awake();
         }
     }

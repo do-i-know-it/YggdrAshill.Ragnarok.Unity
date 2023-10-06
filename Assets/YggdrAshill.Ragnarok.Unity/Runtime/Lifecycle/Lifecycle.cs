@@ -1,102 +1,83 @@
 #nullable enable
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DisallowMultipleComponent]
-    public abstract class Lifecycle : MonoBehaviour,
-         IDisposable
+    public abstract class Lifecycle : MonoBehaviour, IObjectScope
     {
-        private IScope? scope;
-        private IScope Scope
+        private IObjectScope? scope;
+        private IObjectScope Scope
         {
             get
             {
-                Build();
+                if (scope == null)
+                {
+                    scope = BuildInternally();
+                }
 
-                return scope!;
+                return scope;
             }
+        }
+
+        public IObjectResolver Resolver => Scope.Resolver;
+
+        private IObjectScope BuildInternally()
+        {
+            var context = GetCurrentContext();
+
+            foreach (var installation in GetInstallationList())
+            {
+                installation.Install(context);
+            }
+            
+            context.RegisterInstance(this).AsOwnSelf();
+            context.UseUnityEventLoop();
+
+            return context.CreateScope();
         }
         
-        private IContext? currentContext;
-        private IContext CurrentContext
-        {
-            get
-            {
-                if (currentContext == null)
-                {
-                    currentContext = GetCurrentContext();
-                }
-
-                return currentContext;
-            }
-        }
-        protected abstract IContext GetCurrentContext();
-
-        private IInstallation? installation;
-        private IInstallation Installation
-        {
-            get
-            {
-                if (installation == null)
-                {
-                    var installationList
-                        = GetEntryPointList().Select(entrypoint => entrypoint.Installation).ToArray();
-                    installation = new Installation(installationList);
-                }
-
-                return installation;
-            }
-        }
-        protected abstract IEnumerable<IEntryPoint> GetEntryPointList();
-
+        protected abstract IObjectContext GetCurrentContext();
+        protected abstract IEnumerable<IInstallation> GetInstallationList();
+        
+        // TODO: Make this method public if needed.
         private void Build()
         {
             if (scope != null)
             {
                 return;
             }
-            
-            Installation.Install(CurrentContext);
 
-            Configure(CurrentContext);
-            
-            scope = CurrentContext.Build();
-        }
-        private void Configure(IContainer container)
-        {
-            container.RegisterInstance(this).As<IDisposable>();
-            container.UseUnityEventLoop();
+            scope = BuildInternally();
         }
 
-        public IContext CreateChildContext()
+        public IObjectContext CreateContext()
         {
             return Scope.CreateContext();
         }
-        
+
         public void Dispose()
         {
             if (this == null)
             {
                 return;
             }
-            
+
             // TODO: Destroy(this)?
             Destroy(gameObject);
         }
-        
+
         protected abstract bool RunAutomatically { get; }
-        
+
         protected virtual void Awake()
         {
             if (!RunAutomatically)
             {
                 return;
             }
-            
+
             Build();
         }
 
@@ -106,7 +87,7 @@ namespace YggdrAshill.Ragnarok
             {
                 return;
             }
-            
+
             scope.Dispose();
             scope = null;
         }

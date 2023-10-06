@@ -6,7 +6,7 @@
     <members>
         <member name="T:YggdrAshill.Ragnarok.ExpressionSolver">
             <summary>
-            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with expression.
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
         </member>
         <member name="P:YggdrAshill.Ragnarok.ExpressionSolver.Instance">
@@ -14,16 +14,16 @@
             Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ExpressionSolver"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateActivation(YggdrAshill.Ragnarok.ConstructorInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateActivation(YggdrAshill.Ragnarok.DependencyInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjection)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjectionRequest)">
             <inheritdoc/>
         </member>
         <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateCollectionActivation(System.Type)">
