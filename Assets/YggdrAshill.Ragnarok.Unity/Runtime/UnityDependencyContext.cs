@@ -1,4 +1,6 @@
 #nullable enable
+using System;
+
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add diagnostics.
@@ -34,9 +36,6 @@ namespace YggdrAshill.Ragnarok
         public ICompilation Compilation => context.Compilation;
 
         /// <inheritdoc/>
-        public IRegistration Registration => context.Registration;
-
-        /// <inheritdoc/>
         public IObjectContext CreateContext()
         {
             return context.CreateContext();
@@ -46,6 +45,30 @@ namespace YggdrAshill.Ragnarok
         public IObjectScope CreateScope()
         {
             return context.CreateScope();
+        }
+
+        /// <inheritdoc/>
+        public int Count(IStatementSelection selection)
+        {
+            return context.Count(selection);
+        }
+
+        /// <inheritdoc/>
+        public void Register(IStatement statement)
+        {
+            context.Register(statement);
+        }
+
+        /// <inheritdoc/>
+        public void Register(IOperation operation)
+        {
+            context.Register(operation);
+        }
+
+        /// <inheritdoc/>
+        public void Register(IDisposable disposable)
+        {
+            context.Register(disposable);
         }
     }
 }

@@ -62,13 +62,22 @@
         <member name="P:YggdrAshill.Ragnarok.DependencyContext.Compilation">
             <inheritdoc/>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.DependencyContext.Registration">
-            <inheritdoc/>
-        </member>
         <member name="M:YggdrAshill.Ragnarok.DependencyContext.CreateContext">
             <inheritdoc/>
         </member>
         <member name="M:YggdrAshill.Ragnarok.DependencyContext.CreateScope">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Count(YggdrAshill.Ragnarok.IStatementSelection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(YggdrAshill.Ragnarok.IStatement)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(YggdrAshill.Ragnarok.IOperation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(System.IDisposable)">
             <inheritdoc/>
         </member>
         <member name="T:YggdrAshill.Ragnarok.Installation">
@@ -96,9 +105,6 @@
             <inheritdoc/>
         </member>
         <member name="P:YggdrAshill.Ragnarok.RootResolver.Solver">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.RootResolver.Resolve``1">
             <inheritdoc/>
         </member>
         <member name="M:YggdrAshill.Ragnarok.RootResolver.Resolve(System.Type)">

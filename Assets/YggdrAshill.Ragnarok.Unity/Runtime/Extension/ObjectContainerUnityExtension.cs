@@ -20,7 +20,7 @@ namespace YggdrAshill.Ragnarok
         {
             var statement = new ReturnComponentInGameObjectStatement(container.Compilation, typeof(T), instance, order);
             
-            container.Registration.Register(statement);
+            container.Register(statement);
             
             container.Register(resolver => resolver.Resolve<T>());
 
@@ -32,7 +32,7 @@ namespace YggdrAshill.Ragnarok
         {
             var statement = new CreateComponentOnNewGameObjectStatement(container.Compilation, typeof(TComponent), lifetime);
             
-            container.Registration.Register(statement);
+            container.Register(statement);
 
             statement.As<TComponent>();
 
@@ -55,7 +55,7 @@ namespace YggdrAshill.Ragnarok
         {
             var statement = new CreateComponentInNewPrefabStatement(container.Compilation, lifetime, prefab);
             
-            container.Registration.Register(statement);
+            container.Register(statement);
             
             statement.As<TComponent>();
 
@@ -89,9 +89,9 @@ namespace YggdrAshill.Ragnarok
         public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, IAnchorTransform? anchor = null)
             where T : notnull
         {
-            var statement = new ResolveFromUnitySubContainerStatement(container.Registration, typeof(T), prefab, anchor);
+            var statement = new ResolveFromUnitySubContainerStatement(container, typeof(T), prefab, anchor);
             
-            container.Registration.Register(statement);
+            container.Register(statement);
             
             return statement.TypeAssignment;
         }
