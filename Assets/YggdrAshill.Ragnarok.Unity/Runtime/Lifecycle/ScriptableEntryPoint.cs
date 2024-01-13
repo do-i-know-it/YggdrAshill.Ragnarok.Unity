@@ -4,22 +4,17 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    [Obsolete("Use Experimental.ScriptableInstallation instead.")]
-    public abstract class ScriptableEntryPoint : ScriptableObject, IEntryPoint
+    [CreateAssetMenu(fileName = "ScriptableEntryPoint", menuName = "YggdrAshill.Ragnarok/EntryPoint")]
+    public sealed class ScriptableEntryPoint : ScriptableInstallation
     {
-        private IInstallation? installation;
-        public IInstallation Installation
-        {
-            get
-            {
-                if (installation == null)
-                {
-                    installation = new Installation(Configure);
-                }
+        [SerializeField] private ScriptableInstallation[] installationList = Array.Empty<ScriptableInstallation>();
 
-                return installation;
+        public override void Install(IObjectContainer container)
+        {
+            foreach (var installation in installationList)
+            {
+                installation.Install(container);
             }
         }
-        protected abstract void Configure(IObjectContainer container);
     }
 }

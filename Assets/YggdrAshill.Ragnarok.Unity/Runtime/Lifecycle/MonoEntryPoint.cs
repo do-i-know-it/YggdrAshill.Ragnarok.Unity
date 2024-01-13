@@ -1,25 +1,20 @@
 #nullable enable
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    [Obsolete("Use Experimental.MonoInstallation instead.")]
-    public abstract class MonoEntryPoint : MonoBehaviour, IEntryPoint
+    [DisallowMultipleComponent]
+    public abstract class MonoEntryPoint : MonoInstallation
     {
-        private IInstallation? installation;
-        public IInstallation Installation
-        {
-            get
-            {
-                if (installation == null)
-                {
-                    installation = new Installation(Configure);
-                }
+        protected abstract IEnumerable<IInstallation> InstallationList { get; }
 
-                return installation;
+        public sealed override void Install(IObjectContainer container)
+        {
+            foreach (var installation in InstallationList)
+            {
+                installation.Install(container);
             }
         }
-        protected abstract void Configure(IObjectContainer container);
     }
 }
