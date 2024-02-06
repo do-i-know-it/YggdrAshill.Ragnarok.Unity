@@ -52,20 +52,17 @@ namespace YggdrAshill.Ragnarok
                 target = target.parent;
             }
 
-            var sceneLifecycle = SceneLifecycle.InstanceOf(gameObject.scene);
-            if (sceneLifecycle != null)
+            if (SceneLifecycle.FindInstance(gameObject.scene, out var sceneLifecycle))
             {
                 return sceneLifecycle.CreateContext();
             }
 
-            sceneLifecycle = SceneLifecycle.OverriddenLifecycle;
-            if (sceneLifecycle != null)
+            if (SceneLifecycle.FindOverriddenLifecycle(out sceneLifecycle))
             {
                 return sceneLifecycle.CreateContext();
             }
 
-            var projectLifecycle = ProjectLifecycle.Instance;
-            if (projectLifecycle != null)
+            if (ProjectLifecycle.FindInstance(out var projectLifecycle))
             {
                 return projectLifecycle.CreateContext();
             }

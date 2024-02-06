@@ -12,25 +12,28 @@ namespace YggdrAshill.Ragnarok
     {
         private static readonly object lockObject = new();
         private static volatile ProjectLifecycle? instance;
-        public static ProjectLifecycle? Instance
+        public static bool FindInstance(out ProjectLifecycle lifecycle)
         {
-            get
+            lifecycle = default!;
+            
+            lock (lockObject)
             {
-                lock (lockObject)
+                if (instance != null)
                 {
-                    if (instance != null)
-                    {
-                        return instance;
-                    }
+                    lifecycle = instance;
 
-                    if (RagnarokConfiguration.ProjectLifecycle != null)
-                    {
-                        return instance = Instantiate(RagnarokConfiguration.ProjectLifecycle);
-                    }
+                    return true;
+                }
 
-                    return null;
+                if (RagnarokConfiguration.ProjectLifecycle != null)
+                {
+                    lifecycle = instance = Instantiate(RagnarokConfiguration.ProjectLifecycle);
+
+                    return true;
                 }
             }
+            
+            return false;
         }
 
         protected override bool RunAutomatically => true;

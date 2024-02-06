@@ -11,13 +11,14 @@ namespace YggdrAshill.Ragnarok
     [DefaultExecutionOrder(LifecycleExecutionOrder.Scene)]
     public sealed class SceneLifecycle : Lifecycle
     {
-        // TODO: cache result?
-        public static SceneLifecycle? InstanceOf(Scene scene)
+        public static bool FindInstance(Scene scene, out SceneLifecycle lifecycle)
         {
             if (!scene.IsValid())
             {
                 throw new ArgumentException($"{scene} is invalid.");
             }
+
+            lifecycle = default!;
 
             // TODO: object pooling.
             var buffer = new List<GameObject>();
@@ -26,27 +27,28 @@ namespace YggdrAshill.Ragnarok
             
             foreach (var instance in buffer)
             {
-                if (instance.TryGetComponent<SceneLifecycle>(out var lifecycle))
+                if (instance.TryGetComponent(out lifecycle))
                 {
-                    return lifecycle;
+                    return true;
                 }
             }
 
-            return null;
+            return false;
         }
         
         private static Stack<SceneLifecycle> OverriddenLifecycleStack { get; } = new();
-        public static SceneLifecycle? OverriddenLifecycle
+        public static bool FindOverriddenLifecycle(out SceneLifecycle lifecycle)
         {
-            get
+            lifecycle = default!;
+            
+            if (OverriddenLifecycleStack.Count == 0)
             {
-                if (OverriddenLifecycleStack.Count == 0)
-                {
-                    return null;
-                }
-
-                return OverriddenLifecycleStack.Peek();
+                return false;
             }
+
+            lifecycle = OverriddenLifecycleStack.Peek();
+
+            return true;
         }
 
         public readonly struct OverrideParentLifecycleScope : IDisposable
@@ -80,14 +82,12 @@ namespace YggdrAshill.Ragnarok
         
         protected override IObjectContext GetCurrentContext()
         {
-            var sceneLifecycle = OverriddenLifecycle;
-            if (sceneLifecycle != null)
+            if (FindOverriddenLifecycle(out var sceneLifecycle))
             {
                 return sceneLifecycle.CreateContext();
             }
 
-            var projectLifecycle = ProjectLifecycle.Instance;
-            if (projectLifecycle != null)
+            if (ProjectLifecycle.FindInstance(out var projectLifecycle))
             {
                 return projectLifecycle.CreateContext();
             }
@@ -114,9 +114,7 @@ namespace YggdrAshill.Ragnarok
                 return;
             }
 
-            var instance = InstanceOf(gameObject.scene);
-
-            if (instance != this)
+            if (FindInstance(gameObject.scene, out var instance) && instance != this)
             {
                 DestroyImmediate(gameObject);
                 return;
