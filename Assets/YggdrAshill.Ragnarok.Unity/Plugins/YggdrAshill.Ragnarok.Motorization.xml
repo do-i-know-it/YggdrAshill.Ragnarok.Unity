@@ -4,44 +4,294 @@
         <name>YggdrAshill.Ragnarok.Motorization</name>
     </assembly>
     <members>
-        <member name="T:YggdrAshill.Ragnarok.ScopedResolverBuilder">
+        <member name="T:YggdrAshill.Ragnarok.CollectionInjectionRequest">
             <summary>
-            Implementation of <see cref="T:YggdrAshill.Ragnarok.IScopedResolverBuilder"/>.
+            Defines request for collection injection.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ScopedResolverBuilder.#ctor(YggdrAshill.Ragnarok.IRootResolver)">
+        <member name="P:YggdrAshill.Ragnarok.CollectionInjectionRequest.ElementType">
             <summary>
-            Creates <see cref="T:YggdrAshill.Ragnarok.ScopedResolverBuilder"/> for root <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            <see cref="T:System.Type"/> for element of collection.
             </summary>
-            <param name="resolver">
-            <see cref="T:YggdrAshill.Ragnarok.IRootResolver"/> for <see cref="T:YggdrAshill.Ragnarok.ScopedResolverBuilder"/>.
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.CollectionInjectionRequest.#ctor(System.Type)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.CollectionInjectionRequest"/>.
+            </summary>
+            <param name="elementType">
+            <see cref="T:System.Type"/> for <see cref="P:YggdrAshill.Ragnarok.CollectionInjectionRequest.ElementType"/>.
             </param>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.ScopedResolverBuilder.Resolver">
+        <member name="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest">
+            <summary>
+            Defines request for constructor injection.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.ConstructorInjectionRequest.ImplementedType">
+            <summary>
+            <see cref="T:System.Type"/> for implemented type.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.ConstructorInjectionRequest.Constructor">
+            <summary>
+            <see cref="T:System.Reflection.ConstructorInfo"/> for <see cref="P:YggdrAshill.Ragnarok.ConstructorInjectionRequest.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.ConstructorInjectionRequest.ParameterList">
+            <summary>
+            <see cref="T:System.Reflection.ParameterInfo"/>s for <see cref="P:YggdrAshill.Ragnarok.ConstructorInjectionRequest.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ConstructorInjectionRequest.#ctor(System.Type,System.Reflection.ConstructorInfo)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest"/>.
+            </summary>
+            <param name="implementedType">
+            <see cref="T:System.Type"/> for <see cref="P:YggdrAshill.Ragnarok.ConstructorInjectionRequest.ImplementedType"/>.
+            </param>
+            <param name="constructor">
+            <see cref="T:System.Reflection.ConstructorInfo"/> for <see cref="P:YggdrAshill.Ragnarok.ConstructorInjectionRequest.ImplementedType"/>.
+            </param>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.FieldInjectionRequest">
+            <summary>
+            Defines request for field injection.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.FieldInjectionRequest.ImplementedType">
+            <summary>
+            <see cref="T:System.Type"/> for implemented type.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.FieldInjectionRequest.FieldList">
+            <summary>
+            <see cref="T:System.Reflection.FieldInfo"/>s for <see cref="P:YggdrAshill.Ragnarok.FieldInjectionRequest.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.FieldInjectionRequest.#ctor(System.Type,System.Reflection.FieldInfo[])">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.FieldInjectionRequest"/>.
+            </summary>
+            <param name="implementedType">
+            <see cref="T:System.Type"/> for <see cref="P:YggdrAshill.Ragnarok.FieldInjectionRequest.ImplementedType"/>.
+            </param>
+            <param name="fieldList">
+            <see cref="T:System.Reflection.FieldInfo"/>s for <see cref="P:YggdrAshill.Ragnarok.FieldInjectionRequest.ImplementedType"/>.
+            </param>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IDecision">
+            <summary>
+            Defines how to decide dependencies.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IDecision.RequestDependencyInjection(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest"/> for <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest"/> selected.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IDecision.RequestFieldInjection(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.FieldInjectionRequest"/> for <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.FieldInjectionRequest"/> selected.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IDecision.RequestPropertyInjection(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.PropertyInjectionRequest"/> for <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.PropertyInjectionRequest"/> selected.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IDecision.RequestMethodInjection(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.MethodInjectionRequest"/> for <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">
+            <see cref="T:System.Type"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.MethodInjectionRequest"/> selected.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IDecision.RequestServiceBundleInjection(System.Type)">
+            <summary>
+            Gets <see cref="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest"/> for <see cref="T:System.Type"/>.
+            </summary>
+            <param name="elementType">
+            <see cref="T:System.Type"/> of element for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest"/> selected.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IOperation">
+            <summary>
+            Defines how to activate or infuse instance.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IOperation.CreateActivation(YggdrAshill.Ragnarok.ConstructorInjectionRequest)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IActivation"/> for <see cref="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest"/>.
+            </summary>
+            <param name="request">
+            <see cref="T:YggdrAshill.Ragnarok.ConstructorInjectionRequest"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IActivation"/> created.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IOperation.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjectionRequest)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> for <see cref="T:YggdrAshill.Ragnarok.FieldInjectionRequest"/>.
+            </summary>
+            <param name="request">
+            <see cref="T:YggdrAshill.Ragnarok.FieldInjectionRequest"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> created.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IOperation.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjectionRequest)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> for <see cref="T:YggdrAshill.Ragnarok.PropertyInjectionRequest"/>.
+            </summary>
+            <param name="request">
+            <see cref="T:YggdrAshill.Ragnarok.PropertyInjectionRequest"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> created.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IOperation.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjectionRequest)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> for <see cref="T:YggdrAshill.Ragnarok.MethodInjectionRequest"/>.
+            </summary>
+            <param name="request">
+            <see cref="T:YggdrAshill.Ragnarok.MethodInjectionRequest"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IInfusion"/> created.
+            </returns>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IOperation.CreateCollectionActivation(YggdrAshill.Ragnarok.CollectionInjectionRequest)">
+            <summary>
+            Creates <see cref="T:YggdrAshill.Ragnarok.IActivation"/> for collection of <see cref="T:System.Type"/>.
+            </summary>
+            <param name="request">
+            <see cref="T:YggdrAshill.Ragnarok.CollectionInjectionRequest"/> for request.
+            </param>
+            <returns>
+            <see cref="T:YggdrAshill.Ragnarok.IActivation"/> created.
+            </returns>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.IServiceBundle`1">
+            <summary>
+            Defines service lifecycle for <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">
+            Type of service lifecycle.
+            </typeparam>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.IServiceBundle`1.Package">
+            <summary>
+            <typeparamref name="T"/>s for service lifecycle.
+            </summary>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.MethodInjectionRequest">
+            <summary>
+            Defines request for method injection.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.MethodInjectionRequest.ImplementedType">
+            <summary>
+            <see cref="T:System.Type"/> for implemented type.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.MethodInjectionRequest.Method">
+            <summary>
+            <see cref="T:System.Reflection.MethodInfo"/> for <see cref="P:YggdrAshill.Ragnarok.MethodInjectionRequest.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.MethodInjectionRequest.ParameterList">
+            <summary>
+            <see cref="T:System.Reflection.ParameterInfo"/>s for <see cref="P:YggdrAshill.Ragnarok.MethodInjectionRequest.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.MethodInjectionRequest.#ctor(System.Type,System.Reflection.MethodInfo)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.MethodInjectionRequest"/>.
+            </summary>
+            <param name="implementedType">
+            <see cref="T:System.Type"/> for <see cref="P:YggdrAshill.Ragnarok.MethodInjectionRequest.ImplementedType"/>.
+            </param>
+            <param name="method">
+            <see cref="T:System.Reflection.MethodInfo"/> for <see cref="P:YggdrAshill.Ragnarok.MethodInjectionRequest.ImplementedType"/>.
+            </param>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.PropertyInjectionRequest">
+            <summary>
+            Defines request for property injection.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.PropertyInjectionRequest.ImplementedType">
+            <summary>
+            <see cref="T:System.Type"/> for implemented type.
+            </summary>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.PropertyInjectionRequest.PropertyList">
+            <summary>
+            <see cref="T:System.Reflection.PropertyInfo"/>s for <see cref="P:YggdrAshill.Ragnarok.PropertyInjectionRequest.ImplementedType"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.PropertyInjectionRequest.#ctor(System.Type,System.Reflection.PropertyInfo[])">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.PropertyInjectionRequest"/>.
+            </summary>
+            <param name="implementedType">
+            <see cref="T:System.Type"/> for <see cref="P:YggdrAshill.Ragnarok.PropertyInjectionRequest.ImplementedType"/>.
+            </param>
+            <param name="propertyList">
+            <see cref="T:System.Reflection.PropertyInfo"/>s for <see cref="P:YggdrAshill.Ragnarok.PropertyInjectionRequest.ImplementedType"/>.
+            </param>
+        </member>
+        <member name="T:YggdrAshill.Ragnarok.ScopedResolverContext">
+            <summary>
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/>.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.#ctor(YggdrAshill.Ragnarok.IDecision,YggdrAshill.Ragnarok.IOperation)">
+            <summary>
+            Constructor of <see cref="T:YggdrAshill.Ragnarok.ScopedResolverContext"/> for root <see cref="T:YggdrAshill.Ragnarok.IScopedResolver"/>.
+            </summary>
+            <param name="decision">
+            <see cref="T:YggdrAshill.Ragnarok.IDecision"/> for <see cref="T:YggdrAshill.Ragnarok.ScopedResolverContext"/>.
+            </param>
+            /// <param name="operation">
+            <see cref="T:YggdrAshill.Ragnarok.IOperation"/> for <see cref="T:YggdrAshill.Ragnarok.ScopedResolverContext"/>.
+            </param>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.Resolve(System.Type)">
             <inheritdoc/>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.ScopedResolverBuilder.Compilation">
+        <member name="P:YggdrAshill.Ragnarok.ScopedResolverContext.Interpretation">
             <inheritdoc/>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.ScopedResolverBuilder.StatementCount">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.ScopedResolverBuilder.Count(YggdrAshill.Ragnarok.IStatementSelection)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.ScopedResolverBuilder.Register(YggdrAshill.Ragnarok.IStatement)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.ScopedResolverBuilder.Register(YggdrAshill.Ragnarok.IOperation)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.ScopedResolverBuilder.Register(System.IDisposable)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.ScopedResolverBuilder.CreateBuilder">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.ScopedResolverBuilder.Build">
+        <member name="M:YggdrAshill.Ragnarok.ScopedResolverContext.Build(System.Collections.Generic.IReadOnlyList{YggdrAshill.Ragnarok.IStatement})">
             <inheritdoc/>
         </member>
     </members>

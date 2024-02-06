@@ -16,15 +16,15 @@ namespace YggdrAshill.Ragnarok
 #if UNITY_IOS
             this(ReflectionSolver.Instance)
 #else
-            this(ExpressionSolver.Instance)
+            this(ExpressionToOperate.Instance)
 #endif            
         {
             
         }
 
-        private UnityDependencyContext(ISolver solver)
+        private UnityDependencyContext(IOperation operation)
         {
-            context = new DependencyContext(solver);
+            context = new DependencyContext(operation);
         }
 
         /// <inheritdoc/>

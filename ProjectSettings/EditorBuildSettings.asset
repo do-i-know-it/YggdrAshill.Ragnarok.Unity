@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/YggdrAshill.Ragnarok.Unity/Specification/Lifecycle/Scenes/LoadAdditiveSceneWithSceneLifecycle.unity
+    guid: ced03192752d28b4e94464fa5630ed6e
   m_configObjects: {}

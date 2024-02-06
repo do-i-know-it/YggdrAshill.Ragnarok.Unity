@@ -50,8 +50,6 @@ MonoBehaviour:
   scriptableInstallationList: []
   monoInstallationList:
   - {fileID: 3395318868519444079}
-  scriptableEntryPointList: []
-  monoEntryPointList: []
 --- !u!114 &3395318868519444079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,4 +108,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660f1439c5e94e43a0dff1fa47c918cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: hello world
+  content: hello world.

@@ -1,5 +1,4 @@
 #nullable enable
-using YggdrAshill.Ragnarok.Experimental;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,20 +52,17 @@ namespace YggdrAshill.Ragnarok
                 target = target.parent;
             }
 
-            var sceneLifecycle = SceneLifecycle.InstanceOf(gameObject.scene);
-            if (sceneLifecycle != null)
+            if (SceneLifecycle.FindInstance(gameObject.scene, out var sceneLifecycle))
             {
                 return sceneLifecycle.CreateContext();
             }
 
-            sceneLifecycle = SceneLifecycle.OverriddenLifecycle;
-            if (sceneLifecycle != null)
+            if (SceneLifecycle.FindOverriddenLifecycle(out sceneLifecycle))
             {
                 return sceneLifecycle.CreateContext();
             }
 
-            var projectLifecycle = ProjectLifecycle.Instance;
-            if (projectLifecycle != null)
+            if (ProjectLifecycle.FindInstance(out var projectLifecycle))
             {
                 return projectLifecycle.CreateContext();
             }
@@ -80,17 +76,9 @@ namespace YggdrAshill.Ragnarok
         [SerializeField] private MonoInstallation[] monoInstallationList = Array.Empty<MonoInstallation>();
         private IEnumerable<IInstallation> MonoInstallationList => monoInstallationList;
 
-        [SerializeField] private ScriptableEntryPoint[] scriptableEntryPointList = Array.Empty<ScriptableEntryPoint>();
-        [SerializeField] private MonoEntryPoint[] monoEntryPointList = Array.Empty<MonoEntryPoint>();
         protected override IEnumerable<IInstallation> GetInstallationList()
         {
-            var scriptableEntryPointInstallationList 
-                = scriptableEntryPointList.Select(entryPoint => entryPoint.Installation);
-            var monoEntryPointInstallationList
-                = monoEntryPointList.Select(entryPoint => entryPoint.Installation);
-
-            return ScriptableInstallationList.Concat(MonoInstallationList)
-                .Concat(scriptableEntryPointInstallationList).Concat(monoEntryPointInstallationList);
+            return ScriptableInstallationList.Concat(MonoInstallationList);
         }
     }
 }

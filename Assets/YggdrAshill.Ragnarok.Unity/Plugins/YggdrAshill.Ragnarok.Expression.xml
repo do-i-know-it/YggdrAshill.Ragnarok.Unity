@@ -4,29 +4,29 @@
         <name>YggdrAshill.Ragnarok.Expression</name>
     </assembly>
     <members>
-        <member name="T:YggdrAshill.Ragnarok.ExpressionSolver">
+        <member name="T:YggdrAshill.Ragnarok.ExpressionToOperate">
             <summary>
-            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with <see cref="T:System.Linq.Expressions.Expression"/>.
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IOperation"/> with <see cref="T:System.Linq.Expressions.Expression"/>.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.ExpressionSolver.Instance">
+        <member name="P:YggdrAshill.Ragnarok.ExpressionToOperate.Instance">
             <summary>
-            Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ExpressionSolver"/>.
+            Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ExpressionToOperate"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateActivation(YggdrAshill.Ragnarok.DependencyInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionToOperate.CreateActivation(YggdrAshill.Ragnarok.ConstructorInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionToOperate.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionToOperate.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionToOperate.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ExpressionSolver.CreateCollectionActivation(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.ExpressionToOperate.CreateCollectionActivation(YggdrAshill.Ragnarok.CollectionInjectionRequest)">
             <inheritdoc/>
         </member>
     </members>

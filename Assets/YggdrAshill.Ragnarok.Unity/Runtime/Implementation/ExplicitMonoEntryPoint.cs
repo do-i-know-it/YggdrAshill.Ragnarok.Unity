@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Experimental
+namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     public sealed class ExplicitMonoEntryPoint : MonoEntryPoint
     {
         [SerializeField] private ScriptableInstallation[] scriptableInstallationList

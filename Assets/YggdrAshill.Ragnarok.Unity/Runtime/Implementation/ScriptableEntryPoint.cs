@@ -2,8 +2,9 @@
 using System;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Experimental
+namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [CreateAssetMenu(fileName = "ScriptableEntryPoint", menuName = "YggdrAshill.Ragnarok/EntryPoint")]
     public sealed class ScriptableEntryPoint : ScriptableInstallation
     {

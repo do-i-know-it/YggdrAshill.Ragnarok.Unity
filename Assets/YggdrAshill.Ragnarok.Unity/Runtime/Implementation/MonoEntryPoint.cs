@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YggdrAshill.Ragnarok.Experimental
+namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DisallowMultipleComponent]
     public abstract class MonoEntryPoint : MonoInstallation
     {
