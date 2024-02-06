@@ -82,8 +82,6 @@ MonoBehaviour:
   scriptableInstallationList: []
   monoInstallationList:
   - {fileID: 3231480140977921390}
-  scriptableEntryPointList: []
-  monoEntryPointList: []
 --- !u!114 &3231480140977921390
 MonoBehaviour:
   m_ObjectHideFlags: 0
