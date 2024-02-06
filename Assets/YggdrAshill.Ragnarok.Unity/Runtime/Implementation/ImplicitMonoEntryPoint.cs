@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     public sealed class ImplicitMonoEntryPoint : MonoEntryPoint
     {
         protected override IEnumerable<IInstallation> InstallationList => DepthFirstInstallationList(transform);

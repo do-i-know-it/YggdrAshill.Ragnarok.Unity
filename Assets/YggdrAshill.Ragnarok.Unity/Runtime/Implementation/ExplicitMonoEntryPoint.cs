@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     public sealed class ExplicitMonoEntryPoint : MonoEntryPoint
     {
         [SerializeField] private ScriptableInstallation[] scriptableInstallationList

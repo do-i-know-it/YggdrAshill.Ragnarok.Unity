@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
+    // TODO: add document comments.
     [DisallowMultipleComponent]
     public abstract class MonoEntryPoint : MonoInstallation
     {
