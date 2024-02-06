@@ -4,29 +4,29 @@
         <name>YggdrAshill.Ragnarok.Annotation</name>
     </assembly>
     <members>
-        <member name="T:YggdrAshill.Ragnarok.AnnotationSelector">
+        <member name="T:YggdrAshill.Ragnarok.AnnotateToDecide">
             <summary>
-            Implementation of <see cref="T:YggdrAshill.Ragnarok.ISelector"/> finding annotation.
+            Implementation of <see cref="T:YggdrAshill.Ragnarok.IDecision"/> with annotation.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.AnnotationSelector.Instance">
+        <member name="P:YggdrAshill.Ragnarok.AnnotateToDecide.Instance">
             <summary>
-            Singleton of <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>.
+            Singleton of <see cref="T:YggdrAshill.Ragnarok.AnnotateToDecide"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestDependencyInjection(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.AnnotateToDecide.RequestDependencyInjection(System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestFieldInjection(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.AnnotateToDecide.RequestFieldInjection(System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestPropertyInjection(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.AnnotateToDecide.RequestPropertyInjection(System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestMethodInjection(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.AnnotateToDecide.RequestMethodInjection(System.Type)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.AnnotationSelector.RequestServiceBundleInjection(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.AnnotateToDecide.RequestServiceBundleInjection(System.Type)">
             <inheritdoc/>
         </member>
     </members>

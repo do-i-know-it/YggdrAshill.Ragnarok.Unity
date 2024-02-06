@@ -1,6 +1,4 @@
 #nullable enable
-using System;
-
 namespace YggdrAshill.Ragnarok
 {
     // TODO: add diagnostics.
@@ -18,15 +16,15 @@ namespace YggdrAshill.Ragnarok
 #if UNITY_IOS
             this(ReflectionSolver.Instance)
 #else
-            this(ExpressionSolver.Instance)
+            this(ExpressionToOperate.Instance)
 #endif            
         {
             
         }
 
-        private UnityDependencyContext(ISolver solver)
+        private UnityDependencyContext(IOperation operation)
         {
-            context = new DependencyContext(solver);
+            context = new DependencyContext(operation);
         }
 
         /// <inheritdoc/>
@@ -34,6 +32,9 @@ namespace YggdrAshill.Ragnarok
 
         /// <inheritdoc/>
         public ICompilation Compilation => context.Compilation;
+
+        /// <inheritdoc/>
+        public IRegistration Registration => context.Registration;
 
         /// <inheritdoc/>
         public IObjectContext CreateContext()
@@ -45,30 +46,6 @@ namespace YggdrAshill.Ragnarok
         public IObjectScope CreateScope()
         {
             return context.CreateScope();
-        }
-
-        /// <inheritdoc/>
-        public int Count(IStatementSelection selection)
-        {
-            return context.Count(selection);
-        }
-
-        /// <inheritdoc/>
-        public void Register(IStatement statement)
-        {
-            context.Register(statement);
-        }
-
-        /// <inheritdoc/>
-        public void Register(IOperation operation)
-        {
-            context.Register(operation);
-        }
-
-        /// <inheritdoc/>
-        public void Register(IDisposable disposable)
-        {
-            context.Register(disposable);
         }
     }
 }

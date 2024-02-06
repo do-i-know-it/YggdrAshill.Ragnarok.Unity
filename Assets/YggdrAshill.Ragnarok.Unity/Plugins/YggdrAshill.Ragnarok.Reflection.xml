@@ -4,29 +4,29 @@
         <name>YggdrAshill.Ragnarok.Reflection</name>
     </assembly>
     <members>
-        <member name="T:YggdrAshill.Ragnarok.ReflectionSolver">
+        <member name="T:YggdrAshill.Ragnarok.ReflectionToOperate">
             <summary>
-            Implementation <see cref="T:YggdrAshill.Ragnarok.ISolver"/> with Reflection.
+            Implementation <see cref="T:YggdrAshill.Ragnarok.IOperation"/> with Reflection.
             </summary>
         </member>
-        <member name="P:YggdrAshill.Ragnarok.ReflectionSolver.Instance">
+        <member name="P:YggdrAshill.Ragnarok.ReflectionToOperate.Instance">
             <summary>
-            Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ReflectionSolver"/>.
+            Singleton instance of <see cref="T:YggdrAshill.Ragnarok.ReflectionToOperate"/>.
             </summary>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateActivation(YggdrAshill.Ragnarok.DependencyInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionToOperate.CreateActivation(YggdrAshill.Ragnarok.ConstructorInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionToOperate.CreateFieldInfusion(YggdrAshill.Ragnarok.FieldInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionToOperate.CreatePropertyInfusion(YggdrAshill.Ragnarok.PropertyInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjectionRequest)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionToOperate.CreateMethodInfusion(YggdrAshill.Ragnarok.MethodInjectionRequest)">
             <inheritdoc/>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.ReflectionSolver.CreateCollectionActivation(System.Type)">
+        <member name="M:YggdrAshill.Ragnarok.ReflectionToOperate.CreateCollectionActivation(YggdrAshill.Ragnarok.CollectionInjectionRequest)">
             <inheritdoc/>
         </member>
     </members>

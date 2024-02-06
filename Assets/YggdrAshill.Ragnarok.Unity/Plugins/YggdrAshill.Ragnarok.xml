@@ -17,34 +17,34 @@
             <see cref="T:YggdrAshill.Ragnarok.IObjectContext"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </param>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.IScopedResolverBuilder)">
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.IScopedResolverContext)">
             <summary>
             Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </summary>
-            <param name="resolverBuilder">
-            <see cref="T:YggdrAshill.Ragnarok.IScopedResolverBuilder"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            <param name="context">
+            <see cref="T:YggdrAshill.Ragnarok.IScopedResolverContext"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </param>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.ISelector,YggdrAshill.Ragnarok.ISolver)">
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.IDecision,YggdrAshill.Ragnarok.IOperation)">
             <summary>
             Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </summary>
-            <param name="selector">
-            <see cref="T:YggdrAshill.Ragnarok.ISelector"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            <param name="decision">
+            <see cref="T:YggdrAshill.Ragnarok.IDecision"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </param>
-            /// <param name="solver">
-            <see cref="T:YggdrAshill.Ragnarok.ISolver"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            <param name="operation">
+            <see cref="T:YggdrAshill.Ragnarok.IOperation"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </param>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.ISolver)">
+        <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor(YggdrAshill.Ragnarok.IOperation)">
             <summary>
             Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </summary>
-            <param name="solver">
-            <see cref="T:YggdrAshill.Ragnarok.ISolver"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
+            <param name="operation">
+            <see cref="T:YggdrAshill.Ragnarok.IOperation"/> for <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </param>
             <remarks>
-            <see cref="T:YggdrAshill.Ragnarok.ISelector"/> is <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>.
+            <see cref="T:YggdrAshill.Ragnarok.IDecision"/> is <see cref="T:YggdrAshill.Ragnarok.AnnotateToDecide"/>.
             </remarks>
         </member>
         <member name="M:YggdrAshill.Ragnarok.DependencyContext.#ctor">
@@ -52,11 +52,14 @@
             Creates <see cref="T:YggdrAshill.Ragnarok.DependencyContext"/>.
             </summary>
             <remarks>
-            <see cref="T:YggdrAshill.Ragnarok.ISelector"/> is <see cref="T:YggdrAshill.Ragnarok.AnnotationSelector"/>, and
-            <see cref="T:YggdrAshill.Ragnarok.ISolver"/> is <see cref="T:YggdrAshill.Ragnarok.ExpressionSolver"/>.
+            <see cref="T:YggdrAshill.Ragnarok.IDecision"/> is <see cref="T:YggdrAshill.Ragnarok.AnnotateToDecide"/>, and
+            <see cref="T:YggdrAshill.Ragnarok.IOperation"/> is <see cref="T:YggdrAshill.Ragnarok.ExpressionToOperate"/>.
             </remarks>
         </member>
         <member name="P:YggdrAshill.Ragnarok.DependencyContext.Resolver">
+            <inheritdoc/>
+        </member>
+        <member name="P:YggdrAshill.Ragnarok.DependencyContext.Registration">
             <inheritdoc/>
         </member>
         <member name="P:YggdrAshill.Ragnarok.DependencyContext.Compilation">
@@ -66,18 +69,6 @@
             <inheritdoc/>
         </member>
         <member name="M:YggdrAshill.Ragnarok.DependencyContext.CreateScope">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Count(YggdrAshill.Ragnarok.IStatementSelection)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(YggdrAshill.Ragnarok.IStatement)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(YggdrAshill.Ragnarok.IOperation)">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.DependencyContext.Register(System.IDisposable)">
             <inheritdoc/>
         </member>
         <member name="T:YggdrAshill.Ragnarok.Installation">
@@ -94,20 +85,6 @@
             </param>
         </member>
         <member name="M:YggdrAshill.Ragnarok.Installation.Install(YggdrAshill.Ragnarok.IObjectContainer)">
-            <inheritdoc/>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.RootResolver">
-            <summary>
-            Default implementation of <see cref="T:YggdrAshill.Ragnarok.IRootResolver"/>.
-            </summary>
-        </member>
-        <member name="P:YggdrAshill.Ragnarok.RootResolver.Selector">
-            <inheritdoc/>
-        </member>
-        <member name="P:YggdrAshill.Ragnarok.RootResolver.Solver">
-            <inheritdoc/>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.RootResolver.Resolve(System.Type)">
             <inheritdoc/>
         </member>
     </members>
