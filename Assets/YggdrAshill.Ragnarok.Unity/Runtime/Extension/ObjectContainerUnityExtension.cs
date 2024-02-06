@@ -12,13 +12,7 @@ namespace YggdrAshill.Ragnarok
         {
             container.Register(resolver => resolver.Resolve<T>());
 
-            var statement = new ReturnComponentStatement(component, container.Compilation);
-            
-            var instanceInjection = statement.InstanceInjection;
-            
-            instanceInjection.As<T>();
-            
-            return instanceInjection;
+            return container.RegisterInstance(() => component);
         }
         
         public static ISearchedComponentInjection RegisterComponent<T>(this IObjectContainer container, GameObject instance, SearchOrder order)
