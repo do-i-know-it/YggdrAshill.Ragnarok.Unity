@@ -14,7 +14,7 @@ This framework also depends on below.
 
 - .NET Standard 2.1
 - [Unity](https://unity.com/ja) 2021.3.x
-- [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) 0.10.2
+- [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) 0.12.0
 
 ## Installation
 
@@ -66,8 +66,7 @@ using implementations as below:
 ```cs
 class ConsoleSender : MonoBehaviour, ISender
 {
-    [SerializeField]
-    InputField? inputField;
+    [SerializeField] InputField? inputField;
 
     public string Send()
     {
@@ -77,8 +76,7 @@ class ConsoleSender : MonoBehaviour, ISender
 
 class ConsoleReceiver : MonoBehaviour, IReceiver
 {
-    [SerializeField]
-    Text? outputText;
+    [SerializeField] Text? outputText;
 
     public void Receive(string message)
     {
@@ -112,7 +110,12 @@ You can resolve dependency registering `ServiceMonoInstallation` to `GameObjectL
 - `ImplicitMonoEntryPoint`
 - `ExplicitMonoEntryPoint`
 
-is `MonoInstallation` collecting other `MonoInstallation`s to register dependencies in ease.
+is `MonoInstallation` collecting other `MonoInstallation`s and `ScriptableInstallation`s to register dependencies in ease.
+
+Also, `ScriptableEntryPoint` is `ScriptableInstallation` collecting other `ScriptableInstallation`s to register dependencies in ease.
+
+### __Install dependencies automatically__
+`AutomatedMonoInstallation` and `AutomatedScriptableInstallation` are auto wiring tools to use this framework in ease, without implementing `IInstallation` (inspired by [Zenject/Extenject/UniDi](https://github.com/UniDi/UniDi)).
 
 ## Known issues
 
@@ -122,8 +125,6 @@ Please see [issues](https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity/i
 
 Please see [GitHub Project for road map](https://github.com/do-i-know-it/YggdrAshill.Ragnarok.Unity/projects/1).
 
-- Implementation for `IRootResolver` for Unity.
-- Auto wiring to use this framework in ease.
 - Diagnostics in Editor.
 
 ## License

@@ -1,5 +1,5 @@
-# Release notes for version 0.2.0
+# Release notes for version 0.3.0
 
-- Upgraded YggdrAshill.Ragnarok to 0.10.2.
-- Modified definitions and implementations for Unity extension of YggdrAshill.Ragnarok.
-- Modified E2E specifications for framework.
+- Upgraded YggdrAshill.Ragnarok to 0.12.0.
+- Rearranged experimental implementations.
+- Modified implementations for Lifecycle.
