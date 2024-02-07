@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    // TODO: add document comments.
-    public sealed class ReturnComponentInGameObjectStatement : ISearchedComponentInjection, IStatement
+    internal sealed class ReturnComponentInGameObjectStatement : ISearchedComponentInjection, IStatement
     {
         private readonly GameObject instance;
         private readonly SearchOrder order;

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 namespace YggdrAshill.Ragnarok
 {
-    // TODO: add document comments.
-    public sealed class ResolveFromUnitySubContainerStatement : IStatement
+    internal sealed class ResolveFromUnitySubContainerStatement : IStatement
     {
         private readonly IRegistration registration;
         private readonly GameObjectLifecycle prefab;
