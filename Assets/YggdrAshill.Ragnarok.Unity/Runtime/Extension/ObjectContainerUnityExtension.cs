@@ -15,8 +15,9 @@ namespace YggdrAshill.Ragnarok
             
             var instanceInjection = statement.InstanceInjection;
             instanceInjection.As<TComponent>();
-            
-            container.Register(resolver => resolver.Resolve<TComponent>());
+
+            var instruction = new ResolveWithStatement(statement);
+            container.Registration.Register(instruction);
 
             return instanceInjection;
         }
@@ -28,7 +29,9 @@ namespace YggdrAshill.Ragnarok
             
             container.Registration.Register(statement);
             
-            container.Register(resolver => resolver.Resolve<T>());
+            var instruction = new ResolveWithStatement(statement);
+            
+            container.Registration.Register(instruction);
 
             return statement;
         }
