@@ -23,7 +23,7 @@ namespace YggdrAshill.Ragnarok.Specification
         
         public override void Install(IObjectContainer container)
         {
-            container.RegisterComponent(Target);
+            container.RegisterInstance(Target);
             container.Register<LoadAdditiveSceneWithSceneLifecycle>(Lifetime.Global).WithArgument(sceneName);
             container.Register(resolver => resolver.Resolve<LoadAdditiveSceneWithSceneLifecycle>().Execute());
         }

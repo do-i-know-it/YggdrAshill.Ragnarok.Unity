@@ -24,7 +24,7 @@ namespace YggdrAshill.Ragnarok.Specification
 
         public override void Install(IObjectContainer container)
         {
-            container.RegisterComponent<SenderComponent>(Instance, order);
+            container.RegisterComponentInGameObject<SenderComponent>(Instance, order);
         }
     }
 }

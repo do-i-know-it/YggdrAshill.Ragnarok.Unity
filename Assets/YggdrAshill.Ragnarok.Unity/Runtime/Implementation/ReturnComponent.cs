@@ -1,12 +1,14 @@
 ﻿#nullable enable
+using UnityEngine;
+
 namespace YggdrAshill.Ragnarok
 {
     internal sealed class ReturnComponent : IInstantiation
     {
-        private readonly object component;
+        private readonly Component component;
         private readonly IInjection? injection;
 
-        public ReturnComponent(object component, IInjection? injection)
+        public ReturnComponent(Component component, IInjection? injection)
         {
             this.component = component;
             this.injection = injection;

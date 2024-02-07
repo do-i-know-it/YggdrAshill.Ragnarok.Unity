@@ -7,15 +7,21 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public static class ObjectContainerUnityExtension
     {
-        public static IInstanceInjection RegisterComponent<T>(this IObjectContainer container, T component)
-            where T : notnull
+        public static IInstanceInjection RegisterComponent<TComponent>(this IObjectContainer container, TComponent component)
+            where TComponent : Component
         {
-            container.Register(resolver => resolver.Resolve<T>());
+            var statement = new ReturnComponentStatement(component, container.Compilation);
+            container.Registration.Register(statement);
+            
+            var instanceInjection = statement.InstanceInjection;
+            instanceInjection.As<TComponent>();
+            
+            container.Register(resolver => resolver.Resolve<TComponent>());
 
-            return container.RegisterInstance(() => component);
+            return instanceInjection;
         }
         
-        public static ISearchedComponentInjection RegisterComponent<T>(this IObjectContainer container, GameObject instance, SearchOrder order)
+        public static ISearchedComponentInjection RegisterComponentInGameObject<T>(this IObjectContainer container, GameObject instance, SearchOrder order)
             where T : notnull
         {
             var statement = new ReturnComponentInGameObjectStatement(container.Compilation, typeof(T), instance, order);

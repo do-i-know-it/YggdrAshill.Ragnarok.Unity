@@ -21,7 +21,7 @@ namespace YggdrAshill.Ragnarok.Specification
         
         public override void Install(IObjectContainer container)
         {
-            container.RegisterComponent(Instance);
+            container.RegisterInstance(Instance);
             container.Register<HelloWorldWithGameObject>(Lifetime.Global);
             container.Register(resolver => resolver.Resolve<HelloWorldWithGameObject>().Execute());
         }
