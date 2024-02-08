@@ -1,5 +1,5 @@
-# Release notes for version 0.3.0
+# Release notes for version 0.3.1
 
-- Upgraded YggdrAshill.Ragnarok to 0.12.0.
-- Rearranged experimental implementations.
-- Modified implementations for Lifecycle.
+- Added specifications for installation to register automatically.
+- Rearranged specifications for framework.
+- Modified implementations and extensions for framework.
