@@ -7,7 +7,18 @@ namespace YggdrAshill.Ragnarok
     [Serializable]
     internal sealed class Automation
     {
-        public static void Register(IInstanceInjection instanceInjection, InstanceInjectionTarget target, TypeAssignmentMethod method)
+        public static void Register(IObjectContainer container, Automation automation)
+        {
+            var statement = new ReturnComponentStatement(automation.Component, container.Compilation);
+            container.Registration.Register(statement);
+            
+            Register(statement.InstanceInjection, automation.InstanceInjectionTarget, automation.TypeAssignmentMethod);
+
+            var instruction = new ResolveWithStatement(statement);
+            container.Registration.Register(instruction);
+        }
+        
+        private static void Register(IInstanceInjection instanceInjection, InstanceInjectionTarget target, TypeAssignmentMethod method)
         {
             if ((target & InstanceInjectionTarget.Field) is InstanceInjectionTarget.Field)
             {
@@ -33,6 +44,8 @@ namespace YggdrAshill.Ragnarok
                 case TypeAssignmentMethod.AllInterfacesAndSelf:
                     instanceInjection.AsImplementedInterfaces().AsOwnSelf();
                     break;
+                default:
+                    throw new InvalidOperationException($"{method} is invalid.");
             }
         }
         

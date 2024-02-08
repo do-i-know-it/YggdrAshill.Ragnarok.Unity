@@ -13,11 +13,7 @@ namespace YggdrAshill.Ragnarok
         {
             foreach (var automation in automationList)
             {
-                var statement = new ReturnComponentStatement(automation.Component, container.Compilation);
-
-                Automation.Register(statement.InstanceInjection, automation.InstanceInjectionTarget, automation.TypeAssignmentMethod);
-                
-                container.Registration.Register(statement);
+                Automation.Register(container, automation);
             }
         }
     }

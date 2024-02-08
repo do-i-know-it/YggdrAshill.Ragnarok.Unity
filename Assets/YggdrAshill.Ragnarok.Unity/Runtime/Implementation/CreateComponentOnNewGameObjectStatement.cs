@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 namespace YggdrAshill.Ragnarok
 {
-    // TODO: add document comments.
-    public sealed class CreateComponentOnNewGameObjectStatement : INamedComponentInjection, IStatement
+    internal sealed class CreateComponentOnNewGameObjectStatement : INamedComponentInjection, IStatement
     {
         private readonly InstanceInjectionSource source;
         private readonly Lazy<IInstantiation> instantiationCache;

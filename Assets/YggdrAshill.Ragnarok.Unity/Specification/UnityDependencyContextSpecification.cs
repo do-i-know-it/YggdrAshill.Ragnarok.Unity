@@ -209,7 +209,7 @@ namespace YggdrAshill.Ragnarok.Specification
 
             var context = new UnityDependencyContext();
             
-            context.RegisterComponent<NoDependencyComponent>(component.gameObject, SearchOrder.Children);
+            context.RegisterComponentInGameObject<NoDependencyComponent>(component.gameObject, SearchOrder.Children);
 
             using var scope = context.CreateScope();
 
@@ -225,7 +225,7 @@ namespace YggdrAshill.Ragnarok.Specification
  
             var context = new UnityDependencyContext();
             
-            context.RegisterComponent<NoDependencyComponent>(component.gameObject, SearchOrder.Parent);
+            context.RegisterComponentInGameObject<NoDependencyComponent>(component.gameObject, SearchOrder.Parent);
 
             using var scope = context.CreateScope();
 

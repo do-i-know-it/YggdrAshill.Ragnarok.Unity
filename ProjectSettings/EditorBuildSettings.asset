@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/YggdrAshill.Ragnarok.Unity/Specification/Lifecycle/Scenes/LoadAdditiveSceneWithSceneLifecycle.unity
+    path: Assets/YggdrAshill.Ragnarok.Unity/Specification/Lifecycles/Scenes/LoadedScene.unity
     guid: ced03192752d28b4e94464fa5630ed6e
   m_configObjects: {}

@@ -1,16 +1,17 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
     internal sealed class ReturnComponentStatement : IStatement
     {
-        private readonly object component;
+        private readonly Component component;
         private readonly InstanceInjectionSource source;
         private readonly Lazy<IInstantiation> instantiation;
 
-        public ReturnComponentStatement(object component, ICompilation compilation)
+        public ReturnComponentStatement(Component component, ICompilation compilation)
         {
             this.component = component;
             source = new InstanceInjectionSource(component.GetType(), compilation);

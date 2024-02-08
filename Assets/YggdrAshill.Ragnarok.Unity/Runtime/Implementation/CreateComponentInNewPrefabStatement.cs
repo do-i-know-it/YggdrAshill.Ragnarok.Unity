@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    // TODO: add document comments.
-    public sealed class CreateComponentInNewPrefabStatement : ICreatedComponentInjection, IStatement
+    internal sealed class CreateComponentInNewPrefabStatement : ICreatedComponentInjection, IStatement
     {
         private readonly Component prefab;
         private readonly InstanceInjectionSource source;

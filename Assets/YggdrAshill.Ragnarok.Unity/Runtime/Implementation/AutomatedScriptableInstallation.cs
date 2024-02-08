@@ -14,11 +14,7 @@ namespace YggdrAshill.Ragnarok
         {
             foreach (var automation in automationList)
             {
-                var statement = new CreateComponentInNewPrefabStatement(container.Compilation, Lifetime.Global, automation.Component);
-
-                Automation.Register(statement, automation.InstanceInjectionTarget, automation.TypeAssignmentMethod);
-                
-                container.Registration.Register(statement);
+                Automation.Register(container, automation);
             }
         }
     }
