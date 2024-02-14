@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    internal sealed class ReturnComponentInChildren : IInstantiation
+    internal sealed class InstantiateToReturnComponentInParent : IInstantiation
     {
         private readonly GameObject instance;
         private readonly Type type;
         private readonly bool includeInactive;
         private readonly IInjection? injection;
 
-        public ReturnComponentInChildren(GameObject instance, Type type, bool includeInactive, IInjection? injection)
+        public InstantiateToReturnComponentInParent(GameObject instance, Type type, bool includeInactive, IInjection? injection)
         {
             this.instance = instance;
             this.type = type;
@@ -21,7 +21,7 @@ namespace YggdrAshill.Ragnarok
         
         public object Instantiate(IObjectResolver resolver)
         {
-            var component = instance.GetComponentInChildren(type, includeInactive);
+            var component = instance.GetComponentInParent(type, includeInactive);
 
             if (component == null)
             {
@@ -29,7 +29,7 @@ namespace YggdrAshill.Ragnarok
             }
             
             injection?.Inject(resolver, component);
-
+            
             return component;
         }
     }

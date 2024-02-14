@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    internal sealed class ReturnComponentInGameObjectStatement : ISearchedComponentInjection, IStatement
+    internal sealed class ReturnComponentInHierarchyStatement : ISearchedComponentInjection, IStatement
     {
         private readonly GameObject instance;
         private readonly SearchOrder order;
         private readonly InstanceInjectionSource source;
         private readonly Lazy<IInstantiation> instantiation;
 
-        public ReturnComponentInGameObjectStatement(IObjectContainer container, Type type, GameObject instance, SearchOrder order)
+        public ReturnComponentInHierarchyStatement(IObjectContainer container, Type type, GameObject instance, SearchOrder order)
         {
             this.instance = instance;
             this.order = order;
@@ -26,9 +26,9 @@ namespace YggdrAshill.Ragnarok
 
             return order switch
             {
-                SearchOrder.Children => new ReturnComponentInChildren(instance, ImplementedType, includeInactive, injection),
-                SearchOrder.Parent => new ReturnComponentInParent(instance, ImplementedType, includeInactive, injection),
-                SearchOrder.Scene => new ReturnComponentInScene(instance, ImplementedType, includeInactive, injection),
+                SearchOrder.Children => new InstantiateToReturnComponentInChildren(instance, ImplementedType, includeInactive, injection),
+                SearchOrder.Parent => new InstantiateToReturnComponentInParent(instance, ImplementedType, includeInactive, injection),
+                SearchOrder.Scene => new InstantiateToReturnComponentInScene(instance, ImplementedType, includeInactive, injection),
                 _ => throw new NotSupportedException($"{order} is invalid."),
             };
         }

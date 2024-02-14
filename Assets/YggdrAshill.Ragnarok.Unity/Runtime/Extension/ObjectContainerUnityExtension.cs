@@ -22,10 +22,10 @@ namespace YggdrAshill.Ragnarok
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ISearchedComponentInjection RegisterComponentInGameObject<T>(this IObjectContainer container, GameObject instance, SearchOrder order)
+        public static ISearchedComponentInjection RegisterComponentInHierarchy<T>(this IObjectContainer container, GameObject instance, SearchOrder order)
             where T : notnull
         {
-            var statement = new ReturnComponentInGameObjectStatement(container, typeof(T), instance, order);
+            var statement = new ReturnComponentInHierarchyStatement(container, typeof(T), instance, order);
             
             container.Registration.Register(statement);
 

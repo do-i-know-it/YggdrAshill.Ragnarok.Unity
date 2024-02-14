@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    internal sealed class ReturnComponentInScene : IInstantiation
+    internal sealed class InstantiateToReturnComponentInScene : IInstantiation
     {
         private readonly GameObject instance;
         private readonly Type type;
         private readonly bool includeInactive;
         private readonly IInjection? injection;
 
-        public ReturnComponentInScene(GameObject instance, Type type, bool includeInactive, IInjection? injection)
+        public InstantiateToReturnComponentInScene(GameObject instance, Type type, bool includeInactive, IInjection? injection)
         {
             this.instance = instance;
             this.type = type;
