@@ -121,6 +121,19 @@
             True if <paramref name="statement"/> is satisfied with this.
             </returns>
         </member>
+        <member name="T:YggdrAshill.Ragnarok.IExecution">
+            <summary>
+            Defines what to execute for <see cref="T:YggdrAshill.Ragnarok.IObjectResolver"/> just after building it.
+            </summary>
+        </member>
+        <member name="M:YggdrAshill.Ragnarok.IExecution.Execute(YggdrAshill.Ragnarok.IObjectResolver)">
+            <summary>
+            Executes for <paramref name="resolver"/>.
+            </summary>
+            <param name="resolver">
+            <see cref="T:YggdrAshill.Ragnarok.IObjectResolver"/> to execute.
+            </param>
+        </member>
         <member name="T:YggdrAshill.Ragnarok.IInjection">
             <summary>
             Defines how to inject dependencies into instance to resolve.
@@ -165,19 +178,6 @@
             <returns>
             <see cref="T:System.Object"/> instantiated.
             </returns>
-        </member>
-        <member name="T:YggdrAshill.Ragnarok.IInstruction">
-            <summary>
-            Defines what to execute for <see cref="T:YggdrAshill.Ragnarok.IObjectResolver"/>.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.IInstruction.Execute(YggdrAshill.Ragnarok.IObjectResolver)">
-            <summary>
-            Executes for <paramref name="resolver"/>.
-            </summary>
-            <param name="resolver">
-            <see cref="T:YggdrAshill.Ragnarok.IObjectResolver"/> to execute.
-            </param>
         </member>
         <member name="T:YggdrAshill.Ragnarok.IObjectContainer">
             <summary>
@@ -306,12 +306,12 @@
             <see cref="T:YggdrAshill.Ragnarok.IStatement"/> to register.
             </param>
         </member>
-        <member name="M:YggdrAshill.Ragnarok.IRegistration.Register(YggdrAshill.Ragnarok.IInstruction)">
+        <member name="M:YggdrAshill.Ragnarok.IRegistration.Register(YggdrAshill.Ragnarok.IExecution)">
             <summary>
-            Adds <see cref="T:YggdrAshill.Ragnarok.IInstruction"/> to initialize <see cref="T:YggdrAshill.Ragnarok.IObjectResolver"/>.
+            Adds <see cref="T:YggdrAshill.Ragnarok.IExecution"/> to initialize <see cref="T:YggdrAshill.Ragnarok.IObjectResolver"/>.
             </summary>
-            <param name="instruction">
-            <see cref="T:YggdrAshill.Ragnarok.IInstruction"/> to register.
+            <param name="execution">
+            <see cref="T:YggdrAshill.Ragnarok.IExecution"/> to register.
             </param>
         </member>
         <member name="M:YggdrAshill.Ragnarok.IRegistration.Register(System.IDisposable)">

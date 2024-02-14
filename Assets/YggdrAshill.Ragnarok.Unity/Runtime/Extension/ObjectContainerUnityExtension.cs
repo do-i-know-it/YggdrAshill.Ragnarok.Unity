@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
@@ -7,39 +8,37 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public static class ObjectContainerUnityExtension
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IInstanceInjection RegisterComponent<TComponent>(this IObjectContainer container, TComponent component)
             where TComponent : Component
         {
-            var statement = new ReturnComponentStatement(component, container.Compilation);
+            var statement = new ReturnComponentStatement(component, container);
             container.Registration.Register(statement);
             
-            var instanceInjection = statement.InstanceInjection;
-            instanceInjection.As<TComponent>();
+            var source = statement.Source;
+            source.ResolvedImmediately().As<TComponent>();
 
-            var instruction = new ResolveWithStatement(statement);
-            container.Registration.Register(instruction);
-
-            return instanceInjection;
+            return source;
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ISearchedComponentInjection RegisterComponentInGameObject<T>(this IObjectContainer container, GameObject instance, SearchOrder order)
             where T : notnull
         {
-            var statement = new ReturnComponentInGameObjectStatement(container.Compilation, typeof(T), instance, order);
+            var statement = new ReturnComponentInGameObjectStatement(container, typeof(T), instance, order);
             
             container.Registration.Register(statement);
-            
-            var instruction = new ResolveWithStatement(statement);
-            
-            container.Registration.Register(instruction);
+
+            statement.ResolvedImmediately();
 
             return statement;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static INamedComponentInjection RegisterComponentOnNewGameObject<TComponent>(this IObjectContainer container, Lifetime lifetime)
             where TComponent : Component
         {
-            var statement = new CreateComponentOnNewGameObjectStatement(container.Compilation, typeof(TComponent), lifetime);
+            var statement = new CreateComponentOnNewGameObjectStatement(container, typeof(TComponent), lifetime);
             
             container.Registration.Register(statement);
 
@@ -48,6 +47,7 @@ namespace YggdrAshill.Ragnarok
             return statement;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static INamedComponentInjection RegisterComponentOnNewGameObject<TInterface, TComponent>(this IObjectContainer container, Lifetime lifetime)
             where TInterface : notnull
             where TComponent : Component, TInterface
@@ -59,10 +59,11 @@ namespace YggdrAshill.Ragnarok
             return injection;
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ICreatedComponentInjection RegisterComponentInNewPrefab<TComponent>(this IObjectContainer container, TComponent prefab, Lifetime lifetime)
             where TComponent : Component
         {
-            var statement = new CreateComponentInNewPrefabStatement(container.Compilation, lifetime, prefab);
+            var statement = new CreateComponentInNewPrefabStatement(container, lifetime, prefab);
             
             container.Registration.Register(statement);
             
@@ -71,6 +72,7 @@ namespace YggdrAshill.Ragnarok
             return statement;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ICreatedComponentInjection RegisterComponentInNewPrefab<TInterface, TComponent>(this IObjectContainer container, TComponent prefab, Lifetime lifetime)
             where TInterface : notnull
             where TComponent : Component, TInterface
@@ -82,6 +84,7 @@ namespace YggdrAshill.Ragnarok
             return injection;
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IDependencyInjection RegisterEntryPoint<T>(this IObjectContainer container, Lifetime lifetime = Lifetime.Global)
             where T : notnull
         {
@@ -95,6 +98,7 @@ namespace YggdrAshill.Ragnarok
         }
         
         // TODO: use Lifecycle, instead of IAnchor?
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, IAnchorTransform? anchor = null)
             where T : notnull
         {
@@ -105,23 +109,27 @@ namespace YggdrAshill.Ragnarok
             return statement.TypeAssignment;
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, Func<Transform> anchor)
             where T : notnull
         {
             return container.RegisterFromSubContainer<T>(prefab, new AnchorTransform(anchor));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, Transform parent)
             where T : notnull
         {
             return container.RegisterFromSubContainer<T>(prefab, new AnchorTransform(parent));
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RegisterHandler(this IObjectContainer container, Action<Exception> exceptionHandler)
         {
             container.RegisterInstance(new ExceptionHandler(exceptionHandler));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void UseUnityEventLoop(this IObjectContainer container)
         {
             if (container.Count(statement => statement.ImplementedType == typeof(UnityEventLoopDispatcher)) > 0)
@@ -131,10 +139,7 @@ namespace YggdrAshill.Ragnarok
             
             container.Register<UnityEventLoopDispatcher>(Lifetime.Local);
             
-            container.Register(resolver =>
-            {
-                resolver.Resolve<UnityEventLoopDispatcher>().Dispatch();
-            });
+            container.RegisterCallback<UnityEventLoopDispatcher>(instance => instance.Dispatch());
         }
     }
 }

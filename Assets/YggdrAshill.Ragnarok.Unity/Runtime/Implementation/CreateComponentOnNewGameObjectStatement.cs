@@ -11,9 +11,9 @@ namespace YggdrAshill.Ragnarok
         
         public Lifetime Lifetime { get; }
 
-        public CreateComponentOnNewGameObjectStatement(ICompilation compilation, Type type, Lifetime lifetime)
+        public CreateComponentOnNewGameObjectStatement(IObjectContainer container, Type type, Lifetime lifetime)
         {
-            source = new InstanceInjectionSource(type, compilation);
+            source = new InstanceInjectionSource(type, container);
             instantiationCache = new Lazy<IInstantiation>(CreateInstantiation);
             Lifetime = lifetime;
         }
@@ -46,51 +46,6 @@ namespace YggdrAshill.Ragnarok
         public Ownership Ownership => Ownership.Internal;
         
         public IInstantiation Instantiation => instantiationCache.Value;
-
-        public void AsOwnSelf()
-        {
-            source.AsOwnSelf();
-        }
-
-        public IInheritedTypeAssignment As(Type inheritedType)
-        {
-            return source.As(inheritedType);
-        }
-
-        public IOwnTypeAssignment AsImplementedInterfaces()
-        {
-            return source.AsImplementedInterfaces();
-        }
-
-        public IMethodInjection WithMethod(IParameter parameter)
-        {
-            return source.WithMethod(parameter);
-        }
-
-        public IMethodInjection WithMethodInjection()
-        {
-            return source.WithMethodInjection();
-        }
-
-        public IPropertyInjection WithProperty(IParameter parameter)
-        {
-            return source.WithProperty(parameter);
-        }
-
-        public IPropertyInjection WithPropertyInjection()
-        {
-            return source.WithPropertyInjection();
-        }
-
-        public IFieldInjection WithField(IParameter parameter)
-        {
-            return source.WithField(parameter);
-        }
-
-        public IFieldInjection WithFieldInjection()
-        {
-            return source.WithFieldInjection();
-        }
         
         public IInstanceInjection Under(IAnchorTransform anchor)
         {
@@ -111,6 +66,56 @@ namespace YggdrAshill.Ragnarok
             objectName = name;
 
             return this;
+        }
+
+        public void AsOwnSelf()
+        {
+            source.AsOwnSelf();
+        }
+
+        public IInheritedTypeAssignment As(Type inheritedType)
+        {
+            return source.As(inheritedType);
+        }
+
+        public IOwnTypeAssignment AsImplementedInterfaces()
+        {
+            return source.AsImplementedInterfaces();
+        }
+
+        public IParameterMethodInjection WithMethod(IParameter parameter)
+        {
+            return source.WithMethod(parameter);
+        }
+
+        public ITypeAssignment WithMethodInjection()
+        {
+            return source.WithMethodInjection();
+        }
+
+        public IParameterPropertyInjection WithProperty(IParameter parameter)
+        {
+            return source.WithProperty(parameter);
+        }
+
+        public IMethodInjection WithPropertyInjection()
+        {
+            return source.WithPropertyInjection();
+        }
+
+        public IParameterFieldInjection WithField(IParameter parameter)
+        {
+            return source.WithField(parameter);
+        }
+
+        public IPropertyInjection WithFieldInjection()
+        {
+            return source.WithFieldInjection();
+        }
+
+        public IFieldInjection ResolvedImmediately()
+        {
+            return source.ResolvedImmediately();
         }
     }
 }

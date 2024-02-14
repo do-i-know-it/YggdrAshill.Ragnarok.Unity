@@ -71,21 +71,5 @@
         <member name="M:YggdrAshill.Ragnarok.DependencyContext.CreateScope">
             <inheritdoc/>
         </member>
-        <member name="T:YggdrAshill.Ragnarok.Installation">
-            <summary>
-            Implementation of <see cref="T:YggdrAshill.Ragnarok.IInstallation"/>.
-            </summary>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Installation.#ctor(System.Action{YggdrAshill.Ragnarok.IObjectContainer})">
-            <summary>
-            Creates <see cref="T:YggdrAshill.Ragnarok.Installation"/>.
-            </summary>
-            <param name="onInstalled">
-            <see cref="T:System.Action`1"/> to install <see cref="T:YggdrAshill.Ragnarok.IObjectContainer"/>.
-            </param>
-        </member>
-        <member name="M:YggdrAshill.Ragnarok.Installation.Install(YggdrAshill.Ragnarok.IObjectContainer)">
-            <inheritdoc/>
-        </member>
     </members>
 </doc>
