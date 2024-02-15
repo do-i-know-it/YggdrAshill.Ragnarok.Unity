@@ -20,9 +20,14 @@ namespace YggdrAshill.Ragnarok
         
         private IInstantiation CreateInstantiation()
         {
-            var injection = CreateInjection();
+            var returnComponent = new ReturnComponent(component);
+            
+            if (!Source.CanInjectIntoInstance(out var injection))
+            {
+                return returnComponent;
+            }
 
-            return new ReturnComponent(component, injection);
+            return injection.ToInstantiate(returnComponent);
         }
 
         private IInjection? CreateInjection()

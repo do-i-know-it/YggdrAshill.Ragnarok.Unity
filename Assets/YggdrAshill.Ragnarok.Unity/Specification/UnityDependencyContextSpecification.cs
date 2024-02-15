@@ -203,13 +203,55 @@ namespace YggdrAshill.Ragnarok.Specification
         }
         
         [Test]
-        public void ShouldResolveComponentInChildren()
+        public void ShouldResolveComponentInOwn()
         {
             var component = new GameObject(nameof(NoDependencyComponent)).AddComponent<NoDependencyComponent>();
 
             var context = new UnityDependencyContext();
             
-            context.RegisterComponentInHierarchy<NoDependencyComponent>(component.gameObject, SearchOrder.Children);
+            context.RegisterComponentInHierarchy<NoDependencyComponent>(component.gameObject, SearchOrder.Own);
+
+            using var scope = context.CreateScope();
+
+            var resolved = scope.Resolver.Resolve<NoDependencyComponent>();
+            
+            Assert.That(resolved, Is.EqualTo(component));
+        }
+        
+        [Test]
+        public void ShouldResolveComponentInSibling()
+        {
+            var instance = new GameObject(nameof(NoDependencyComponent));
+            var component = instance.AddComponent<NoDependencyComponent>();
+
+            var parent = new GameObject("Parent");
+            var sibling = new GameObject("Sibling");
+
+            instance.transform.parent = parent.transform;
+            sibling.transform.parent = parent.transform;
+
+            var context = new UnityDependencyContext();
+            
+            context.RegisterComponentInHierarchy<NoDependencyComponent>(sibling, SearchOrder.Sibling);
+
+            using var scope = context.CreateScope();
+
+            var resolved = scope.Resolver.Resolve<NoDependencyComponent>();
+            
+            Assert.That(resolved, Is.EqualTo(component));
+        }
+        
+        [Test]
+        public void ShouldResolveComponentInChildren()
+        {
+            var parent = new GameObject("Parent");
+            var instance = new GameObject(nameof(NoDependencyComponent));
+            var component = instance.AddComponent<NoDependencyComponent>();
+            instance.transform.parent = parent.transform;
+
+            var context = new UnityDependencyContext();
+            
+            context.RegisterComponentInHierarchy<NoDependencyComponent>(parent, SearchOrder.Children);
 
             using var scope = context.CreateScope();
 
@@ -221,11 +263,14 @@ namespace YggdrAshill.Ragnarok.Specification
         [Test]
         public void ShouldResolveComponentInParent()
         {
-            var component = new GameObject(nameof(NoDependencyComponent)).AddComponent<NoDependencyComponent>();
+            var child = new GameObject("Child");
+            var instance = new GameObject(nameof(NoDependencyComponent));
+            var component = instance.AddComponent<NoDependencyComponent>();
+            child.transform.parent = instance.transform;
  
             var context = new UnityDependencyContext();
             
-            context.RegisterComponentInHierarchy<NoDependencyComponent>(component.gameObject, SearchOrder.Parent);
+            context.RegisterComponentInHierarchy<NoDependencyComponent>(child, SearchOrder.Parent);
 
             using var scope = context.CreateScope();
 

@@ -22,25 +22,27 @@ namespace YggdrAshill.Ragnarok
 
         private IInstantiation CreateInstantiation()
         {
-            var injection = CreateInjection();
-
-            return order switch
+            var returnComponentInHierarchy = InstantiateToReturnComponentInHierarchy();
+            
+            if (!source.CanInjectIntoInstance(out var injection))
             {
-                SearchOrder.Children => new InstantiateToReturnComponentInChildren(instance, ImplementedType, includeInactive, injection),
-                SearchOrder.Parent => new InstantiateToReturnComponentInParent(instance, ImplementedType, includeInactive, injection),
-                SearchOrder.Scene => new InstantiateToReturnComponentInScene(instance, ImplementedType, includeInactive, injection),
-                _ => throw new NotSupportedException($"{order} is invalid."),
-            };
-        }
-
-        private IInjection? CreateInjection()
-        {
-            if (source.CanInjectIntoInstance(out var injection))
-            {
-                return injection;
+                return returnComponentInHierarchy;
             }
 
-            return null;
+            return injection.ToInstantiate(returnComponentInHierarchy);
+        }
+
+        private IInstantiation InstantiateToReturnComponentInHierarchy()
+        {
+            return order switch
+            {
+                SearchOrder.Own => new InstantiateToReturnComponentInOwn(instance, ImplementedType, includeInactive),
+                SearchOrder.Sibling => new InstantiateToReturnComponentInSibling(instance, ImplementedType, includeInactive),
+                SearchOrder.Children => new InstantiateToReturnComponentInChildren(instance, ImplementedType, includeInactive),
+                SearchOrder.Parent => new InstantiateToReturnComponentInParent(instance, ImplementedType, includeInactive),
+                SearchOrder.Scene => new InstantiateToReturnComponentInScene(instance, ImplementedType, includeInactive),
+                _ => throw new NotSupportedException($"{order} is invalid."),
+            };
         }
 
         private bool includeInactive;

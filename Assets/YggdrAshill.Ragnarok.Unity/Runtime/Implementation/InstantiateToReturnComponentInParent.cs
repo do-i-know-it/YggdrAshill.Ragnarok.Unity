@@ -9,14 +9,12 @@ namespace YggdrAshill.Ragnarok
         private readonly GameObject instance;
         private readonly Type type;
         private readonly bool includeInactive;
-        private readonly IInjection? injection;
 
-        public InstantiateToReturnComponentInParent(GameObject instance, Type type, bool includeInactive, IInjection? injection)
+        public InstantiateToReturnComponentInParent(GameObject instance, Type type, bool includeInactive)
         {
             this.instance = instance;
             this.type = type;
             this.includeInactive = includeInactive;
-            this.injection = injection;
         }
         
         public object Instantiate(IObjectResolver resolver)
@@ -27,8 +25,6 @@ namespace YggdrAshill.Ragnarok
             {
                 throw new RagnarokException(type, $"{type} is not in {instance}.");
             }
-            
-            injection?.Inject(resolver, component);
             
             return component;
         }

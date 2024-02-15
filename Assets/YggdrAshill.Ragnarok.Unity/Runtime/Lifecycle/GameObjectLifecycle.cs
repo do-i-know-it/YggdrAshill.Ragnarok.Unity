@@ -10,7 +10,27 @@ namespace YggdrAshill.Ragnarok
     [DefaultExecutionOrder(LifecycleExecutionOrder.GameObject)]
     public sealed class GameObjectLifecycle : Lifecycle
     {
-        public static GameObjectLifecycle Create(GameObjectLifecycle prefab, Transform? parent = null)
+        public static GameObjectLifecycle Create(Transform? parent = null, params IInstallation[] installationList)
+        {
+            var instance = new GameObject($"{nameof(GameObjectLifecycle)}");
+            
+            instance.SetActive(false);
+
+            if (parent != null)
+            {
+                instance.transform.SetParent(parent, false);
+            }
+
+            var component = instance.AddComponent<GameObjectLifecycle>();
+            
+            component.installationList.AddRange(installationList);
+            
+            instance.SetActive(true);
+
+            return component;
+        }
+        
+        public static GameObjectLifecycle Create(GameObjectLifecycle prefab, Transform? parent = null, params IInstallation[] installationList)
         {
             var wasActive = prefab.gameObject.activeSelf;
             
@@ -19,20 +39,22 @@ namespace YggdrAshill.Ragnarok
                 prefab.gameObject.SetActive(false);
             }
             
-            var instance = Instantiate(prefab);
+            var component = Instantiate(prefab);
 
             if (parent != null)
             {
-                instance.transform.SetParent(parent, false);
+                component.transform.SetParent(parent, false);
             }
+            
+            component.installationList.AddRange(installationList);
             
             if (wasActive)
             {
                 prefab.gameObject.SetActive(true);
-                instance.gameObject.SetActive(true);
+                component.gameObject.SetActive(true);
             }
 
-            return instance;
+            return component;
         }
 
         [SerializeField] private bool runAutomatically = true;
@@ -76,9 +98,11 @@ namespace YggdrAshill.Ragnarok
         [SerializeField] private MonoInstallation[] monoInstallationList = Array.Empty<MonoInstallation>();
         private IEnumerable<IInstallation> MonoInstallationList => monoInstallationList;
 
+        private readonly List<IInstallation> installationList = new();
+
         protected override IEnumerable<IInstallation> GetInstallationList()
         {
-            return ScriptableInstallationList.Concat(MonoInstallationList);
+            return installationList.Concat(ScriptableInstallationList).Concat(MonoInstallationList);
         }
     }
 }

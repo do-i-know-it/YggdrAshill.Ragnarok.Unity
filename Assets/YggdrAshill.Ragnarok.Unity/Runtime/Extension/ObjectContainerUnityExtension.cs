@@ -97,32 +97,57 @@ namespace YggdrAshill.Ragnarok
             return injection;
         }
         
-        // TODO: use Lifecycle, instead of IAnchor?
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, IAnchorTransform? anchor = null)
+        public static IUnitySubContainerResolution RegisterFromSubContainerInNewPrefab<T>(this IObjectContainer container, GameObjectLifecycle prefab)
             where T : notnull
         {
-            var statement = new ResolveFromUnitySubContainerStatement(container.Registration, typeof(T), prefab, anchor);
+            var statement = new ResolveFromSubContainerInNewPrefabStatement(typeof(T), prefab, container);
             
             container.Registration.Register(statement);
             
-            return statement.TypeAssignment;
-        }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, Func<Transform> anchor)
-            where T : notnull
-        {
-            return container.RegisterFromSubContainer<T>(prefab, new AnchorTransform(anchor));
+            return statement;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ITypeAssignment RegisterFromSubContainer<T>(this IObjectContainer container, GameObjectLifecycle prefab, Transform parent)
+        public static IUnitySubContainerResolution RegisterFromSubContainerOnNewGameObject<T>(this IObjectContainer container, IInstallation installation)
             where T : notnull
         {
-            return container.RegisterFromSubContainer<T>(prefab, new AnchorTransform(parent));
+            var statement = new ResolveFromSubContainerOnNewGameObjectStatement(typeof(T), container);
+            
+            container.Registration.Register(statement);
+
+            statement.With(installation);
+            
+            return statement;
         }
         
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnitySubContainerResolution RegisterFromSubContainerOnNewGameObject<T>(this IObjectContainer container, Action<IObjectContainer> installation)
+            where T : notnull
+        {
+            var statement = new ResolveFromSubContainerOnNewGameObjectStatement(typeof(T), container);
+            
+            container.Registration.Register(statement);
+
+            statement.With(installation);
+
+            return statement;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnitySubContainerResolution RegisterFromSubContainerOnNewGameObject<TInstance, TInstallation>(this IObjectContainer container)
+            where TInstance : notnull
+            where TInstallation : IInstallation
+        {
+            var statement = new ResolveFromSubContainerOnNewGameObjectStatement(typeof(TInstance), container);
+            
+            container.Registration.Register(statement);
+
+            statement.With<TInstallation>();
+
+            return statement;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RegisterHandler(this IObjectContainer container, Action<Exception> exceptionHandler)
         {
