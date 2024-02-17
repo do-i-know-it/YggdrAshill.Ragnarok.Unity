@@ -8,12 +8,12 @@ namespace YggdrAshill.Ragnarok
     internal sealed class InternalFactoryFromNewGameObject<T> : IFactory<T>, IDisposable
         where T : notnull
     {
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly IReadOnlyList<IInstallation> installationList;
 
-        public InternalFactoryFromNewGameObject(IAnchorTransform anchorTransform, IReadOnlyList<IInstallation> installationList)
+        public InternalFactoryFromNewGameObject(IParentTransform parentTransform, IReadOnlyList<IInstallation> installationList)
         {
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
         }
         
@@ -21,7 +21,7 @@ namespace YggdrAshill.Ragnarok
 
         public T Create()
         {
-            var parent = anchorTransform.GetAnchorTransform();
+            var parent = parentTransform.GetParentTransform();
             
             var instance = GameObjectLifecycle.Create(parent, installationList);
 
@@ -45,12 +45,12 @@ namespace YggdrAshill.Ragnarok
         where TInput : notnull
         where TOutput : notnull
     {
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly IEnumerable<IInstallation> installationList;
         
-        public InternalFactoryFromNewGameObject(IAnchorTransform anchorTransform, IEnumerable<IInstallation> installationList)
+        public InternalFactoryFromNewGameObject(IParentTransform parentTransform, IEnumerable<IInstallation> installationList)
         {
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
         }
         
@@ -62,7 +62,7 @@ namespace YggdrAshill.Ragnarok
 
             var totalInstallationList = installationList.Append(additionalInstallation).ToArray();
             
-            var parent = anchorTransform.GetAnchorTransform();
+            var parent = parentTransform.GetParentTransform();
             
             var instance = GameObjectLifecycle.Create(parent, totalInstallationList);
             

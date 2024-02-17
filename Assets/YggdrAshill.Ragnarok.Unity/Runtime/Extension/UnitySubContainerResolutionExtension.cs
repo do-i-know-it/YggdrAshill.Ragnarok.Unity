@@ -7,18 +7,18 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public static class UnitySubContainerResolutionExtension
     {
-        public static ITypeAssignment Under(this IUnitySubContainerResolution resolution, Func<Transform> anchor)
+        public static ITypeAssignment Under(this IUnitySubContainerResolution resolution, Func<Transform> getParentTransform)
         {
-            var anchorTransform = new AnchorTransform(anchor);
-
-            return resolution.Under(anchorTransform);
+            var parentTransform = new ParentTransformToReturnCache(getParentTransform);
+            
+            return resolution.Under(parentTransform);
         }
         
         public static ITypeAssignment Under(this IUnitySubContainerResolution resolution, Transform parent)
         {
-            var anchorTransform = new AnchorTransform(parent);
+            var parentTransform = new ParentTransformToReturnInstance(parent);
 
-            return resolution.Under(anchorTransform);
+            return resolution.Under(parentTransform);
         }
     }
 }

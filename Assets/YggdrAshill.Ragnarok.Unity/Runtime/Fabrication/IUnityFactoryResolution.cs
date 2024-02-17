@@ -4,6 +4,6 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public interface IUnityFactoryResolution : IFactoryResolution
     {
-        IFactoryResolution Under(IAnchorTransform transform);
+        IFactoryResolution Under(IParentTransform parent);
     }
 }

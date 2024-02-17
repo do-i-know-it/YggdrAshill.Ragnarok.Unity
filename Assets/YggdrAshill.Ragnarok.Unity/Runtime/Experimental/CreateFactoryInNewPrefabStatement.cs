@@ -23,14 +23,13 @@ namespace YggdrAshill.Ragnarok
 
         private IInstantiation CreateInstantiation()
         {
-            return new InstantiateToCreateFactoryInNewPrefab<T>(prefab, anchorTransform, source.InstallationList, Ownership);
+            return new InstantiateToCreateFactoryInNewPrefab<T>(prefab, parentTransform, source.InstallationList, Ownership);
         }
         
-        private IAnchorTransform anchorTransform = NoParent.Instance;
-        
-        public IFactoryResolution Under(IAnchorTransform transform)
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public IFactoryResolution Under(IParentTransform parent)
         {
-            anchorTransform = transform;
+            parentTransform = parent;
 
             return this;
         }
@@ -71,14 +70,13 @@ namespace YggdrAshill.Ragnarok
 
         private IInstantiation CreateInstantiation()
         {
-            return new InstantiateToCreateFactoryInNewPrefab<TInput, TOutput>(prefab, anchorTransform, source.InstallationList, Ownership);
+            return new InstantiateToCreateFactoryInNewPrefab<TInput, TOutput>(prefab, parentTransform, source.InstallationList, Ownership);
         }
         
-        private IAnchorTransform anchorTransform = NoParent.Instance;
-        
-        public IFactoryResolution Under(IAnchorTransform transform)
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public IFactoryResolution Under(IParentTransform parent)
         {
-            anchorTransform = transform;
+            parentTransform = parent;
 
             return this;
         }

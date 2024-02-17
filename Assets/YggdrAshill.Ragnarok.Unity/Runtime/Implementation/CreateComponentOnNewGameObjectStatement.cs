@@ -22,7 +22,7 @@ namespace YggdrAshill.Ragnarok
         {
             var injection = CreateInjection();
 
-            return new CreateComponentOnNewGameObject(ImplementedType, injection, anchorTransform, objectName, dontDestroyOnLoad);
+            return new CreateComponentOnNewGameObject(ImplementedType, injection, parentTransform, objectName, dontDestroyOnLoad);
         }
 
         private IInjection? CreateInjection()
@@ -35,10 +35,6 @@ namespace YggdrAshill.Ragnarok
             return null;
         }
 
-        private IObjectName? objectName;
-        private IAnchorTransform? anchorTransform;
-        private bool dontDestroyOnLoad;
-        
         public Type ImplementedType => source.ImplementedType;
         
         public IReadOnlyList<Type> AssignedTypeList => source.AssignedTypeList;
@@ -47,23 +43,26 @@ namespace YggdrAshill.Ragnarok
         
         public IInstantiation Instantiation => instantiationCache.Value;
         
-        public IInstanceInjection Under(IAnchorTransform anchor)
+        private IObjectName objectName = ObjectNameToReturnNothing.Instance;
+        public ICreatedComponentInjection Named(IObjectName name)
         {
-            anchorTransform = anchor;
+            objectName = name;
 
             return this;
         }
         
-        public IInstanceInjection DontDestroyOnLoad()
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public IInstanceInjection Under(IParentTransform parent)
         {
-            dontDestroyOnLoad = true;
+            parentTransform = parent;
 
             return this;
         }
-
-        public ICreatedComponentInjection Named(IObjectName name)
+        
+        private bool dontDestroyOnLoad;
+        public IInstanceInjection DontDestroyOnLoad()
         {
-            objectName = name;
+            dontDestroyOnLoad = true;
 
             return this;
         }

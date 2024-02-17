@@ -21,14 +21,13 @@ namespace YggdrAshill.Ragnarok
 
         private IInstantiation CreateInstantiation()
         {
-            return new InstantiateToCreateFactoryOnNewGameObject<T>(anchorTransform, source.InstallationList, Ownership);
+            return new InstantiateToCreateFactoryOnNewGameObject<T>(parentTransform, source.InstallationList, Ownership);
         }
         
-        private IAnchorTransform anchorTransform = NoParent.Instance;
-        
-        public IFactoryResolution Under(IAnchorTransform transform)
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public IFactoryResolution Under(IParentTransform parent)
         {
-            anchorTransform = transform;
+            parentTransform = parent;
 
             return this;
         }
@@ -67,14 +66,13 @@ namespace YggdrAshill.Ragnarok
 
         private IInstantiation CreateInstantiation()
         {
-            return new InstantiateToCreateFactoryOnNewGameObject<TInput, TOutput>(anchorTransform, source.InstallationList, Ownership);
+            return new InstantiateToCreateFactoryOnNewGameObject<TInput, TOutput>(parentTransform, source.InstallationList, Ownership);
         }
         
-        private IAnchorTransform anchorTransform = NoParent.Instance;
-        
-        public IFactoryResolution Under(IAnchorTransform transform)
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public IFactoryResolution Under(IParentTransform parent)
         {
-            anchorTransform = transform;
+            parentTransform = parent;
 
             return this;
         }

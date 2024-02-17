@@ -6,14 +6,18 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public static class NamedComponentInjectionExtension
     {
-        public static ICreatedComponentInjection Named(this INamedComponentInjection injection, Func<string> objectName)
+        public static ICreatedComponentInjection Named(this INamedComponentInjection injection, Func<string> getObjectName)
         {
-            return injection.Named(new ObjectName(objectName));
+            var objectName = new ObjectNameToReturnCache(getObjectName);
+            
+            return injection.Named(objectName);
         }
         
-        public static ICreatedComponentInjection Named(this INamedComponentInjection injection, string objectName)
+        public static ICreatedComponentInjection Named(this INamedComponentInjection injection, string name)
         {
-            return injection.Named(new ObjectName(objectName));
+            var objectName = new ObjectNameToReturnInstance(name);
+            
+            return injection.Named(objectName);
         }
     }
 }

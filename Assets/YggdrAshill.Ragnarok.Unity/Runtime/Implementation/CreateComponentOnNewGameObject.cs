@@ -8,22 +8,22 @@ namespace YggdrAshill.Ragnarok
     {
         private readonly Type type;
         private readonly IInjection? injection;
-        private readonly IAnchorTransform? anchorTransform;
-        private readonly IObjectName? objectName;
+        private readonly IParentTransform parentTransform;
+        private readonly IObjectName objectName;
         private readonly bool dontDestroyOnLoad;
         
-        public CreateComponentOnNewGameObject(Type type, IInjection? injection, IAnchorTransform? anchorTransform, IObjectName? objectName, bool dontDestroyOnLoad)
+        public CreateComponentOnNewGameObject(Type type, IInjection? injection, IParentTransform parentTransform, IObjectName objectName, bool dontDestroyOnLoad)
         {
             this.type = type;
             this.injection = injection;
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.objectName = objectName;
             this.dontDestroyOnLoad = dontDestroyOnLoad;
         }
         
         public object Instantiate(IObjectResolver resolver)
         {
-            var name = objectName?.GetObjectName() ?? type.Name;
+            var name = objectName.GetObjectName() ?? type.Name;
             
             var gameObject = new GameObject(name);
             
@@ -33,7 +33,7 @@ namespace YggdrAshill.Ragnarok
 
             try
             {
-                var parent = anchorTransform?.GetAnchorTransform();
+                var parent = parentTransform.GetParentTransform();
                 
                 if (parent != null)
                 {

@@ -7,14 +7,18 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public static class CreatedComponentInjectionExtension
     {
-        public static IInstanceInjection Under(this ICreatedComponentInjection injection, Func<Transform> anchor)
+        public static IInstanceInjection Under(this ICreatedComponentInjection injection, Func<Transform> getParentTransform)
         {
-            return injection.Under(new AnchorTransform(anchor));
+            var parentTransform = new ParentTransformToReturnCache(getParentTransform);
+
+            return injection.Under(parentTransform);
         }
         
         public static IInstanceInjection Under(this ICreatedComponentInjection injection, Transform parent)
         {
-            return injection.Under(new AnchorTransform(parent));
+            var parentTransform = new ParentTransformToReturnInstance(parent);
+            
+            return injection.Under(parentTransform);
         }
     }
 }

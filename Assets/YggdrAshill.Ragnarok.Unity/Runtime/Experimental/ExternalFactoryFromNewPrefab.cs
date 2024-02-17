@@ -8,19 +8,19 @@ namespace YggdrAshill.Ragnarok
         where T : notnull
     {
         private readonly GameObjectLifecycle prefab;
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly IReadOnlyList<IInstallation> installationList;
 
-        public ExternalFactoryFromNewPrefab(GameObjectLifecycle prefab, IAnchorTransform anchorTransform, IReadOnlyList<IInstallation> installationList)
+        public ExternalFactoryFromNewPrefab(GameObjectLifecycle prefab, IParentTransform parentTransform, IReadOnlyList<IInstallation> installationList)
         {
             this.prefab = prefab;
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
         }
         
         public T Create()
         {
-            var parent = anchorTransform.GetAnchorTransform();
+            var parent = parentTransform.GetParentTransform();
             
             var instance = GameObjectLifecycle.Create(prefab, parent, installationList);
 
@@ -33,13 +33,13 @@ namespace YggdrAshill.Ragnarok
         where TOutput : notnull
     {
         private readonly GameObjectLifecycle prefab;
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly IEnumerable<IInstallation> installationList;
         
-        public ExternalFactoryFromNewPrefab(GameObjectLifecycle prefab, IAnchorTransform anchorTransform, IEnumerable<IInstallation> installationList)
+        public ExternalFactoryFromNewPrefab(GameObjectLifecycle prefab, IParentTransform parentTransform, IEnumerable<IInstallation> installationList)
         {
             this.prefab = prefab;
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
         }
         
@@ -49,7 +49,7 @@ namespace YggdrAshill.Ragnarok
 
             var totalInstallationList = installationList.Append(additionalInstallation).ToArray();
             
-            var parent = anchorTransform.GetAnchorTransform();
+            var parent = parentTransform.GetParentTransform();
             
             var instance = GameObjectLifecycle.Create(prefab, parent, totalInstallationList);
 

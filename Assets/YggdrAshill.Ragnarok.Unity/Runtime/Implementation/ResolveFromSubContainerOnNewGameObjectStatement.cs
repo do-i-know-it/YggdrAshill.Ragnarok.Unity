@@ -22,7 +22,7 @@ namespace YggdrAshill.Ragnarok
         
         private IInstantiation CreateInstantiation()
         {
-            var parent = anchorTransform?.GetAnchorTransform();
+            var parent = parentTransform?.GetParentTransform();
 
             var instance = GameObjectLifecycle.Create(parent, installationList.ToArray());
             
@@ -30,10 +30,6 @@ namespace YggdrAshill.Ragnarok
 
             return new ResolveFromSubContainer(ImplementedType, instance.Resolver);
         }
-        
-        private IAnchorTransform? anchorTransform;
-
-        private readonly List<IInstallation> installationList = new();
 
         public Type ImplementedType => source.ImplementedType;
 
@@ -45,6 +41,7 @@ namespace YggdrAshill.Ragnarok
 
         public IInstantiation Instantiation => instantiation.Value;
         
+        private readonly List<IInstallation> installationList = new();
         public ISubContainerResolution With(IInstallation installation)
         {
             if (!installationList.Contains(installation))
@@ -55,9 +52,10 @@ namespace YggdrAshill.Ragnarok
             return this;
         }
 
-        public ITypeAssignment Under(IAnchorTransform anchor)
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public ITypeAssignment Under(IParentTransform parent)
         {
-            anchorTransform = anchor;
+            parentTransform = parent;
 
             return this;
         }

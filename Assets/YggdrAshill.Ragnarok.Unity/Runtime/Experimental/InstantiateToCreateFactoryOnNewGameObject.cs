@@ -7,13 +7,13 @@ namespace YggdrAshill.Ragnarok
     internal sealed class InstantiateToCreateFactoryOnNewGameObject<T> : IInstantiation
         where T : notnull
     {
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly Ownership ownership;
         private readonly IReadOnlyList<IInstallation> installationList;
 
-        public InstantiateToCreateFactoryOnNewGameObject(IAnchorTransform anchorTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
+        public InstantiateToCreateFactoryOnNewGameObject(IParentTransform parentTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
         {
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
             this.ownership = ownership;
         }
@@ -22,8 +22,8 @@ namespace YggdrAshill.Ragnarok
         {
             return ownership switch
             {
-                Ownership.Internal => new InternalFactoryFromNewGameObject<T>(anchorTransform, installationList),
-                Ownership.External => new ExternalFactoryFromNewGameObject<T>(anchorTransform, installationList),
+                Ownership.Internal => new InternalFactoryFromNewGameObject<T>(parentTransform, installationList),
+                Ownership.External => new ExternalFactoryFromNewGameObject<T>(parentTransform, installationList),
                 _ => throw new InvalidOperationException($"{ownership} is invalid."),
             };
         }
@@ -33,13 +33,13 @@ namespace YggdrAshill.Ragnarok
         where TInput : notnull
         where TOutput : notnull
     {
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly Ownership ownership;
         private readonly IReadOnlyList<IInstallation> installationList;
 
-        public InstantiateToCreateFactoryOnNewGameObject(IAnchorTransform anchorTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
+        public InstantiateToCreateFactoryOnNewGameObject(IParentTransform parentTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
         {
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
             this.ownership = ownership;
         }
@@ -48,8 +48,8 @@ namespace YggdrAshill.Ragnarok
         {
             return ownership switch
             {
-                Ownership.Internal => new InternalFactoryFromNewGameObject<TInput, TOutput>(anchorTransform, installationList),
-                Ownership.External => new ExternalFactoryFromNewGameObject<TInput, TOutput>(anchorTransform, installationList),
+                Ownership.Internal => new InternalFactoryFromNewGameObject<TInput, TOutput>(parentTransform, installationList),
+                Ownership.External => new ExternalFactoryFromNewGameObject<TInput, TOutput>(parentTransform, installationList),
                 _ => throw new InvalidOperationException($"{ownership} is invalid."),
             };
         }

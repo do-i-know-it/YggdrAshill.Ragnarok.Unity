@@ -8,14 +8,14 @@ namespace YggdrAshill.Ragnarok
         where T : notnull
     {
         private readonly GameObjectLifecycle prefab;
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly Ownership ownership;
         private readonly IReadOnlyList<IInstallation> installationList;
 
-        public InstantiateToCreateFactoryInNewPrefab(GameObjectLifecycle prefab, IAnchorTransform anchorTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
+        public InstantiateToCreateFactoryInNewPrefab(GameObjectLifecycle prefab, IParentTransform parentTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
         {
             this.prefab = prefab;
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
             this.ownership = ownership;
         }
@@ -24,8 +24,8 @@ namespace YggdrAshill.Ragnarok
         {
             return ownership switch
             {
-                Ownership.Internal => new InternalFactoryFromNewPrefab<T>(prefab, anchorTransform, installationList),
-                Ownership.External => new ExternalFactoryFromNewPrefab<T>(prefab, anchorTransform, installationList),
+                Ownership.Internal => new InternalFactoryFromNewPrefab<T>(prefab, parentTransform, installationList),
+                Ownership.External => new ExternalFactoryFromNewPrefab<T>(prefab, parentTransform, installationList),
                 _ => throw new InvalidOperationException($"{ownership} is invalid."),
             };
         }
@@ -36,14 +36,14 @@ namespace YggdrAshill.Ragnarok
         where TOutput : notnull
     {
         private readonly GameObjectLifecycle prefab;
-        private readonly IAnchorTransform anchorTransform;
+        private readonly IParentTransform parentTransform;
         private readonly Ownership ownership;
         private readonly IReadOnlyList<IInstallation> installationList;
 
-        public InstantiateToCreateFactoryInNewPrefab(GameObjectLifecycle prefab, IAnchorTransform anchorTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
+        public InstantiateToCreateFactoryInNewPrefab(GameObjectLifecycle prefab, IParentTransform parentTransform, IReadOnlyList<IInstallation> installationList, Ownership ownership)
         {
             this.prefab = prefab;
-            this.anchorTransform = anchorTransform;
+            this.parentTransform = parentTransform;
             this.installationList = installationList;
             this.ownership = ownership;
         }
@@ -52,8 +52,8 @@ namespace YggdrAshill.Ragnarok
         {
             return ownership switch
             {
-                Ownership.Internal => new InternalFactoryFromNewPrefab<TInput, TOutput>(prefab, anchorTransform, installationList),
-                Ownership.External => new ExternalFactoryFromNewPrefab<TInput, TOutput>(prefab, anchorTransform, installationList),
+                Ownership.Internal => new InternalFactoryFromNewPrefab<TInput, TOutput>(prefab, parentTransform, installationList),
+                Ownership.External => new ExternalFactoryFromNewPrefab<TInput, TOutput>(prefab, parentTransform, installationList),
                 _ => throw new InvalidOperationException($"{ownership} is invalid."),
             };
         }

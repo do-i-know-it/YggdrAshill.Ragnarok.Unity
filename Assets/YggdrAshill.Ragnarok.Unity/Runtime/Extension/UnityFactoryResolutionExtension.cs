@@ -7,18 +7,18 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public static class UnityFactoryResolutionExtension
     {
-        public static IFactoryResolution Under(this IUnityFactoryResolution resolution, Func<Transform> anchor)
+        public static IFactoryResolution Under(this IUnityFactoryResolution resolution, Func<Transform> getParentTransform)
         {
-            var anchorTransform = new AnchorTransform(anchor);
+            var parentTransform = new ParentTransformToReturnCache(getParentTransform);
 
-            return resolution.Under(anchorTransform);
+            return resolution.Under(parentTransform);
         }
         
         public static IFactoryResolution Under(this IUnityFactoryResolution resolution, Transform parent)
         {
-            var anchorTransform = new AnchorTransform(parent);
+            var parentTransform = new ParentTransformToReturnInstance(parent);
 
-            return resolution.Under(anchorTransform);
+            return resolution.Under(parentTransform);
         }
     }
 }
