@@ -85,12 +85,12 @@ namespace YggdrAshill.Ragnarok
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IDependencyInjection RegisterEntryPoint<T>(this IObjectContainer container, Lifetime lifetime = Lifetime.Global)
+        public static IDependencyInjection RegisterEntryPoint<T>(this IObjectContainer container)
             where T : notnull
         {
             container.UseUnityEventLoop();
 
-            var injection = container.Register<T>(lifetime);
+            var injection = container.Register<T>(Lifetime.Global);
             
             injection.AsImplementedInterfaces();
 

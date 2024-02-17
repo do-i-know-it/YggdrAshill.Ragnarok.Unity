@@ -30,16 +30,6 @@ namespace YggdrAshill.Ragnarok
             return injection.ToInstantiate(returnComponent);
         }
 
-        private IInjection? CreateInjection()
-        {
-            if (Source.CanInjectIntoInstance(out var injection))
-            {
-                return injection;
-            }
-
-            return null;
-        }
-
         public Type ImplementedType => Source.ImplementedType;
         public IReadOnlyList<Type> AssignedTypeList => Source.AssignedTypeList;
         public Lifetime Lifetime => Lifetime.Global;
