@@ -147,7 +147,113 @@ namespace YggdrAshill.Ragnarok
 
             return statement;
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryInNewPrefab<T>(this IObjectContainer container, GameObjectLifecycle prefab, Ownership ownership)
+            where T : notnull
+        {
+            var statement = new CreateFactoryInNewPrefabStatement<T>(container, prefab, ownership);
+            
+            container.Registration.Register(statement);
 
+            return statement;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryOnNewGameObject<T>(this IObjectContainer container, IInstallation installation, Ownership ownership)
+            where T : notnull
+        {
+            var statement = new CreateFactoryOnNewGameObjectStatement<T>(container, ownership);
+            
+            container.Registration.Register(statement);
+
+            statement.With(installation);
+
+            return statement;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryOnNewGameObject<T>(this IObjectContainer container, Action<IObjectContainer> installation, Ownership ownership)
+            where T : notnull
+        {
+            var statement = new CreateFactoryOnNewGameObjectStatement<T>(container, ownership);
+            
+            container.Registration.Register(statement);
+
+            statement.With(installation);
+
+            return statement;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryOnNewGameObject<TInstance, TInstallation>(this IObjectContainer container, Ownership ownership)
+            where TInstance : notnull
+            where TInstallation : IInstallation
+        {
+            var statement = new CreateFactoryOnNewGameObjectStatement<TInstance>(container, ownership);
+            
+            container.Registration.Register(statement);
+
+            statement.With<TInstallation>();
+
+            return statement;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryInNewPrefab<TInput, TOutput>(this IObjectContainer container, GameObjectLifecycle prefab, Ownership ownership)
+            where TInput : notnull
+            where TOutput : notnull
+        {
+            var statement = new CreateFactoryInNewPrefabStatement<TInput, TOutput>(container, prefab, ownership);
+            
+            container.Registration.Register(statement);
+
+            return statement;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryOnNewGameObject<TInput, TOutput>(this IObjectContainer container, IInstallation installation, Ownership ownership)
+            where TInput : notnull
+            where TOutput : notnull
+        {
+            var statement = new CreateFactoryOnNewGameObjectStatement<TInput, TOutput>(container, ownership);
+            
+            container.Registration.Register(statement);
+
+            statement.With(installation);
+
+            return statement;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryOnNewGameObject<TInput, TOutput>(this IObjectContainer container, Action<IObjectContainer> installation, Ownership ownership)
+            where TInput : notnull
+            where TOutput : notnull
+        {
+            var statement = new CreateFactoryOnNewGameObjectStatement<TInput, TOutput>(container, ownership);
+            
+            container.Registration.Register(statement);
+
+            statement.With(installation);
+
+            return statement;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IUnityFactoryResolution RegisterFactoryOnNewGameObject<TInput, TOutput, TInstallation>(this IObjectContainer container, Ownership ownership)
+            where TInput : notnull
+            where TOutput : notnull
+            where TInstallation : IInstallation
+        {
+            var statement = new CreateFactoryOnNewGameObjectStatement<TInput, TOutput>(container, ownership);
+            
+            container.Registration.Register(statement);
+
+            statement.With<TInstallation>();
+
+            return statement;
+        }
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RegisterHandler(this IObjectContainer container, Action<Exception> exceptionHandler)
         {

@@ -26,7 +26,7 @@ namespace YggdrAshill.Ragnarok
         {
             var parent = anchorTransform?.GetAnchorTransform();
 
-            var instance = GameObjectLifecycle.Create(prefab, parent, installationList.ToArray());
+            var instance = GameObjectLifecycle.Create(prefab, parent, installationList);
             
             registration.Register(instance);
 

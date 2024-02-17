@@ -10,7 +10,7 @@ namespace YggdrAshill.Ragnarok
     [DefaultExecutionOrder(LifecycleExecutionOrder.GameObject)]
     public sealed class GameObjectLifecycle : Lifecycle
     {
-        public static GameObjectLifecycle Create(Transform? parent = null, params IInstallation[] installationList)
+        public static GameObjectLifecycle Create(Transform? parent, IReadOnlyList<IInstallation> installationList)
         {
             var instance = new GameObject($"{nameof(GameObjectLifecycle)}");
             
@@ -23,14 +23,17 @@ namespace YggdrAshill.Ragnarok
 
             var component = instance.AddComponent<GameObjectLifecycle>();
             
-            component.installationList.AddRange(installationList);
+            if (installationList.Count > 0)
+            {
+                component.installationList.AddRange(installationList);
+            }
             
             instance.SetActive(true);
 
             return component;
         }
-        
-        public static GameObjectLifecycle Create(GameObjectLifecycle prefab, Transform? parent = null, params IInstallation[] installationList)
+
+        public static GameObjectLifecycle Create(GameObjectLifecycle prefab, Transform? parent, IReadOnlyList<IInstallation> installationList)
         {
             var wasActive = prefab.gameObject.activeSelf;
             
@@ -45,8 +48,11 @@ namespace YggdrAshill.Ragnarok
             {
                 component.transform.SetParent(parent, false);
             }
-            
-            component.installationList.AddRange(installationList);
+
+            if (installationList.Count > 0)
+            {
+                component.installationList.AddRange(installationList);
+            }
             
             if (wasActive)
             {
