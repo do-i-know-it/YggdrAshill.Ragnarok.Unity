@@ -50,9 +50,9 @@ namespace YggdrAshill.Ragnarok.Specification
 
         public override void Install(IObjectContainer container)
         {
-            container.RegisterComponentInGameObject<IRequestSender>(SenderParent, SearchOrder.Children);
-            container.RegisterComponentInGameObject<IResponseReceiver>(ReceiverChild, SearchOrder.Parent);
-            container.RegisterComponentInGameObject<IServiceHandler>(Handler, SearchOrder.Scene);
+            container.RegisterComponentInHierarchy<IRequestSender>(SenderParent, SearchOrder.Children);
+            container.RegisterComponentInHierarchy<IResponseReceiver>(ReceiverChild, SearchOrder.Parent);
+            container.RegisterComponentInHierarchy<IServiceHandler>(Handler, SearchOrder.Scene);
         }
     }
 }

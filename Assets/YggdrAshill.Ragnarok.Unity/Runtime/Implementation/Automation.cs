@@ -9,13 +9,13 @@ namespace YggdrAshill.Ragnarok
     {
         public static void Register(IObjectContainer container, Automation automation)
         {
-            var statement = new ReturnComponentStatement(automation.Component, container.Compilation);
+            var statement = new ReturnComponentStatement(automation.Component, container);
             container.Registration.Register(statement);
-            
-            Register(statement.InstanceInjection, automation.InstanceInjectionTarget, automation.TypeAssignmentMethod);
 
-            var instruction = new ResolveWithStatement(statement);
-            container.Registration.Register(instruction);
+            var source = statement.Source;
+            source.ResolvedImmediately();
+            
+            Register(source, automation.InstanceInjectionTarget, automation.TypeAssignmentMethod);
         }
         
         private static void Register(IInstanceInjection instanceInjection, InstanceInjectionTarget target, TypeAssignmentMethod method)

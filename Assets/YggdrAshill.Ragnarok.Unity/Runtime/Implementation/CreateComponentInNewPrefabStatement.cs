@@ -13,10 +13,10 @@ namespace YggdrAshill.Ragnarok
 
         public Lifetime Lifetime { get; }
 
-        public CreateComponentInNewPrefabStatement(ICompilation compilation, Lifetime lifetime, Component prefab)
+        public CreateComponentInNewPrefabStatement(IObjectContainer container, Lifetime lifetime, Component prefab)
         {
             this.prefab = prefab;
-            source = new InstanceInjectionSource(prefab.GetType(), compilation);
+            source = new InstanceInjectionSource(prefab.GetType(), container);
             instantiationCache = new Lazy<IInstantiation>(CreateInstantiation);
             Lifetime = lifetime;
         }
@@ -25,7 +25,7 @@ namespace YggdrAshill.Ragnarok
         {
             var injection = CreateInjection();
             
-            return new CreateComponentInNewPrefab(prefab, injection, anchorTransform, dontDestroyOnLoad);
+            return new CreateComponentInNewPrefab(prefab, injection, parentTransform, dontDestroyOnLoad);
         }
 
         private IInjection? CreateInjection()
@@ -37,9 +37,6 @@ namespace YggdrAshill.Ragnarok
 
             return null;
         }
-
-        private IAnchorTransform? anchorTransform;
-        private bool dontDestroyOnLoad;
         
         public Type ImplementedType => source.ImplementedType;
         
@@ -48,6 +45,22 @@ namespace YggdrAshill.Ragnarok
         public Ownership Ownership => Ownership.Internal;
         
         public IInstantiation Instantiation => instantiationCache.Value;
+        
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public IInstanceInjection Under(IParentTransform parent)
+        {
+            parentTransform = parent;
+
+            return this;
+        }
+        
+        private bool dontDestroyOnLoad;
+        public IInstanceInjection DontDestroyOnLoad()
+        {
+            dontDestroyOnLoad = true;
+
+            return this;
+        }
 
         public void AsOwnSelf()
         {
@@ -64,48 +77,39 @@ namespace YggdrAshill.Ragnarok
             return source.AsImplementedInterfaces();
         }
 
-        public IMethodInjection WithMethod(IParameter parameter)
+        public IParameterMethodInjection WithMethod(IParameter parameter)
         {
             return source.WithMethod(parameter);
         }
 
-        public IMethodInjection WithMethodInjection()
+        public ITypeAssignment WithMethodInjection()
         {
             return source.WithMethodInjection();
         }
 
-        public IPropertyInjection WithProperty(IParameter parameter)
+        public IParameterPropertyInjection WithProperty(IParameter parameter)
         {
             return source.WithProperty(parameter);
         }
 
-        public IPropertyInjection WithPropertyInjection()
+        public IMethodInjection WithPropertyInjection()
         {
             return source.WithPropertyInjection();
         }
 
-        public IFieldInjection WithField(IParameter parameter)
+        public IParameterFieldInjection WithField(IParameter parameter)
         {
             return source.WithField(parameter);
         }
 
-        public IFieldInjection WithFieldInjection()
+        public IPropertyInjection WithFieldInjection()
         {
             return source.WithFieldInjection();
         }
-        
-        public IInstanceInjection Under(IAnchorTransform anchor)
-        {
-            anchorTransform = anchor;
 
-            return this;
-        }
-        
-        public IInstanceInjection DontDestroyOnLoad()
+        public IFieldInjection ResolvedImmediately()
         {
-            dontDestroyOnLoad = true;
-
-            return this;
+            return source.ResolvedImmediately();
         }
     }
 }

@@ -7,10 +7,9 @@ namespace YggdrAshill.Ragnarok.Specification
     {
         public override void Install(IObjectContainer container)
         {
-            container.Register(resolver =>
+            container.RegisterCallback<IEnumerable<HelloWorldWithGameObject>>(serviceList =>
             {
                 UnityEngine.Debug.LogError($"{nameof(ImplicitMonoEntryPointSpecification)} in {gameObject}.");
-                var serviceList = resolver.Resolve<IEnumerable<HelloWorldWithGameObject>>();
                 
                 foreach (var service in serviceList)
                 {

@@ -11,9 +11,9 @@ namespace YggdrAshill.Ragnarok
         
         public Lifetime Lifetime { get; }
 
-        public CreateComponentOnNewGameObjectStatement(ICompilation compilation, Type type, Lifetime lifetime)
+        public CreateComponentOnNewGameObjectStatement(IObjectContainer container, Type type, Lifetime lifetime)
         {
-            source = new InstanceInjectionSource(type, compilation);
+            source = new InstanceInjectionSource(type, container);
             instantiationCache = new Lazy<IInstantiation>(CreateInstantiation);
             Lifetime = lifetime;
         }
@@ -22,7 +22,7 @@ namespace YggdrAshill.Ragnarok
         {
             var injection = CreateInjection();
 
-            return new CreateComponentOnNewGameObject(ImplementedType, injection, anchorTransform, objectName, dontDestroyOnLoad);
+            return new CreateComponentOnNewGameObject(ImplementedType, injection, parentTransform, objectName, dontDestroyOnLoad);
         }
 
         private IInjection? CreateInjection()
@@ -35,10 +35,6 @@ namespace YggdrAshill.Ragnarok
             return null;
         }
 
-        private IObjectName? objectName;
-        private IAnchorTransform? anchorTransform;
-        private bool dontDestroyOnLoad;
-        
         public Type ImplementedType => source.ImplementedType;
         
         public IReadOnlyList<Type> AssignedTypeList => source.AssignedTypeList;
@@ -46,6 +42,30 @@ namespace YggdrAshill.Ragnarok
         public Ownership Ownership => Ownership.Internal;
         
         public IInstantiation Instantiation => instantiationCache.Value;
+        
+        private IObjectName objectName = ObjectNameToReturnNothing.Instance;
+        public ICreatedComponentInjection Named(IObjectName name)
+        {
+            objectName = name;
+
+            return this;
+        }
+        
+        private IParentTransform parentTransform = ParentTransformToReturnNothing.Instance;
+        public IInstanceInjection Under(IParentTransform parent)
+        {
+            parentTransform = parent;
+
+            return this;
+        }
+        
+        private bool dontDestroyOnLoad;
+        public IInstanceInjection DontDestroyOnLoad()
+        {
+            dontDestroyOnLoad = true;
+
+            return this;
+        }
 
         public void AsOwnSelf()
         {
@@ -62,55 +82,39 @@ namespace YggdrAshill.Ragnarok
             return source.AsImplementedInterfaces();
         }
 
-        public IMethodInjection WithMethod(IParameter parameter)
+        public IParameterMethodInjection WithMethod(IParameter parameter)
         {
             return source.WithMethod(parameter);
         }
 
-        public IMethodInjection WithMethodInjection()
+        public ITypeAssignment WithMethodInjection()
         {
             return source.WithMethodInjection();
         }
 
-        public IPropertyInjection WithProperty(IParameter parameter)
+        public IParameterPropertyInjection WithProperty(IParameter parameter)
         {
             return source.WithProperty(parameter);
         }
 
-        public IPropertyInjection WithPropertyInjection()
+        public IMethodInjection WithPropertyInjection()
         {
             return source.WithPropertyInjection();
         }
 
-        public IFieldInjection WithField(IParameter parameter)
+        public IParameterFieldInjection WithField(IParameter parameter)
         {
             return source.WithField(parameter);
         }
 
-        public IFieldInjection WithFieldInjection()
+        public IPropertyInjection WithFieldInjection()
         {
             return source.WithFieldInjection();
         }
-        
-        public IInstanceInjection Under(IAnchorTransform anchor)
+
+        public IFieldInjection ResolvedImmediately()
         {
-            anchorTransform = anchor;
-
-            return this;
-        }
-        
-        public IInstanceInjection DontDestroyOnLoad()
-        {
-            dontDestroyOnLoad = true;
-
-            return this;
-        }
-
-        public ICreatedComponentInjection Named(IObjectName name)
-        {
-            objectName = name;
-
-            return this;
+            return source.ResolvedImmediately();
         }
     }
 }

@@ -51,9 +51,11 @@ namespace YggdrAshill.Ragnarok.Specification
         public override void Install(IObjectContainer container)
         {
             container.RegisterEntryPoint<Service>();
-            container.RegisterFromSubContainer<FieldInjectionServiceComponent>(FieldInjectionServicePrefab);
-            container.RegisterFromSubContainer<PropertyInjectionServiceComponent>(PropertyInjectionServicePrefab, () => transform.parent);
-            container.RegisterFromSubContainer<MethodInjectionServiceComponent>(MethodInjectionServicePrefab, transform.parent);
+            container.RegisterFromSubContainerInNewPrefab<FieldInjectionServiceComponent>(FieldInjectionServicePrefab);
+            container.RegisterFromSubContainerInNewPrefab<PropertyInjectionServiceComponent>(PropertyInjectionServicePrefab)
+                .Under(() => transform.parent);
+            container.RegisterFromSubContainerInNewPrefab<MethodInjectionServiceComponent>(MethodInjectionServicePrefab)
+                .Under(transform.parent);
         }
     }
 }

@@ -5,19 +5,17 @@ using UnityEngine;
 
 namespace YggdrAshill.Ragnarok
 {
-    internal sealed class ReturnComponentInScene : IInstantiation
+    internal sealed class InstantiateToReturnComponentInScene : IInstantiation
     {
         private readonly GameObject instance;
         private readonly Type type;
         private readonly bool includeInactive;
-        private readonly IInjection? injection;
 
-        public ReturnComponentInScene(GameObject instance, Type type, bool includeInactive, IInjection? injection)
+        public InstantiateToReturnComponentInScene(GameObject instance, Type type, bool includeInactive)
         {
             this.instance = instance;
             this.type = type;
             this.includeInactive = includeInactive;
-            this.injection = injection;
         }
 
         public object Instantiate(IObjectResolver resolver)
@@ -32,14 +30,10 @@ namespace YggdrAshill.Ragnarok
             {
                 var component = gameObject.GetComponentInChildren(type, includeInactive);
 
-                if (component == null)
+                if (component != null)
                 {
-                    continue;
+                    return component;
                 }
-                
-                injection?.Inject(resolver, component);
-                
-                return component;
             }
 
             throw new RagnarokException(type, $"{type} is not in {scene}.");

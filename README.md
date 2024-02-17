@@ -14,7 +14,7 @@ This framework also depends on below.
 
 - .NET Standard 2.1
 - [Unity](https://unity.com/ja) 2021.3.x
-- [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) 0.12.0
+- [YggdrAshill.Ragnarok](https://github.com/do-i-know-it/YggdrAshill.Ragnarok) 0.14.0
 
 ## Installation
 

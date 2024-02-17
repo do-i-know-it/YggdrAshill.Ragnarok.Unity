@@ -1,5 +1,6 @@
-# Release notes for version 0.3.1
+# Release notes for version 0.4.0
 
-- Added specifications for installation to register automatically.
-- Rearranged specifications for framework.
-- Modified implementations and extensions for framework.
+- Upgraded YggdrAshill.Ragnarok to 0.14.0.
+- Added definitions to register factory with lifecycle.
+- Renamed extension to resolve component in hierarchy.
+- Modified definitions for Fabrication in Unity.

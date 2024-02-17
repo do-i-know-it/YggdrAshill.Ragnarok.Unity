@@ -4,7 +4,7 @@ namespace YggdrAshill.Ragnarok
     // TODO: add document comments.
     public interface ICreatedComponentInjection : IInstanceInjection
     {
-        IInstanceInjection Under(IAnchorTransform anchor);
+        IInstanceInjection Under(IParentTransform parent);
         
         IInstanceInjection DontDestroyOnLoad();
     }
